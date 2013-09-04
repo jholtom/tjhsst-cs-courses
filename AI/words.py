@@ -1,8 +1,19 @@
 #
 # Jacob Holtom - Sept 3, 2013
 #
+from collections import defaultdict, deque
+from optparse import OptionParser
+import copy
 from subprocess import Popen, PIPE
 import sys
+
+#METHOD DEFINITIONS - helper stuff
+def add_word(word_dict, word):
+    for i in xrange(len(word)):
+        star_word = '*'.join([word[0:i], word[i + 1:]])
+        word_dict[word].append(star_word)
+        word_dict[star_word].append(word)
+
 #Abuse wc to do some idiot simple stuff for me. Get word count.
 process = Popen(['wc', '-l', 'words.txt'], stdout=PIPE)
 stdout, stderr = process.communicate()
