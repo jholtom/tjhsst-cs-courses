@@ -9,16 +9,23 @@ import sys
 
 #METHOD DEFINITIONS - helper stuff
 def add_word(word_dict, word):
-    for i in xrange(len(word)):
-        star_word = '*'.join([word[0:i], word[i + 1:]])
-        word_dict[word].append(star_word)
-        word_dict[star_word].append(word)
+        for i in xrange(len(word)):
+            star_word = '*'.join([word[0:i], word[i + 1:]])
+            word_dict[word].append(star_word)
+            word_dict[star_word].append(word)
 
 def adjacent_to(word_dict, word):
     adjacent = []
     for star_words in word_dict[word]:
-        adjacent.extend([sw for sw in word_dict[star_words] if sw != word])
+            adjacent.extend([sw for sw in word_dict[star_words] if sw != word])
     return adjacent
+
+def words_from_file(dict_file):
+        word_dict = defaultdict(list)
+        with open(dict_file, 'r') as fh:
+            for line in fh:
+                add_word(word_dict, line.strip().lower())
+        return word_dict
 
 #Abuse wc to do some idiot simple stuff for me. Get word count.
 process = Popen(['wc', '-l', 'words.txt'], stdout=PIPE)
@@ -36,3 +43,8 @@ process3 = Popen(['tail','-n1','words.txt'],stdout=PIPE)
 stdout3, stderr3 = process3.communicate()
 lastword = stdout3.split('\n')[0]
 print ('The last word is: ' + lastword)
+worddict = words_from_file('words.txt')
+print "Shall we being with the hard part? Pick a word and you will get the adjacents"
+print "------------------------------------------"
+targword = raw_input('Enter a word: ')
+print adjacent_to(worddict,targword)
