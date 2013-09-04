@@ -14,6 +14,12 @@ def add_word(word_dict, word):
         word_dict[word].append(star_word)
         word_dict[star_word].append(word)
 
+def adjacent_to(word_dict, word):
+    adjacent = []
+    for star_words in word_dict[word]:
+        adjacent.extend([sw for sw in word_dict[star_words] if sw != word])
+    return adjacent
+
 #Abuse wc to do some idiot simple stuff for me. Get word count.
 process = Popen(['wc', '-l', 'words.txt'], stdout=PIPE)
 stdout, stderr = process.communicate()
