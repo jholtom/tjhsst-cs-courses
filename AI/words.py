@@ -46,9 +46,11 @@ print ('The last word is: ' + lastword)
 worddict = words_from_file('words.txt')
 print "Count neighbors"
 print "---------------"
+
+#Finds the maximum and prints associated words
 k = [];
 for i in worddict:
-    if(i.find('*')!=-1):
+    if(i.find('*')!=-1): #gets rid of the starwords for the maxfinding
         pass;
     else:
         k.append(len(adjacent_to(worddict,i)))
