@@ -44,7 +44,15 @@ stdout3, stderr3 = process3.communicate()
 lastword = stdout3.split('\n')[0]
 print ('The last word is: ' + lastword)
 worddict = words_from_file('words.txt')
-print "Shall we being with the hard part? Pick a word and you will get the adjacents"
-print "------------------------------------------"
-targword = raw_input('Enter a word: ')
-print adjacent_to(worddict,targword)
+print "Count neighbors"
+print "---------------"
+k = [];
+for i in worddict:
+    if(i.find('*')!=-1):
+        pass;
+    else:
+        k.append(len(adjacent_to(worddict,i)))
+        if(k[-1] == 14):
+            print i
+print max(k)
+
