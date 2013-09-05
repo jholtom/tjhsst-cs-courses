@@ -2,7 +2,6 @@
 # Jacob Holtom - Sept 3, 2013
 #
 from collections import defaultdict, deque
-from optparse import OptionParser
 import copy
 from subprocess import Popen, PIPE
 import sys
