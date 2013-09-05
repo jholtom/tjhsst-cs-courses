@@ -59,3 +59,16 @@ for i in worddict:
 print "Max neighbors:"
 print "--------------"
 print max(k)
+print "Generating nbrs.txt"
+#Grab clean version without starwords for the generation
+wordlist = open('words.txt', 'r').read().split()
+targ = []
+iterate = 0
+for i in wordlist:
+    targ.append(adjacent_to(worddict,i))
+
+for i in targ:
+    for x in xrange(len(i)):
+        i[x] = wordlist.index(i[x])
+nbrs = open("nbrs.txt","w+")
+nbrs.write(str(targ))
