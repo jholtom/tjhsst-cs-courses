@@ -44,8 +44,8 @@ stdout3, stderr3 = process3.communicate()
 lastword = stdout3.split('\n')[0]
 print ('The last word is: ' + lastword)
 worddict = words_from_file('words.txt')
-print "Count neighbors"
-print "---------------"
+print "Words with max neighbors"
+print "------------------------"
 
 #Finds the maximum and prints associated words
 k = [];
@@ -56,5 +56,7 @@ for i in worddict:
         k.append(len(adjacent_to(worddict,i)))
         if(k[-1] == 14):
             print i
-print max(k)
 
+print "Max neighbors:"
+print "--------------"
+print max(k)
