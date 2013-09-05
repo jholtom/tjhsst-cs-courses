@@ -71,4 +71,7 @@ for i in targ:
     for x in xrange(len(i)):
         i[x] = wordlist.index(i[x])
 nbrs = open("nbrs.txt","w+")
-nbrs.write(str(targ))
+count = 0
+for i in targ:
+    nbrs.write(str(count) + " : " + str(i) +"\n")
+    count += 1
