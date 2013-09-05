@@ -9,12 +9,10 @@ def decode(msg,encoding):
         k += 1
     print encoding["1" + i],
     decode(msg[len(i):],encoding)
-
 file = open("decode.txt").read().split("\r\n");
 file.pop()
 message = file.pop()
 matrix = {}
 for i in file:
     matrix[str(int("1"+i[1:]))] = i[:1]
-
 decode(message,matrix)
