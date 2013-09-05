@@ -26,6 +26,13 @@ def words_from_file(dict_file):
                 add_word(word_dict, line.strip().lower())
         return word_dict
 
+#def flood(arr,wlist):
+ #   if not arr:
+  #      return
+  #  for i in arr:
+        #flood(i,wlist)
+   #     print adjacent_to(wlist,arr)
+
 #Abuse wc to do some idiot simple stuff for me. Get word count.
 process = Popen(['wc', '-l', 'words.txt'], stdout=PIPE)
 stdout, stderr = process.communicate()
@@ -75,3 +82,5 @@ count = 0
 for i in targ:
     nbrs.write(str(count) + " : " + str(i) +"\n")
     count += 1
+
+#flood(targ,worddict)
