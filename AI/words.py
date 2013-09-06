@@ -2,7 +2,6 @@
 # Jacob Holtom - Sept 3, 2013
 #
 from collections import defaultdict, deque
-from optparse import OptionParser
 import copy
 from subprocess import Popen, PIPE
 import sys
@@ -27,6 +26,13 @@ def words_from_file(dict_file):
                 add_word(word_dict, line.strip().lower())
         return word_dict
 
+#def flood(arr,wlist):
+ #   if not arr:
+  #      return
+  #  for i in arr:
+        #flood(i,wlist)
+   #     print adjacent_to(wlist,arr)
+
 #Abuse wc to do some idiot simple stuff for me. Get word count.
 process = Popen(['wc', '-l', 'words.txt'], stdout=PIPE)
 stdout, stderr = process.communicate()
@@ -44,8 +50,8 @@ stdout3, stderr3 = process3.communicate()
 lastword = stdout3.split('\n')[0]
 print ('The last word is: ' + lastword)
 worddict = words_from_file('words.txt')
-print "Count neighbors"
-print "---------------"
+print "Words with max neighbors"
+print "------------------------"
 
 #Finds the maximum and prints associated words
 k = [];
@@ -56,5 +62,25 @@ for i in worddict:
         k.append(len(adjacent_to(worddict,i)))
         if(k[-1] == 14):
             print i
-print max(k)
 
+print "Max neighbors:"
+print "--------------"
+print max(k)
+print "Generating nbrs.txt"
+#Grab clean version without starwords for the generation
+wordlist = open('words.txt', 'r').read().split()
+targ = []
+iterate = 0
+for i in wordlist:
+    targ.append(adjacent_to(worddict,i))
+
+for i in targ:
+    for x in xrange(len(i)):
+        i[x] = wordlist.index(i[x])
+nbrs = open("nbrs.txt","w+")
+count = 0
+for i in targ:
+    nbrs.write(str(count) + " : " + str(i) +"\n")
+    count += 1
+
+#flood(targ,worddict)
