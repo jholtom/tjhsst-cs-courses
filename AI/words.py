@@ -26,12 +26,20 @@ def words_from_file(dict_file):
                 add_word(word_dict, line.strip().lower())
         return word_dict
 
-#def flood(arr,wlist):
- #   if not arr:
-  #      return
-  #  for i in arr:
-        #flood(i,wlist)
-   #     print adjacent_to(wlist,arr)
+def word_to_pos(word,wlist):
+    return wlist.index(word)  
+
+def pos_to_word(index,wlist):
+    return wlist[index]
+
+def flood(arr,wlist):
+    if not arr:
+        pass
+    for i in arr:      
+        for x in i:
+            x =     
+        flood(i,wlist)   
+
 
 #Abuse wc to do some idiot simple stuff for me. Get word count.
 process = Popen(['wc', '-l', 'words.txt'], stdout=PIPE)
@@ -57,7 +65,7 @@ print "------------------------"
 k = [];
 for i in worddict:
     if(i.find('*')!=-1): #gets rid of the starwords for the maxfinding
-        pass;
+        pass
     else:
         k.append(len(adjacent_to(worddict,i)))
         if(k[-1] == 14):
@@ -83,4 +91,4 @@ for i in targ:
     nbrs.write(str(count) + " : " + str(i) +"\n")
     count += 1
 
-#flood(targ,worddict)
+flooded = flood(targ,worddict)
