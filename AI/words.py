@@ -5,6 +5,7 @@ from collections import defaultdict, deque
 import copy
 from subprocess import Popen, PIPE
 import sys
+from sets import Set
 
 #METHOD DEFINITIONS - helper stuff
 def add_word(word_dict, word):
@@ -32,14 +33,13 @@ def word_to_pos(word,wlist):
 def pos_to_word(index,wlist):
     return wlist[index]
 
-def flood(arr,wlist):
-    if not arr:
-        pass
-    for i in arr:      
-        for x in i:
-            x =     
-        flood(i,wlist)   
-
+def flood(word,connected):
+    if word in connected:
+        return connected
+    connected.add(word)
+    for i in targ[word]:
+        connected=connected.union(flood(i,connected))
+    return connected
 
 #Abuse wc to do some idiot simple stuff for me. Get word count.
 process = Popen(['wc', '-l', 'words.txt'], stdout=PIPE)
@@ -90,5 +90,11 @@ count = 0
 for i in targ:
     nbrs.write(str(count) + " : " + str(i) +"\n")
     count += 1
+largest = 0
+for m in wordlist:
+    connected = Set([])
+    temp = flood(word_to_pos(m,wordlist),connected)
+    if(len(temp)>largest):
+        largest = len(temp)
 
-flooded = flood(targ,worddict)
+print largest
