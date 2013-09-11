@@ -10,7 +10,8 @@ void main(void)
 char* msg = "HELLOWORLD";
 node* arr[7];
 int num = 7;
-for(int i; i<7;i++)
+int i;
+for(i = 0; i<7;i++)
 {
 
 }
