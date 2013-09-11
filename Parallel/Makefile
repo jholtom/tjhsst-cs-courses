@@ -1,4 +1,4 @@
-all:
+encoder:
 	@gcc encode.c -o encode
 clean:
-	@rm -rf encode
+	@rm -rf `find . -executable -type f`
