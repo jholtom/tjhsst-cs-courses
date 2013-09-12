@@ -12,20 +12,20 @@ void main(void)
 {
 char* msg = "HELLOWORLD";
 node* arr[7];
-int c = 0, count[26] = {0};
+int c = 0;
+int count[26] = {0};
 while( msg[c] != '\0')
 {
-   if( msg[c] >= 'a' && msg[c] <= 'z' )
+   if( msg[c] >= 'A' && msg[c] <= 'Z' )
    {
-       count[msg[c]-'a']++;
-       printf("%s",count[msg[c]-'a']);
+       count[msg[c]-'A']++;
    }
    c++;
 }
 for(c = 0; c < 26; c++)
 {
   if( count[c] != 0 )
-      printf("%c occured %d times.\n",c+'a',count[c]);
+      printf("%c occured %d times.\n",c+'A',count[c]);
 }
 int num = 7;
 int i;
