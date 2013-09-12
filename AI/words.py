@@ -90,11 +90,14 @@ count = 0
 for i in targ:
     nbrs.write(str(count) + " : " + str(i) +"\n")
     count += 1
+print "Done!"
+connected = Set([])
+print flood(word_to_pos("battle",wordlist),connected)
 largest = 0
 for m in wordlist:
     connected = Set([])
     temp = flood(word_to_pos(m,wordlist),connected)
     if(len(temp)>largest):
         largest = len(temp)
-
+    print m
 print largest

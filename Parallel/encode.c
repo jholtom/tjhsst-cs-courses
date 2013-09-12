@@ -16,8 +16,10 @@ int c = 0, count[26] = {0};
 while( msg[c] != '\0')
 {
    if( msg[c] >= 'a' && msg[c] <= 'z' )
+   {
        count[msg[c]-'a']++;
-
+       printf("%s",count[msg[c]-'a']);
+   }
    c++;
 }
 for(c = 0; c < 26; c++)
