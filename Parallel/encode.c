@@ -2,6 +2,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+int[] bubble_sort(int arr[],len)
+{
+for()
+{
+for{
+if(){
+
+}
+}
+}
+
+}
+
 typedef struct TreeNode {
     char key;
     int freq;
