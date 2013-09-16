@@ -44,7 +44,7 @@ void main(void)
         if( count[c] != 0 ){
             printf("%c occured %d times.\n",c+'A',count[c]);
             if(num <  7){
-                node* x;
+                node* x = malloc(sizeof(*x));
                 arr[num] = x;
                 arr[num]->key = c+'A';
                 arr[num]->freq = count[c];
@@ -56,20 +56,22 @@ void main(void)
     int i = 0;
     for(i = 0; i < 7; i++)
     {
-        printf("Character: %c Position: %d Frequency: %d \n",arr[i].key,i,arr[i].freq); 
+        printf("Character: %c Position: %d Frequency: %d \n",arr[i]->key,i,arr[i]->freq); 
     }
-   node* root;
+   node* root = malloc(sizeof(*root));
    root->key = '*';
    root->freq = 10; 
    int m = 6;
    while(m >= 0)
    {
-       struct TreeNode* replace;
+       struct TreeNode* replace = malloc(sizeof(*replace));
        replace->key = '*';
-       replace->freq = (arr[m].freq + arr[m-1].freq);
+       replace->freq = (arr[m]->freq + arr[m-1]->freq);
        replace->left = arr[m-1];
        replace->right = arr[m];
-       arr[m] = NULL;
+       if(m != 0){arr[m] = NULL;}
        arr[m-1] = replace;
+       m--;
    }
+    printf("TEST DATA: %c",arr[0]->right->key);
 }
