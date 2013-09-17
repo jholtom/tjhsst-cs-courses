@@ -109,12 +109,20 @@ for m in wordlist:
         if(len(temp)>largest):
             largest = len(temp)
 
-print "Largest Component: "+largest
-print "Number of Connected Components: "+len(components)
+print "Largest Component: " + str(largest)
+print "Number of Connected Components: "+ str(len(components))
 print "Generating size vs freq text file..."
 svf = open("svf.txt","w+")
+count = {}
+for i in components:
+    if(len(i) not in count):
+        count[len(i)] = 1
+    else:
+        count[len(i)] += 1
+for k in count:
+    svf.write(str(k) + " " + str(count[k]) + "\n"
 
-print "Generating degree vs freq text file..."
-dvf = open("dvf.txt","w+")
-
+#print "Generating degree vs freq text file..."
+#dvf = open("dvf.txt","w+")
+#count2 = {}
 print "Done! Execute gnuplot on the text files"
