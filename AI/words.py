@@ -41,6 +41,12 @@ def flood(word,connected):
         connected=connected.union(flood(i,connected))
     return connected
 
+def checkexistent(word,components):
+    for i in components:
+        if word in i:
+            return True
+    return False
+
 #Abuse wc to do some idiot simple stuff for me. Get word count.
 process = Popen(['wc', '-l', 'words.txt'], stdout=PIPE)
 stdout, stderr = process.communicate()
@@ -92,9 +98,15 @@ for i in targ:
     count += 1
 print "Done!"
 largest = 0
+components = []
 for m in wordlist:
     connected = Set([])
-    temp = flood(word_to_pos(m,wordlist),connected)
-    if(len(temp)>largest):
-        largest = len(temp)
+    if checkexistent(word_to_pos(m,wordlist),components):
+        pass
+    else:
+        temp = flood(word_to_pos(m,wordlist),connected)
+        components.append(temp)
+        if(len(temp)>largest):
+            largest = len(temp)
+
 print largest
