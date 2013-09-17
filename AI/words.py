@@ -109,4 +109,5 @@ for m in wordlist:
         if(len(temp)>largest):
             largest = len(temp)
 
-print largest
+print "Largest Component: "+largest
+print "Number of Connected Components: "+len(components)
