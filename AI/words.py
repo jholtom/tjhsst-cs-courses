@@ -120,9 +120,9 @@ for i in components:
     else:
         count[len(i)] += 1
 for k in count:
-    svf.write(str(k) + " " + str(count[k]) + "\n"
+    svf.write(str(k) + " " + str(count[k]) + "\n")
 
 #print "Generating degree vs freq text file..."
 #dvf = open("dvf.txt","w+")
 #count2 = {}
-print "Done! Execute gnuplot on the text files"
+print "Done. Execute gnuplot on the text files"
