@@ -111,3 +111,10 @@ for m in wordlist:
 
 print "Largest Component: "+largest
 print "Number of Connected Components: "+len(components)
+print "Generating size vs freq text file..."
+svf = open("svf.txt","w+")
+
+print "Generating degree vs freq text file..."
+dvf = open("dvf.txt","w+")
+
+print "Done! Execute gnuplot on the text files"
