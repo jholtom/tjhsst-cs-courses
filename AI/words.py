@@ -130,6 +130,6 @@ for i in targ:
         count2[len(i)] = 1
     else:
         count2[len(i)] += 1
-for k in count:
-   dvf.write(str(k) + " " + str(count[k]) + "\n")
+for k in count2:
+   dvf.write(str(k) + " " + str(count2[k]) + "\n")
 print "Done. Execute gnuplot on the text files"
