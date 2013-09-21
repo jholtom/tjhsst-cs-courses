@@ -8,6 +8,23 @@ import sys
 from sets import Set
 
 #METHOD DEFINITIONS - helper stuff
+def wordsearch(word_dict, source, target):
+    if source == target:
+        return [source]
+    word_q = deque([[source]])
+    visited = set([source])
+    while word_q:
+        neighbors = word_q.popleft()
+        if neighbors[-1] == target:
+            return neighbors
+        adjacency = adjacent_to(word_dict, neighbors[-1])
+        for adjacent in adjacency:
+            if adjacent not in visited:
+                visited.add(adjacent)
+                n = copy.deepcopy(neighbors)
+                n.append(adjacent)
+                word_q.append(n)
+
 def add_word(word_dict, word):
         for i in xrange(len(word)):
             star_word = '*'.join([word[0:i], word[i + 1:]])
@@ -133,3 +150,12 @@ for i in targ:
 for k in count2:
    dvf.write(str(k) + " " + str(count2[k]) + "\n")
 print "Done. Execute gnuplot on the text files"
+print "Word path finder"
+first = raw_input('Enter first word: ')
+last = raw_input('Enter last word: ')
+path = wordsearch(worddict,first,last)
+if not path:
+   print 'No path found for '+first+' to '+last
+else:
+   for w in path:
+       print w
