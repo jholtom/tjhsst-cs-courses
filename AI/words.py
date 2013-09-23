@@ -150,12 +150,18 @@ for i in targ:
 for k in count2:
    dvf.write(str(k) + " " + str(count2[k]) + "\n")
 print "Done. Execute gnuplot on the text files"
-print "Word path finder"
-first = raw_input('Enter first word: ')
-last = raw_input('Enter last word: ')
-path = wordsearch(worddict,first,last)
-if not path:
-   print 'No path found for '+first+' to '+last
-else:
-   for w in path:
-       print w
+def findpath():
+    print "Word path finder"
+    first = raw_input('Enter first word: ')
+    last = raw_input('Enter last word: ')
+    path = wordsearch(worddict,first,last)
+    if not path:
+       print 'No path found for '+first+' to '+last
+    else:
+        for w in path:
+           sys.stdout.write(w + ' -> ')
+getout = ""
+while(getout != "n"):
+    findpath()
+    getout = raw_input("\nAgain? (y/n)")
+
