@@ -24,6 +24,11 @@ void bubble_sort(node* targ[], int n)
         }
     }
 }
+char* encodechar(node*,char);
+char* encodechar(node* root, char targ)
+{
+
+}
 void main(void)
 {
     char* msg = "HELLOWORLD";
@@ -73,5 +78,6 @@ void main(void)
        arr[m-1] = replace;
        m--;
    }
-    printf("TEST DATA: %c",arr[0]->right->key);
+   
+   // printf("TEST DATA: %c",arr[0]->left->key);
 }
