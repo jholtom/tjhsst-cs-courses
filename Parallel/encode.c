@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#define MSGLEN 30
 typedef struct TreeNode {
     char key;
     int freq;
@@ -24,13 +25,26 @@ void bubble_sort(node* targ[], int n)
         }
     }
 }
-char* encodechar(node*,char);
-char* encodechar(node* root, char targ)
+char* traverse(node*,int,char[][MSGLEN*sizeof(char)],char*);
+char* traverse(node* root,int depth, char* codeword[][MSGLEN*sizeof(char)],char* path)
 {
-
+if( root->left == NULL && root->right == NULL)
+{
+  path[depth] = '\0';
+  sprintf(codword[(int)root->key], "%s", path );
+}
+else
+{
+path[depth] = '0';
+traverse(root->left,depth+1,codeword,path);
+path[depth] = '1';
+traverse(root->right,depth+1,codeword,path);
+}
 }
 void main(void)
 {
+    char cw[256][MSGLEN * sizeof(char)];
+    char p[MSGLEN*sizeof(char)];
     char* msg = "HELLOWORLD";
     node* arr[7];
     int c = 0;
