@@ -26,12 +26,12 @@ void bubble_sort(node* targ[], int n)
     }
 }
 char* traverse(node*,int,char[][MSGLEN*sizeof(char)],char*);
-char* traverse(node* root,int depth, char* codeword[][MSGLEN*sizeof(char)],char* path)
+char* traverse(node* root,int depth, char codeword[][MSGLEN*sizeof(char)],char* path)
 {
 if( root->left == NULL && root->right == NULL)
 {
   path[depth] = '\0';
-  sprintf(codword[(int)root->key], "%s", path );
+  sprintf(codeword[(int)root->key], "%s", path );
 }
 else
 {
@@ -81,7 +81,7 @@ void main(void)
    root->key = '*';
    root->freq = 10; 
    int m = 6;
-   while(m >= 0)
+  while(m > 0)
    {
        struct TreeNode* replace = malloc(sizeof(*replace));
        replace->key = '*';
@@ -92,6 +92,13 @@ void main(void)
        arr[m-1] = replace;
        m--;
    }
-   
-   // printf("TEST DATA: %c",arr[0]->left->key);
+  //printf("TEST DATA: %c",arr[0]->right->right->right->left->key);
+  //Tree is happy @ arr[0]
+  node* tree = arr[0];
+  traverse(tree,0,cw,p);
+  int iter = 0;
+  for(iter = 0; iter < strlen(msg); iter++)
+  {
+  printf("%s\n",cw[(int)msg[iter]]);
+  }
 }
