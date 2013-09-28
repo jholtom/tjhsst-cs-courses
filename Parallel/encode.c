@@ -99,6 +99,7 @@ void main(void)
   int iter = 0;
   for(iter = 0; iter < strlen(msg); iter++)
   {
-  printf("%s  %c\n",cw[(int)msg[iter]], (char)msg[iter]);
+  printf("%s",cw[(int)msg[iter]]);
   }
+  printf("\n");
 }
