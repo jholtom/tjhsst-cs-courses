@@ -160,6 +160,7 @@ def findpath():
     else:
         for w in path:
            sys.stdout.write(w + ' -> ')
+        print len(path)
 getout = ""
 while(getout != "n"):
     findpath()
