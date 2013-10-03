@@ -3,8 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define ARRX 8
-#define ARRY 8
+#define ARRX 80
+#define ARRY 40
 #define PROB 70
 
 int main(void){
@@ -12,8 +12,8 @@ int main(void){
     int k;
     int m;
     srand(time(NULL));
-    for(k = 0; k < ARRX; k++){
-        for(m = 0; m < ARRY; m++)
+    for(k = 0; k < ARRY; k++){
+        for(m = 0; m < ARRX; m++)
         {
             if((rand()%100 + 1) < PROB)
             {
