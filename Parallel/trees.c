@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include <time.h>
 #define ARRX 80
 #define ARRY 40
 #define PROB 70
@@ -40,6 +40,14 @@ int main(void){
                 field[k][m] = ' ';
             }
         }
+    }
+    draw_array(field);
+    sleep(30);
+    system("clear");
+    int z;
+    for(z = 0; z < ARRY; z++)
+    {
+    if( field[z][0] == 'T' ) field[z][0] = '*';
     }
     draw_array(field);
     return 0;
