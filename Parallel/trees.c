@@ -7,6 +7,23 @@
 #define ARRY 40
 #define PROB 70
 
+void draw_array(char[ARRX][ARRY]);
+void draw_array(char field[ARRX][ARRY]){
+    int x,y;
+    for(x = 0; x < ARRY; x++)
+    {
+        for(y = 0; y < ARRX; y++)
+        {
+            printf("%c",field[x][y]);
+        }
+        printf("\n");
+    }
+}
+void process_fire(char[ARRX][ARRY]);
+void process_fire(char field[ARRX][ARRY])
+{
+
+}
 int main(void){
     char field[ARRX][ARRY];
     int k;
@@ -24,14 +41,6 @@ int main(void){
             }
         }
     }
-    int x,y;
-for(x = 0; x < ARRY; x++)
-    {
-        for(y = 0; y < ARRX; y++)
-        {
-            printf("%c",field[x][y]);
-        }
-        printf("\n");
-    }
+    draw_array(field);
     return 0;
 }
