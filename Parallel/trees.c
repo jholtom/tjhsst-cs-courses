@@ -3,16 +3,16 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#define ARRX 80
-#define ARRY 40
+#define ARRX 40
+#define ARRY 80
 #define PROB 70
 
 void draw_array(char[ARRX][ARRY]);
 void draw_array(char field[ARRX][ARRY]){
     int x,y;
-    for(x = 0; x < ARRY; x++)
+    for(x = 0; x < ARRX; x++)
     {
-        for(y = 0; y < ARRX; y++)
+        for(y = 0; y < ARRY; y++)
         {
             printf("%c",field[x][y]);
         }
@@ -22,15 +22,36 @@ void draw_array(char field[ARRX][ARRY]){
 void process_fire(char[ARRX][ARRY]);
 void process_fire(char field[ARRX][ARRY])
 {
-
+    int k,j;
+    for( k = 0; k < ARRX; k++)
+    {
+        for( j = 0; j < ARRY; j++)
+        {
+            if( field[k][j] == '*')
+            {
+                if( field[k][j+1] == 'T' && (j+1) > ARRX ){
+                    field[k][j+1] = '*'; 
+                }  
+                if( field[k][j-1] == 'T' && (j-1) < 0 ){
+                    field[k][j-1] = '*';
+                }  
+                if( field[k+1][j] == 'T' && (k+1) > ARRY ){
+                    field[k+1][j] = '*';
+                }  
+                if( field[k-1][j] == 'T' && (k-1) < 0 ){
+                    field[k-1][j] = '*';
+                }  
+            }
+        }
+    }
 }
 int main(void){
     char field[ARRX][ARRY];
     int k;
     int m;
     srand(time(NULL));
-    for(k = 0; k < ARRY; k++){
-        for(m = 0; m < ARRX; m++)
+    for(k = 0; k < ARRX; k++){
+        for(m = 0; m < ARRY; m++)
         {
             if((rand()%100 + 1) < PROB)
             {
@@ -42,13 +63,17 @@ int main(void){
         }
     }
     draw_array(field);
-    sleep(30);
+    sleep(10);
     system("clear");
     int z;
-    for(z = 0; z < ARRY; z++)
+    for(z = 0; z < ARRX; z++)
     {
-    if( field[z][0] == 'T' ) field[z][0] = '*';
+        if( field[z][0] == 'T' ) field[z][0] = '*';
     }
+    draw_array(field);
+    sleep(10);
+    process_fire(field);
+    system("clear");
     draw_array(field);
     return 0;
 }
