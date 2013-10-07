@@ -20,8 +20,7 @@ void draw_array(char field[ARRX][ARRY]){
     }
 }
 void process_fire(char[ARRX][ARRY]);
-void process_fire(char field[ARRX][ARRY])
-{
+void process_fire(char field[ARRX][ARRY]){
     int k,j;
     for( k = 0; k < ARRX; k++)
     {
@@ -29,16 +28,16 @@ void process_fire(char field[ARRX][ARRY])
         {
             if( field[k][j] == '*')
             {
-                if( field[k][j+1] == 'T' && (j+1) > ARRX ){
+                if( field[k][j+1] == 'T' && (j+1) <= ARRY ){
                     field[k][j+1] = '*'; 
                 }  
-                if( field[k][j-1] == 'T' && (j-1) < 0 ){
+                if( field[k][j-1] == 'T' && (j-1) >= 0 ){
                     field[k][j-1] = '*';
                 }  
-                if( field[k+1][j] == 'T' && (k+1) > ARRY ){
+                if( field[k+1][j] == 'T' && (k+1) <= ARRX ){
                     field[k+1][j] = '*';
                 }  
-                if( field[k-1][j] == 'T' && (k-1) < 0 ){
+                if( field[k-1][j] == 'T' && (k-1) >=  0 ){
                     field[k-1][j] = '*';
                 }  
             }
@@ -63,7 +62,7 @@ int main(void){
         }
     }
     draw_array(field);
-    sleep(10);
+    sleep(2);
     system("clear");
     int z;
     for(z = 0; z < ARRX; z++)
@@ -71,7 +70,7 @@ int main(void){
         if( field[z][0] == 'T' ) field[z][0] = '*';
     }
     draw_array(field);
-    sleep(10);
+    sleep(2);
     process_fire(field);
     system("clear");
     draw_array(field);
