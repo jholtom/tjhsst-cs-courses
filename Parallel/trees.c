@@ -32,7 +32,8 @@ void process_fire(char field[ARRX][ARRY]){
             field_buffer[k][j] = field[k][j];
         }
     }
-
+    //Doesn't work...ask torbert
+    //memcpy(&field_buffer,&field,sizeof(field));
     for( k = 0; k < ARRX; k++)
     {
         for( j = 0; j < ARRY; j++)
