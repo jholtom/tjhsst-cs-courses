@@ -21,17 +21,17 @@ void draw_array(char field[ARRX][ARRY]){
 }
 void process_fire(char[ARRX][ARRY]);
 void process_fire(char field[ARRX][ARRY]){
-	char field_buffer[ARRX][ARRY];
-	
-	int k,j;
-	
-	for( k = 0; k < ARRX; k++)
+    char field_buffer[ARRX][ARRY];
+
+    int k,j;
+
+    for( k = 0; k < ARRX; k++)
     {
         for( j = 0; j < ARRY; j++)
         {
-			field_buffer[k][j] = field[k][j];
-		}
-	}
+            field_buffer[k][j] = field[k][j];
+        }
+    }
 
     for( k = 0; k < ARRX; k++)
     {
@@ -74,14 +74,30 @@ void process_fire(char field[ARRX][ARRY]){
             }
         }
     }
-    
+
     for( k = 0; k < ARRX; k++)
     {
         for( j = 0; j < ARRY; j++)
         {
-			field[k][j] = field_buffer[k][j];
-		}
-	}
+            field[k][j] = field_buffer[k][j];
+        }
+    }
+}
+void isfire(char[ARRX][ARRY]);
+void isfire(char field[ARRX][ARRY])
+{
+    int l,z;
+    for(l = 0; l < ARRX; l++)
+    {
+        for(z = 0; z < ARRY; z++)
+        {
+            if(field[l][z] == '*')
+            {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 int main(void){
     char field[ARRX][ARRY];
@@ -110,9 +126,16 @@ int main(void){
     }
     draw_array(field);
     sleep(2);
-    process_fire(field);
-    system("clear");
+    int steps = 0;
+    while(isfire(field))
+    {
+        process_fire(field);
+        draw_array(field);
+        sleep(2);
+        system("clear");
+        steps++;
+    }
     draw_array(field);
-    sleep(2);
+    printf("NUMBER OF STEPS IS: %d",steps);
     return 0;
 }
