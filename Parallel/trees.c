@@ -93,11 +93,11 @@ void isfire(char field[ARRX][ARRY])
         {
             if(field[l][z] == '*')
             {
-                return true;
+                return 1;
             }
         }
     }
-    return false;
+    return 0;
 }
 int main(void){
     char field[ARRX][ARRY];
@@ -127,7 +127,7 @@ int main(void){
     draw_array(field);
     sleep(2);
     int steps = 0;
-    while(isfire(field))
+    while(isfire(field) == 1)
     {
         process_fire(field);
         draw_array(field);
