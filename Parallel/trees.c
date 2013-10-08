@@ -21,7 +21,18 @@ void draw_array(char field[ARRX][ARRY]){
 }
 void process_fire(char[ARRX][ARRY]);
 void process_fire(char field[ARRX][ARRY]){
-    int k,j;
+	char field_buffer[ARRX][ARRY];
+	
+	int k,j;
+	
+	for( k = 0; k < ARRX; k++)
+    {
+        for( j = 0; j < ARRY; j++)
+        {
+			field_buffer[k][j] = field[k][j];
+		}
+	}
+
     for( k = 0; k < ARRX; k++)
     {
         for( j = 0; j < ARRY; j++)
@@ -30,39 +41,47 @@ void process_fire(char field[ARRX][ARRY]){
             {
                 if( field[k][j+1] == 'T' && (j+1) <= ARRY )
                 {
-                    field[k][j+1] = '*'; 
+                    field_buffer[k][j+1] = '*'; 
                 }  
                 if( field[k][j-1] == 'T' && (j-1) >= 0 )
                 {
-                    field[k][j-1] = '*';
+                    field_buffer[k][j-1] = '*';
                 }  
                 if( field[k+1][j] == 'T' && (k+1) <= ARRX )
                 {
-                    field[k+1][j] = '*';
+                    field_buffer[k+1][j] = '*';
                 }  
                 if( field[k-1][j] == 'T' && (k-1) >=  0 )
                 {
-                    field[k-1][j] = '*';
+                    field_buffer[k-1][j] = '*';
                 } 
                 if((field[k][j+1] == '*' || field[k][j+1] == ' ') && (j+1) <= ARRY )
                 {
-                    field[k][j] = ' '; 
+                    field_buffer[k][j] = ' '; 
                 }  
                 if((field[k][j-1] == '*' || field[k][j-1] == ' ') && (j-1) >= 0 )
                 {
-                    field[k][j] = ' ';
+                    field_buffer[k][j] = ' ';
                 }  
                 if((field[k+1][j] == '*' || field[k+1][j] == ' ')  && (k+1) <= ARRX )
                 {
-                    field[k][j] = ' ';
+                    field_buffer[k][j] = ' ';
                 }  
                 if((field[k-1][j] == '*' || field[k+1][j] == ' ') && (k-1) >=  0 )
                 {
-                    field[k][j] = ' ';
-                } 
+                    field_buffer[k][j] = ' ';
+                }
             }
         }
     }
+    
+    for( k = 0; k < ARRX; k++)
+    {
+        for( j = 0; j < ARRY; j++)
+        {
+			field[k][j] = field_buffer[k][j];
+		}
+	}
 }
 int main(void){
     char field[ARRX][ARRY];
@@ -95,17 +114,5 @@ int main(void){
     system("clear");
     draw_array(field);
     sleep(2);
-    process_fire(field);
-    system("clear");
-    draw_array(field);
-    draw_array(field);
-    sleep(2);
-    process_fire(field);
-    system("clear");
-    draw_array(field);
-    sleep(2);
-    process_fire(field);
-    system("clear");
-    draw_array(field);
     return 0;
 }
