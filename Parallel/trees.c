@@ -83,8 +83,8 @@ void process_fire(char field[ARRX][ARRY]){
         }
     }
 }
-void isfire(char[ARRX][ARRY]);
-void isfire(char field[ARRX][ARRY])
+int isfire(char[ARRX][ARRY]);
+int isfire(char field[ARRX][ARRY])
 {
     int l,z;
     for(l = 0; l < ARRX; l++)
