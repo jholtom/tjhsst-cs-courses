@@ -131,7 +131,7 @@ int main(void){
     {
         process_fire(field);
         draw_array(field);
-        sleep(2);
+        sleep(0.5);
         system("clear");
         steps++;
     }
