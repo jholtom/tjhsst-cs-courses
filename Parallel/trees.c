@@ -44,6 +44,22 @@ void process_fire(char field[ARRX][ARRY]){
                 {
                     field[k-1][j] = '*';
                 } 
+                if((field[k][j+1] == '*' || field[k][j+1] == ' ') && (j+1) <= ARRY )
+                {
+                    field[k][j] = ' '; 
+                }  
+                if((field[k][j-1] == '*' || field[k][j-1] == ' ') && (j-1) >= 0 )
+                {
+                    field[k][j] = ' ';
+                }  
+                if((field[k+1][j] == '*' || field[k+1][j] == ' ')  && (k+1) <= ARRX )
+                {
+                    field[k][j] = ' ';
+                }  
+                if((field[k-1][j] == '*' || field[k+1][j] == ' ') && (k-1) >=  0 )
+                {
+                    field[k][j] = ' ';
+                } 
             }
         }
     }
