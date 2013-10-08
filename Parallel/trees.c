@@ -28,16 +28,20 @@ void process_fire(char field[ARRX][ARRY]){
         {
             if( field[k][j] == '*')
             {
-                if( field[k][j+1] == 'T' && (j+1) <= ARRY ){
+                if( field[k][j+1] == 'T' && (j+1) <= ARRY )
+                {
                     field[k][j+1] = '*'; 
                 }  
-                if( field[k][j-1] == 'T' && (j-1) >= 0 ){
+                if( field[k][j-1] == 'T' && (j-1) >= 0 )
+                {
                     field[k][j-1] = '*';
                 }  
-                if( field[k+1][j] == 'T' && (k+1) <= ARRX ){
+                if( field[k+1][j] == 'T' && (k+1) <= ARRX )
+                {
                     field[k+1][j] = '*';
                 }  
-                if( field[k-1][j] == 'T' && (k-1) >=  0 ){
+                if( field[k-1][j] == 'T' && (k-1) >=  0 )
+                {
                     field[k-1][j] = '*';
                 } 
             }
