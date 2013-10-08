@@ -94,5 +94,18 @@ int main(void){
     process_fire(field);
     system("clear");
     draw_array(field);
+    sleep(2);
+    process_fire(field);
+    system("clear");
+    draw_array(field);
+    draw_array(field);
+    sleep(2);
+    process_fire(field);
+    system("clear");
+    draw_array(field);
+    sleep(2);
+    process_fire(field);
+    system("clear");
+    draw_array(field);
     return 0;
 }
