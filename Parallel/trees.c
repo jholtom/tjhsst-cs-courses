@@ -1,8 +1,8 @@
 //Jacob Holtom - Oct, 02, 2013
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <time.h>
+#include "mpi.h"
 #define ARRX 40
 #define ARRY 80
 
