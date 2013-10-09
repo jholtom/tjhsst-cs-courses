@@ -100,7 +100,8 @@ int isfire(char field[ARRX][ARRY])
     }
     return 0;
 }
-int main(void){
+int compute(int);
+int compute(int prob){
     char field[ARRX][ARRY];
     int k;
     int m;
@@ -108,7 +109,7 @@ int main(void){
     for(k = 0; k < ARRX; k++){
         for(m = 0; m < ARRY; m++)
         {
-            if((rand()%100 + 1) < PROB)
+            if((rand()%100 + 1) < prob)
             {
                 field[k][m] = 'T';
             }
@@ -117,26 +118,32 @@ int main(void){
             }
         }
     }
-    draw_array(field);
-    sleep(2);
-    system("clear");
+    //draw_array(field);
+    //sleep(2);
+    //system("clear");
     int z;
     for(z = 0; z < ARRX; z++)
     {
         if( field[z][0] == 'T' ) field[z][0] = '*';
     }
-    draw_array(field);
-    sleep(2);
+    //draw_array(field);
+    //sleep(2);
     int steps = 0;
-    while(isfire(field) == 1)
+    //system("clear");
+    while(isfire(field) != 0)
     {
         process_fire(field);
-        draw_array(field);
-        sleep(0.5);
-        system("clear");
+        //ENABLE OR DISABLE DRAWING...
+        //draw_array(field);
+        //sleep(1);
+        //system("clear");
         steps++;
     }
-    draw_array(field);
-    printf("NUMBER OF STEPS IS: %d",steps);
+    //draw_array(field);
+    printf("NUMBER OF STEPS IS: %d\n",steps);
+}
+
+int main(void){
+    compute(PROB);
     return 0;
 }
