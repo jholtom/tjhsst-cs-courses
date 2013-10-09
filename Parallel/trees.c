@@ -5,7 +5,6 @@
 #include <time.h>
 #define ARRX 40
 #define ARRY 80
-#define PROB 70
 
 void draw_array(char[ARRX][ARRY]);
 void draw_array(char field[ARRX][ARRY]){
@@ -140,10 +139,26 @@ int compute(int prob){
         steps++;
     }
     //draw_array(field);
-    printf("NUMBER OF STEPS IS: %d\n",steps);
+    //printf("NUMBER OF STEPS IS: %d\n",steps);
+    return steps;
 }
 
 int main(void){
-    compute(PROB);
+    int avgs[20];
+    int numtrials = 1000;
+    int i;
+    int k = 0;
+    for(i = 0; i <= 100; i += 5)
+    {
+        //printf("PROBABILITY IS: %d\n",i);
+        int m,total;
+        for( m = 0; m < numtrials; m++){
+            total += compute(i);
+        }
+        avgs[k] = total / numtrials;
+        printf("Average for %d trials at probabilty: %d is %d\n",numtrials,i,avgs[k]);
+        k++;
+        total = 0;
+    }
     return 0;
 }
