@@ -143,11 +143,11 @@ int compute(int prob){
 }
 
 int main(void){
-    int avgs[20];
-    int numtrials = 1000;
+    int avgs[100];
+    int numtrials = 100;
     int i;
     int k = 0;
-    for(i = 0; i <= 100; i += 5)
+    for(i = 0; i <= 100; i += 1)
     {
         //printf("PROBABILITY IS: %d\n",i);
         int m,total;

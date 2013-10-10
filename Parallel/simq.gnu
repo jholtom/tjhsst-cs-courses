@@ -14,7 +14,7 @@
 set terminal png
 set output "simq.png"
 set xrange[0:100]
-set title "Average Time over 10,000 Trials"
+set title "Average Time over 1,000 Trials"
 set xlabel "probability"
 set ylabel "burnout time"
 plot "simq.txt" with lines notitle,\
