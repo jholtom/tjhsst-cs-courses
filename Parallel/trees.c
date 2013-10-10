@@ -2,9 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "mpi.h"
-#define ARRX 40
-#define ARRY 80
+#define ARRX 100
+#define ARRY 100
 
 void draw_array(char[ARRX][ARRY]);
 void draw_array(char field[ARRX][ARRY]){
@@ -156,7 +155,7 @@ int main(void){
             total += compute(i);
         }
         avgs[k] = total / numtrials;
-        printf("Average for %d trials at probabilty: %d is %d\n",numtrials,i,avgs[k]);
+        printf("%d %d\n",i,avgs[k]);
         k++;
         total = 0;
     }
