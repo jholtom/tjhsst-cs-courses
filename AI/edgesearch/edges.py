@@ -35,6 +35,8 @@ class BFS:
 nodefile = open('nodes.txt','r')
 edgefile = open('edges.txt','r')
 nodelist = list(nodefile)
+nodedict = {}
 for i in range(len(nodelist)):
-    nodelist[i] = [nodelist[i].split(' ')[0],nodelist[i].split(' ')[1],nodelist[i].split(' ')[2].split('\n')[0]]
-print nodelist
+    nodedict[nodelist[i].split(' ')[0]] = [nodelist[i].split(' ')[1],nodelist[i].split(' ')[2].split('\n')[0]]
+
+print nodedict
