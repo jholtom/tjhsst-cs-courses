@@ -99,12 +99,10 @@ int isfire(char field[ARRX][ARRY])
     }
     return 0;
 }
-int compute(int);
-int compute(int prob){
-    char field[ARRX][ARRY];
+int compute( char[ARRX][ARRY], int);
+int compute(char field[ARRX][ARRY], int prob){
     int k;
     int m;
-    srand(time(NULL));
     for(k = 0; k < ARRX; k++){
         for(m = 0; m < ARRY; m++)
         {
@@ -143,16 +141,20 @@ int compute(int prob){
     return steps;
 }
 
-int main(void){
+int main( int argc , char* argv[] ){
     //MPI stuff
     int rank,size,prob;
     MPI_Status status;
     int tag = 0;
-    int j;
-    MPI_Init(void);
+    int step,j;
+    char t[ARRX][ARRY];
+    int trial;
+    int numtrials = 10000;
+    MPI_Init(&argc,&argv);
     MPI_Comm_size(MPI_COMM_WORLD,&size);
     MPI_Comm_rank(MPI_COMM_WORLD,&rank);
     //MASTER STUFF
+    srand(time(NULL));
 	if( rank == 0 ) // manager
 	{
 		prob = 10 ;
@@ -188,37 +190,37 @@ int main(void){
 		//      - and the results may be printed out of order... sort! (post)
 		//
 		step = 0 ;
-		printf( "%20.16f %20.16f\n" , 0.0 , (1.0*step)/(N*numtrials) ) ;
+		printf( "%20.16f %20.16f\n" , 0.0 , (1.0*step)/(ARRY*numtrials) ) ;
 		//
 		MPI_Recv( &step , 1 , MPI_INT    , 1 , tag , MPI_COMM_WORLD , &status ) ;
-		printf( "%20.16f %20.16f\n" , 0.1 , (1.0*step)/(N*numtrials) ) ;
+		printf( "%20.16f %20.16f\n" , 0.1 , (1.0*step)/(ARRY*numtrials) ) ;
 		//
 		MPI_Recv( &step , 1 , MPI_INT    , 2 , tag , MPI_COMM_WORLD , &status ) ;
-		printf( "%20.16f %20.16f\n" , 0.2 , (1.0*step)/(N*numtrials) ) ;
+		printf( "%20.16f %20.16f\n" , 0.2 , (1.0*step)/(ARRY*numtrials) ) ;
 		//
 		MPI_Recv( &step , 1 , MPI_INT    , 3 , tag , MPI_COMM_WORLD , &status ) ;
-		printf( "%20.16f %20.16f\n" , 0.3 , (1.0*step)/(N*numtrials) ) ;
+		printf( "%20.16f %20.16f\n" , 0.3 , (1.0*step)/(ARRY*numtrials) ) ;
 		//
 		MPI_Recv( &step , 1 , MPI_INT    , 1 , tag , MPI_COMM_WORLD , &status ) ;
-		printf( "%20.16f %20.16f\n" , 0.4 , (1.0*step)/(N*numtrials) ) ;
+		printf( "%20.16f %20.16f\n" , 0.4 , (1.0*step)/(ARRY*numtrials) ) ;
 		//
 		MPI_Recv( &step , 1 , MPI_INT    , 2 , tag , MPI_COMM_WORLD , &status ) ;
-		printf( "%20.16f %20.16f\n" , 0.5 , (1.0*step)/(N*numtrials) ) ;
+		printf( "%20.16f %20.16f\n" , 0.5 , (1.0*step)/(ARRY*numtrials) ) ;
 		//
 		MPI_Recv( &step , 1 , MPI_INT    , 3 , tag , MPI_COMM_WORLD , &status ) ;
-		printf( "%20.16f %20.16f\n" , 0.6 , (1.0*step)/(N*numtrials) ) ;
+		printf( "%20.16f %20.16f\n" , 0.6 , (1.0*step)/(ARRY*numtrials) ) ;
 		//
 		MPI_Recv( &step , 1 , MPI_INT    , 1 , tag , MPI_COMM_WORLD , &status ) ;
-		printf( "%20.16f %20.16f\n" , 0.7 , (1.0*step)/(N*numtrials) ) ;
+		printf( "%20.16f %20.16f\n" , 0.7 , (1.0*step)/(ARRY*numtrials) ) ;
 		//
 		MPI_Recv( &step , 1 , MPI_INT    , 2 , tag , MPI_COMM_WORLD , &status ) ;
-		printf( "%20.16f %20.16f\n" , 0.8 , (1.0*step)/(N*numtrials) ) ;
+		printf( "%20.16f %20.16f\n" , 0.8 , (1.0*step)/(ARRY*numtrials) ) ;
 		//
 		MPI_Recv( &step , 1 , MPI_INT    , 3 , tag , MPI_COMM_WORLD , &status ) ;
-		printf( "%20.16f %20.16f\n" , 0.9 , (1.0*step)/(N*numtrials) ) ;
+		printf( "%20.16f %20.16f\n" , 0.9 , (1.0*step)/(ARRY*numtrials) ) ;
 		//
-		step = N * numtrials ;
-		printf( "%20.16f %20.16f\n" , 1.0 , (1.0*step)/(N*numtrials) ) ;
+		step = ARRY * numtrials ;
+		printf( "%20.16f %20.16f\n" , 1.0 , (1.0*step)/(ARRY*numtrials) ) ;
 	}
 	else            // worker
 	{
@@ -226,21 +228,21 @@ int main(void){
 		step = 0 ;
 		for( trial = 1 ; trial <= numtrials ; trial++ )
 		{
-			step += compute( prob ) ;
+			step += compute( t , prob ) ;
 		}
 		MPI_Send( &step , 1 , MPI_INT    , 0 , tag , MPI_COMM_WORLD ) ;
 		MPI_Recv( &prob , 1 , MPI_DOUBLE , 0 , tag , MPI_COMM_WORLD , &status ) ;
 		step = 0 ;
 		for( trial = 1 ; trial <= numtrials ; trial++ )
 		{
-			step += compute( prob ) ;
+			step += compute( t , prob ) ;
 		}
 		MPI_Send( &step , 1 , MPI_INT    , 0 , tag , MPI_COMM_WORLD ) ;
 		MPI_Recv( &prob , 1 , MPI_DOUBLE , 0 , tag , MPI_COMM_WORLD , &status ) ;
 		step = 0 ;
 		for( trial = 1 ; trial <= numtrials ; trial++ )
 		{
-			step += compute( prob ) ;
+			step += compute( t , prob ) ;
 		}
 		MPI_Send( &step , 1 , MPI_INT    , 0 , tag , MPI_COMM_WORLD ) ;
 	}
