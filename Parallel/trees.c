@@ -145,46 +145,41 @@ int compute(int prob){
 
 int main(void){
     //MPI stuff
-    int rank,size;
+    int rank,size,prob;
     MPI_Status status;
     int tag = 0;
     int j;
     MPI_Init(void);
     MPI_Comm_size(MPI_COMM_WORLD,&size);
     MPI_Comm_rank(MPI_COMM_WORLD,&rank);
-   
-
     //MASTER STUFF
 	if( rank == 0 ) // manager
 	{
-		//
-		// send - loop better , queue size limited , balance workload
-		//
-		prob = 0.1 ;
+		prob = 10 ;
 		MPI_Send( &prob , 1 , MPI_DOUBLE , 1 , tag , MPI_COMM_WORLD ) ;
 		//
-		prob = 0.2 ;
+		prob = 20 ;
 		MPI_Send( &prob , 1 , MPI_DOUBLE , 2 , tag , MPI_COMM_WORLD ) ;
 		//
-		prob = 0.3 ;
+		prob = 30 ;
 		MPI_Send( &prob , 1 , MPI_DOUBLE , 3 , tag , MPI_COMM_WORLD ) ;
 		//
-		prob = 0.4 ;
+		prob = 40 ;
 		MPI_Send( &prob , 1 , MPI_DOUBLE , 1 , tag , MPI_COMM_WORLD ) ;
 		//
-		prob = 0.5 ;
+		prob = 50 ;
 		MPI_Send( &prob , 1 , MPI_DOUBLE , 2 , tag , MPI_COMM_WORLD ) ;
 		//
-		prob = 0.6 ;
+		prob = 60 ;
 		MPI_Send( &prob , 1 , MPI_DOUBLE , 3 , tag , MPI_COMM_WORLD ) ;
 		//
-		prob = 0.7 ;
+		prob = 70 ;
 		MPI_Send( &prob , 1 , MPI_DOUBLE , 1 , tag , MPI_COMM_WORLD ) ;
 		//
-		prob = 0.8 ;
+		prob = 80 ;
 		MPI_Send( &prob , 1 , MPI_DOUBLE , 2 , tag , MPI_COMM_WORLD ) ;
 		//
-		prob = 0.9 ;
+		prob = 80 ;
 		MPI_Send( &prob , 1 , MPI_DOUBLE , 3 , tag , MPI_COMM_WORLD ) ;
 		//
 		//
@@ -227,38 +222,30 @@ int main(void){
 	}
 	else            // worker
 	{
-		//
-		// loop - need a "kill signal" to tell us when we are all done
-		//
 		MPI_Recv( &prob , 1 , MPI_DOUBLE , 0 , tag , MPI_COMM_WORLD , &status ) ;
 		step = 0 ;
 		for( trial = 1 ; trial <= numtrials ; trial++ )
 		{
-			step += runone( t , prob ) ;
+			step += compute( prob ) ;
 		}
 		MPI_Send( &step , 1 , MPI_INT    , 0 , tag , MPI_COMM_WORLD ) ;
-		//
 		MPI_Recv( &prob , 1 , MPI_DOUBLE , 0 , tag , MPI_COMM_WORLD , &status ) ;
 		step = 0 ;
 		for( trial = 1 ; trial <= numtrials ; trial++ )
 		{
-			step += runone( t , prob ) ;
+			step += compute( prob ) ;
 		}
 		MPI_Send( &step , 1 , MPI_INT    , 0 , tag , MPI_COMM_WORLD ) ;
-		//
 		MPI_Recv( &prob , 1 , MPI_DOUBLE , 0 , tag , MPI_COMM_WORLD , &status ) ;
 		step = 0 ;
 		for( trial = 1 ; trial <= numtrials ; trial++ )
 		{
-			step += runone( t , prob ) ;
+			step += compute( prob ) ;
 		}
 		MPI_Send( &step , 1 , MPI_INT    , 0 , tag , MPI_COMM_WORLD ) ;
 	}
-	//
-	// MPI
-	//
 	MPI_Finalize();
-//STUFF THAT DOES WORK
+/*STUFF THAT DOES WORK
     int avgs[100];
     int numtrials = 100;
     int i;
@@ -274,6 +261,6 @@ int main(void){
         printf("%d %d\n",i,avgs[k]);
         k++;
         total = 0;
-    }
+    }*/
     return 0;
 }
