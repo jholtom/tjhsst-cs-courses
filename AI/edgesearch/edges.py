@@ -1,67 +1,34 @@
 from collections import deque
 from collections import defaultdict 
-#ITS LIKE A REALLY AWESOME TO WAY TO DO THIS FAST.
-class Graph:
-  def __init__(self):
-    self.nodes = set()
-    self.edges = defaultdict(list)
-    self.distances = {}
- 
-  def add_node(self, value):
-    self.nodes.add(value)
- 
-  def add_edge(self, from_node, to_node, distance):
-    self.edges[from_node].append(to_node)
-    self.edges[to_node].append(from_node)
-    self.distances[(from_node, to_node)] = distance
- 
- 
-def dijkstra(graph, initial):
-    visited = {initial: 0}
-    path = {}
-    nodes = set(graph.nodes)
-    while nodes: 
-      min_node = None
-      for node in nodes:
-        if node in visited:
-          if min_node is None:
-            min_node = node
-          elif visited[node] < visited[min_node]:
-            min_node = node
- 
-      if min_node is None:
-        break
-      nodes.remove(min_node)
-      current_weight = visited[min_node]
-      for edge in graph.edges[min_node]:
-          weight = float(current_weight) + float(graph.distances[(min_node, edge)])
-          if edge not in visited or weight < visited[edge]:
-              visited[edge] = weight
-              path[edge] = min_node
- 
-    return visited, path
-
-nodefile = open('nodes.txt','r')
-edgefile = open('edges.txt','r')
-nodelist = list(nodefile)
-edgelist = list(edgefile)
-nodedict = {}
-edgedict = {}
-for i in range(len(nodelist)):
-    nodedict[nodelist[i].split(' ')[0]] = [nodelist[i].split(' ')[1],nodelist[i].split(' ')[2].split('\n')[0]]
-
-for i in range(len(edgelist)):
-    edgedict[edgelist[i].split(' ')[0]] = [edgelist[i].split(' ')[1],edgelist[i].split(' ')[2],edgelist[i].split(' ')[3].split('\n')[0]]
-
-edges = []
-for i in range(len(edgelist)):
-    edges.append((edgelist[i].split(' ')[1],edgelist[i].split(' ')[2]))
-
-graph = Graph()
-for i in nodedict.keys():
-    graph.add_node(i)
-
-for i in edgedict:
-    graph.add_edge(edgedict[i][0],edgedict[i][1],edgedict[i][2])
-
-print dijkstra(graph,"0600209")
+import pickle
+def magic(graph,start,target):
+    inf = 0
+    for u in graph:
+        for v ,w in graph[u]:
+           inf = float(inf) + float(w)
+    dist = dict([(u,inf) for u in graph])
+    prev = dict([(u,None) for u in graph])
+    q = graph.keys()
+    dist[start] = 0
+    def x(v):
+        return dist[v]
+    
+    while q != []:
+        u = min(q, key=x)
+        q.remove(u)
+        for v,w in graph[u]:
+            alt = float(dist[u]) + float(w)
+            if alt < dist[v]:
+                dist[v] = alt
+                prev[v] = u
+    trav = []
+    temp = target
+    while temp != start:
+        trav.append(prev[temp])
+        temp = prev[temp]
+    trav.reverse()
+    trav.append(target)
+    return " -> ".join(trav),dist[target]
+datasave = open('datasave','r')
+graph = pickle.load(datasave)
+print magic(graph,"1701291","0600209")
