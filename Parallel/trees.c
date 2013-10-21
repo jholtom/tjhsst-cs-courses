@@ -149,7 +149,7 @@ int main( int argc , char* argv[] ){
     int step,j;
     char t[ARRX][ARRY];
     int trial;
-    int numtrials = 10000;
+    int numtrials = 1000;
     MPI_Init(&argc,&argv);
     MPI_Comm_size(MPI_COMM_WORLD,&size);
     MPI_Comm_rank(MPI_COMM_WORLD,&rank);
@@ -184,12 +184,7 @@ int main( int argc , char* argv[] ){
 		prob = 80 ;
 		MPI_Send( &prob , 1 , MPI_DOUBLE , 3 , tag , MPI_COMM_WORLD ) ;
 		//
-		//
-		// recv - loop better , MPI_ANY_SOURCE , status.MPI_SOURCE
-		//      - in which case we also send/recv back the probability
-		//      - and the results may be printed out of order... sort! (post)
-		//
-		step = 0 ;
+        step = 0 ;
 		printf( "%20.16f %20.16f\n" , 0.0 , (1.0*step)/(ARRY*numtrials) ) ;
 		//
 		MPI_Recv( &step , 1 , MPI_INT    , 1 , tag , MPI_COMM_WORLD , &status ) ;
