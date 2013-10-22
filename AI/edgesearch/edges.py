@@ -6,7 +6,6 @@ import copy
 def is_route(route_dict,loc):
     adjacent = []
     adjacent.extend([rw[0] for rw in route_dict[loc]])
-    print adjacent 
     return adjacent
 
 def route_search(route_dict, source, target):
@@ -15,7 +14,7 @@ def route_search(route_dict, source, target):
     word_q = deque([[source]])
     visited = set([source])
     while word_q:
-        neighbors = word_q.pop() # POPLEFT FOR BFS / SET TO DFS NOW
+        neighbors = word_q.popleft() # POPLEFT FOR BFS / SET TO DFS NOW POP FOR DFS
         if neighbors[-1] == target:
             return neighbors
         adjacency = is_route(route_dict, neighbors[-1])
@@ -25,7 +24,6 @@ def route_search(route_dict, source, target):
                 n = copy.deepcopy(neighbors)
                 n.append(adjacent)
                 word_q.append(n)
-
 
 def magic(graph,start,target):
     inf = 0
@@ -55,7 +53,8 @@ def magic(graph,start,target):
     trav.reverse()
     trav.append(target)
     return " -> ".join(trav),dist[target]
+
 datasave = open('datasave','r')
 graph = pickle.load(datasave)
 #print magic(graph,"1701291","0600209")
-print route_search(graph,'1701291','0600209')
+print route_search(graph,"1701291","0600209")
