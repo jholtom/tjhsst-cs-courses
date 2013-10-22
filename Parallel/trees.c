@@ -33,49 +33,49 @@ void process_fire(char field[ARRX][ARRY]){
     }
     //Doesn't work...ask torbert
     //memcpy(&field_buffer,&field,sizeof(field));
+    /*
+       for( k = 0; k < ARRX; k++)
+       {
+       for( j = 0; j < ARRY; j++)
+       {
+       if( field[k][j] == '*')
+       {
+       if( field[k][j+1] == 'T' && (j+1) <= ARRY )
+       {
+       field_buffer[k][j+1] = '*'; 
+       }  
+       if( field[k][j-1] == 'T' && (j-1) >= 0 )
+       {
+       field_buffer[k][j-1] = '*';
+       }  
+       if( field[k+1][j] == 'T' && (k+1) <= ARRX )
+       {
+       field_buffer[k+1][j] = '*';
+       }  
+       if( field[k-1][j] == 'T' && (k-1) >=  0 )
+       {
+       field_buffer[k-1][j] = '*';
+       } 
+       if((field[k][j+1] == '*' || field[k][j+1] == ' ') && (j+1) <= ARRY )
+       {
+       field_buffer[k][j] = ' '; 
+       }  
+       if((field[k][j-1] == '*' || field[k][j-1] == ' ') && (j-1) >= 0 )
+       {
+       field_buffer[k][j] = ' ';
+       }  
+       if((field[k+1][j] == '*' || field[k+1][j] == ' ')  && (k+1) <= ARRX )
+       {
+       field_buffer[k][j] = ' ';
+       }  
+       if((field[k-1][j] == '*' || field[k-1][j] == ' ') && (k-1) >=  0 )
+       {
+       field_buffer[k][j] = ' ';
+       }
+       }
+       }
+       */ 
     for( k = 0; k < ARRX; k++)
-    {
-        for( j = 0; j < ARRY; j++)
-        {
-            if( field[k][j] == '*')
-            {
-                if( field[k][j+1] == 'T' && (j+1) <= ARRY )
-                {
-                    field_buffer[k][j+1] = '*'; 
-                }  
-                if( field[k][j-1] == 'T' && (j-1) >= 0 )
-                {
-                    field_buffer[k][j-1] = '*';
-                }  
-                if( field[k+1][j] == 'T' && (k+1) <= ARRX )
-                {
-                    field_buffer[k+1][j] = '*';
-                }  
-                if( field[k-1][j] == 'T' && (k-1) >=  0 )
-                {
-                    field_buffer[k-1][j] = '*';
-                } 
-                if((field[k][j+1] == '*' || field[k][j+1] == ' ') && (j+1) <= ARRY )
-                {
-                    field_buffer[k][j] = ' '; 
-                }  
-                if((field[k][j-1] == '*' || field[k][j-1] == ' ') && (j-1) >= 0 )
-                {
-                    field_buffer[k][j] = ' ';
-                }  
-                if((field[k+1][j] == '*' || field[k+1][j] == ' ')  && (k+1) <= ARRX )
-                {
-                    field_buffer[k][j] = ' ';
-                }  
-                if((field[k-1][j] == '*' || field[k-1][j] == ' ') && (k-1) >=  0 )
-                {
-                    field_buffer[k][j] = ' ';
-                }
-            }
-        }
-        
-        /* GAH NO NO NO 
-         for( k = 0; k < ARRX; k++)
     {
         for( j = 0; j < ARRY; j++)
         {
@@ -97,16 +97,14 @@ void process_fire(char field[ARRX][ARRY]){
             }
         }
     }
-    */
-    }
 
-    for( k = 0; k < ARRX; k++)
+for( k = 0; k < ARRX; k++)
+{
+    for( j = 0; j < ARRY; j++)
     {
-        for( j = 0; j < ARRY; j++)
-        {
-            field[k][j] = field_buffer[k][j];
-        }
+        field[k][j] = field_buffer[k][j];
     }
+}
 }
 int isfire(char[ARRX][ARRY]);
 int isfire(char field[ARRX][ARRY])
@@ -180,109 +178,109 @@ void main( int argc , char* argv[] ){
     MPI_Comm_rank(MPI_COMM_WORLD,&rank);
     //MASTER STUFF
     srand(time(NULL));
-	if( rank == 0 ) // manager
-	{
-		prob = 10 ;
-		MPI_Send( &prob , 1 , MPI_DOUBLE , 1 , tag , MPI_COMM_WORLD ) ;
-		//
-		prob = 20 ;
-		MPI_Send( &prob , 1 , MPI_DOUBLE , 2 , tag , MPI_COMM_WORLD ) ;
-		//
-		prob = 30 ;
-		MPI_Send( &prob , 1 , MPI_DOUBLE , 3 , tag , MPI_COMM_WORLD ) ;
-		//
-		prob = 40 ;
-		MPI_Send( &prob , 1 , MPI_DOUBLE , 1 , tag , MPI_COMM_WORLD ) ;
-		//
-		prob = 50 ;
-		MPI_Send( &prob , 1 , MPI_DOUBLE , 2 , tag , MPI_COMM_WORLD ) ;
-		//
-		prob = 60 ;
-		MPI_Send( &prob , 1 , MPI_DOUBLE , 3 , tag , MPI_COMM_WORLD ) ;
-		//
-		prob = 70 ;
-		MPI_Send( &prob , 1 , MPI_DOUBLE , 1 , tag , MPI_COMM_WORLD ) ;
-		//
-		prob = 80 ;
-		MPI_Send( &prob , 1 , MPI_DOUBLE , 2 , tag , MPI_COMM_WORLD ) ;
-		//
-		prob = 80 ;
-		MPI_Send( &prob , 1 , MPI_DOUBLE , 3 , tag , MPI_COMM_WORLD ) ;
-		//
-        step = 0 ;
-		printf( "%20.16f %20.16f\n" , 0.0 , (1.0*step)/(ARRY*numtrials) ) ;
-		//
-		MPI_Recv( &step , 1 , MPI_INT    , 1 , tag , MPI_COMM_WORLD , &status ) ;
-		printf( "%20.16f %20.16f\n" , 0.1 , (1.0*step)/(ARRY*numtrials) ) ;
-		//
-		MPI_Recv( &step , 1 , MPI_INT    , 2 , tag , MPI_COMM_WORLD , &status ) ;
-		printf( "%20.16f %20.16f\n" , 0.2 , (1.0*step)/(ARRY*numtrials) ) ;
-		//
-		MPI_Recv( &step , 1 , MPI_INT    , 3 , tag , MPI_COMM_WORLD , &status ) ;
-		printf( "%20.16f %20.16f\n" , 0.3 , (1.0*step)/(ARRY*numtrials) ) ;
-		//
-		MPI_Recv( &step , 1 , MPI_INT    , 1 , tag , MPI_COMM_WORLD , &status ) ;
-		printf( "%20.16f %20.16f\n" , 0.4 , (1.0*step)/(ARRY*numtrials) ) ;
-		//
-		MPI_Recv( &step , 1 , MPI_INT    , 2 , tag , MPI_COMM_WORLD , &status ) ;
-		printf( "%20.16f %20.16f\n" , 0.5 , (1.0*step)/(ARRY*numtrials) ) ;
-		//
-		MPI_Recv( &step , 1 , MPI_INT    , 3 , tag , MPI_COMM_WORLD , &status ) ;
-		printf( "%20.16f %20.16f\n" , 0.6 , (1.0*step)/(ARRY*numtrials) ) ;
-		//
-		MPI_Recv( &step , 1 , MPI_INT    , 1 , tag , MPI_COMM_WORLD , &status ) ;
-		printf( "%20.16f %20.16f\n" , 0.7 , (1.0*step)/(ARRY*numtrials) ) ;
-		//
-		MPI_Recv( &step , 1 , MPI_INT    , 2 , tag , MPI_COMM_WORLD , &status ) ;
-		printf( "%20.16f %20.16f\n" , 0.8 , (1.0*step)/(ARRY*numtrials) ) ;
-		//
-		MPI_Recv( &step , 1 , MPI_INT    , 3 , tag , MPI_COMM_WORLD , &status ) ;
-		printf( "%20.16f %20.16f\n" , 0.9 , (1.0*step)/(ARRY*numtrials) ) ;
-		//
-		step = ARRY * numtrials ;
-		printf( "%20.16f %20.16f\n" , 1.0 , (1.0*step)/(ARRY*numtrials) ) ;
-	}
-	else            // worker
-	{
-		MPI_Recv( &prob , 1 , MPI_DOUBLE , 0 , tag , MPI_COMM_WORLD , &status ) ;
-		step = 0 ;
-		for( trial = 1 ; trial <= numtrials ; trial++ )
-		{
-			step += compute( t , prob ) ;
-		}
-		MPI_Send( &step , 1 , MPI_INT    , 0 , tag , MPI_COMM_WORLD ) ;
-		MPI_Recv( &prob , 1 , MPI_DOUBLE , 0 , tag , MPI_COMM_WORLD , &status ) ;
-		step = 0 ;
-		for( trial = 1 ; trial <= numtrials ; trial++ )
-		{
-			step += compute( t , prob ) ;
-		}
-		MPI_Send( &step , 1 , MPI_INT    , 0 , tag , MPI_COMM_WORLD ) ;
-		MPI_Recv( &prob , 1 , MPI_DOUBLE , 0 , tag , MPI_COMM_WORLD , &status ) ;
-		step = 0 ;
-		for( trial = 1 ; trial <= numtrials ; trial++ )
-		{
-			step += compute( t , prob ) ;
-		}
-		MPI_Send( &step , 1 , MPI_INT    , 0 , tag , MPI_COMM_WORLD ) ;
-	}
-MPI_Finalize();
-exit(0);
-/*STUFF THAT DOES WORK
-    int avgs[100];
-    int numtrials = 100;
-    int i;
-    int k = 0;
-    for(i = 0; i <= 100; i += 1)
+    if( rank == 0 ) // manager
     {
-        //printf("PROBABILITY IS: %d\n",i);
-        int m,total;
-        for( m = 0; m < numtrials; m++){
-            total += compute(i);
+        prob = 10 ;
+        MPI_Send( &prob , 1 , MPI_DOUBLE , 1 , tag , MPI_COMM_WORLD ) ;
+        //
+        prob = 20 ;
+        MPI_Send( &prob , 1 , MPI_DOUBLE , 2 , tag , MPI_COMM_WORLD ) ;
+        //
+        prob = 30 ;
+        MPI_Send( &prob , 1 , MPI_DOUBLE , 3 , tag , MPI_COMM_WORLD ) ;
+        //
+        prob = 40 ;
+        MPI_Send( &prob , 1 , MPI_DOUBLE , 1 , tag , MPI_COMM_WORLD ) ;
+        //
+        prob = 50 ;
+        MPI_Send( &prob , 1 , MPI_DOUBLE , 2 , tag , MPI_COMM_WORLD ) ;
+        //
+        prob = 60 ;
+        MPI_Send( &prob , 1 , MPI_DOUBLE , 3 , tag , MPI_COMM_WORLD ) ;
+        //
+        prob = 70 ;
+        MPI_Send( &prob , 1 , MPI_DOUBLE , 1 , tag , MPI_COMM_WORLD ) ;
+        //
+        prob = 80 ;
+        MPI_Send( &prob , 1 , MPI_DOUBLE , 2 , tag , MPI_COMM_WORLD ) ;
+        //
+        prob = 80 ;
+        MPI_Send( &prob , 1 , MPI_DOUBLE , 3 , tag , MPI_COMM_WORLD ) ;
+        //
+        step = 0 ;
+        printf( "%20.16f %20.16f\n" , 0.0 , (1.0*step)/(ARRY*numtrials) ) ;
+        //
+        MPI_Recv( &step , 1 , MPI_INT    , 1 , tag , MPI_COMM_WORLD , &status ) ;
+        printf( "%20.16f %20.16f\n" , 0.1 , (1.0*step)/(ARRY*numtrials) ) ;
+        //
+        MPI_Recv( &step , 1 , MPI_INT    , 2 , tag , MPI_COMM_WORLD , &status ) ;
+        printf( "%20.16f %20.16f\n" , 0.2 , (1.0*step)/(ARRY*numtrials) ) ;
+        //
+        MPI_Recv( &step , 1 , MPI_INT    , 3 , tag , MPI_COMM_WORLD , &status ) ;
+        printf( "%20.16f %20.16f\n" , 0.3 , (1.0*step)/(ARRY*numtrials) ) ;
+        //
+        MPI_Recv( &step , 1 , MPI_INT    , 1 , tag , MPI_COMM_WORLD , &status ) ;
+        printf( "%20.16f %20.16f\n" , 0.4 , (1.0*step)/(ARRY*numtrials) ) ;
+        //
+        MPI_Recv( &step , 1 , MPI_INT    , 2 , tag , MPI_COMM_WORLD , &status ) ;
+        printf( "%20.16f %20.16f\n" , 0.5 , (1.0*step)/(ARRY*numtrials) ) ;
+        //
+        MPI_Recv( &step , 1 , MPI_INT    , 3 , tag , MPI_COMM_WORLD , &status ) ;
+        printf( "%20.16f %20.16f\n" , 0.6 , (1.0*step)/(ARRY*numtrials) ) ;
+        //
+        MPI_Recv( &step , 1 , MPI_INT    , 1 , tag , MPI_COMM_WORLD , &status ) ;
+        printf( "%20.16f %20.16f\n" , 0.7 , (1.0*step)/(ARRY*numtrials) ) ;
+        //
+        MPI_Recv( &step , 1 , MPI_INT    , 2 , tag , MPI_COMM_WORLD , &status ) ;
+        printf( "%20.16f %20.16f\n" , 0.8 , (1.0*step)/(ARRY*numtrials) ) ;
+        //
+        MPI_Recv( &step , 1 , MPI_INT    , 3 , tag , MPI_COMM_WORLD , &status ) ;
+        printf( "%20.16f %20.16f\n" , 0.9 , (1.0*step)/(ARRY*numtrials) ) ;
+        //
+        step = ARRY * numtrials ;
+        printf( "%20.16f %20.16f\n" , 1.0 , (1.0*step)/(ARRY*numtrials) ) ;
+    }
+    else            // worker
+    {
+        MPI_Recv( &prob , 1 , MPI_DOUBLE , 0 , tag , MPI_COMM_WORLD , &status ) ;
+        step = 0 ;
+        for( trial = 1 ; trial <= numtrials ; trial++ )
+        {
+            step += compute( t , prob ) ;
         }
-        avgs[k] = total / numtrials;
-        printf("%d %d\n",i,avgs[k]);
-        k++;
-        total = 0;
+        MPI_Send( &step , 1 , MPI_INT    , 0 , tag , MPI_COMM_WORLD ) ;
+        MPI_Recv( &prob , 1 , MPI_DOUBLE , 0 , tag , MPI_COMM_WORLD , &status ) ;
+        step = 0 ;
+        for( trial = 1 ; trial <= numtrials ; trial++ )
+        {
+            step += compute( t , prob ) ;
+        }
+        MPI_Send( &step , 1 , MPI_INT    , 0 , tag , MPI_COMM_WORLD ) ;
+        MPI_Recv( &prob , 1 , MPI_DOUBLE , 0 , tag , MPI_COMM_WORLD , &status ) ;
+        step = 0 ;
+        for( trial = 1 ; trial <= numtrials ; trial++ )
+        {
+            step += compute( t , prob ) ;
+        }
+        MPI_Send( &step , 1 , MPI_INT    , 0 , tag , MPI_COMM_WORLD ) ;
+    }
+    MPI_Finalize();
+    exit(0);
+    /*STUFF THAT DOES WORK
+      int avgs[100];
+      int numtrials = 100;
+      int i;
+      int k = 0;
+      for(i = 0; i <= 100; i += 1)
+      {
+    //printf("PROBABILITY IS: %d\n",i);
+    int m,total;
+    for( m = 0; m < numtrials; m++){
+    total += compute(i);
+    }
+    avgs[k] = total / numtrials;
+    printf("%d %d\n",i,avgs[k]);
+    k++;
+    total = 0;
     }*/
 }
