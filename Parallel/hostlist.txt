@@ -1,9 +1,7 @@
-elmo
+localhost
 defiant
 falcon
 fozzie
-cookiemonster
-grover
 eagle5
 mixcoatl
 tantive

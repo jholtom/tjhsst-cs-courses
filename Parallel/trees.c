@@ -67,7 +67,7 @@ void process_fire(char field[ARRX][ARRY]){
                 {
                     field_buffer[k][j] = ' ';
                 }  
-                if((field[k-1][j] == '*' || field[k+1][j] == ' ') && (k-1) >=  0 )
+                if((field[k-1][j] == '*' || field[k-1][j] == ' ') && (k-1) >=  0 )
                 {
                     field_buffer[k][j] = ' ';
                 }
@@ -241,7 +241,8 @@ void main( int argc , char* argv[] ){
 		}
 		MPI_Send( &step , 1 , MPI_INT    , 0 , tag , MPI_COMM_WORLD ) ;
 	}
-	MPI_Finalize();
+MPI_Finalize();
+exit(0);
 /*STUFF THAT DOES WORK
     int avgs[100];
     int numtrials = 100;
