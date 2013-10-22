@@ -73,6 +73,31 @@ void process_fire(char field[ARRX][ARRY]){
                 }
             }
         }
+        
+        /* GAH NO NO NO 
+         for( k = 0; k < ARRX; k++)
+    {
+        for( j = 0; j < ARRY; j++)
+        {
+            if( field[k][j] == '*')
+            {
+                if(field[k-1][j] == 'T' && k-1 > 0){
+                    field_buffer[k-1][j] = '*';
+                }
+                if(field[k+1][j] == 'T' && k+1 < ARRX){
+                    field_buffer[k+1][j] = '*';
+                }
+                if(field[k][j-1] == 'T' && j-1 > 0){
+                    field_buffer[k][j-1] = '*';
+                }
+                if(field[k][j+1] == 'T' && j+1 < ARRY){
+                    field_buffer[k][j+1] = '*';
+                }
+                field_buffer[k][j] = ' ';
+            }
+        }
+    }
+    */
     }
 
     for( k = 0; k < ARRX; k++)
