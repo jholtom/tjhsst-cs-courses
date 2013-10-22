@@ -141,7 +141,7 @@ int compute(char field[ARRX][ARRY], int prob){
     return steps;
 }
 
-int main( int argc , char* argv[] ){
+void main( int argc , char* argv[] ){
     //MPI stuff
     int rank,size,prob;
     MPI_Status status;
@@ -149,7 +149,7 @@ int main( int argc , char* argv[] ){
     int step,j;
     char t[ARRX][ARRY];
     int trial;
-    int numtrials = 1000;
+    int numtrials = 100;
     MPI_Init(&argc,&argv);
     MPI_Comm_size(MPI_COMM_WORLD,&size);
     MPI_Comm_rank(MPI_COMM_WORLD,&rank);
@@ -259,5 +259,4 @@ int main( int argc , char* argv[] ){
         k++;
         total = 0;
     }*/
-    return 0;
 }
