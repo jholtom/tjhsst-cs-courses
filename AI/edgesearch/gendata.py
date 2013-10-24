@@ -20,6 +20,8 @@ for i in nodedict:
     for k in edgedict:
         if i == edgedict[k][0]:
             graph[i].append(edgedict[k][1]) 
+        if i == edgedict[k][1]:
+            graph[i].append(edgedict[k][0])
 
 edges = {}
 for i in edgedict:
