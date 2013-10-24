@@ -1,7 +1,7 @@
 #Uniform Cost and A-Star - Jacob Holtom - 10/23/13
 import heapq
 
-def astar(self, graph, current, end, edges):
+def astar(graph, current, end, edges):
     openSet = set()
     openHeap = []
     closedSet = set()
