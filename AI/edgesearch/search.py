@@ -35,4 +35,8 @@ def astar(graph, current, end, edges):
 
 graph = pickle.load(open('graph','r'))
 edges = pickle.load(open('edges','r'))
-print astar(graph,'1701291','0600209', edges)
+print "RECOMMENDED: 1701291 to 0600209"
+print "RECOMMENDED: 2900190 to 2900275"
+start = raw_input('Starting node?') 
+end = raw_input('Ending node?')
+print astar(graph, start, end, edges)
