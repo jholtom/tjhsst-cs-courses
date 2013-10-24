@@ -1,6 +1,7 @@
 #Uniform Cost and A-Star - Jacob Holtom - 10/23/13
 import heapq
 import pickle
+import pu.db
 
 def astar(graph, current, end, edges):
     openSet = set()
@@ -17,6 +18,7 @@ def astar(graph, current, end, edges):
 
     openSet.add(current)
     openHeap.append((0,current))
+    pu.db
     while openSet:
         current = heapq.heappop(openHeap)[1]
         if current == end:
