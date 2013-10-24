@@ -212,9 +212,6 @@ void main( int argc , char* argv[] ){
 		//
 		MPI_Recv( &step , 1 , MPI_INT    , 1 , tag , MPI_COMM_WORLD , &status ) ;
 		printf( "%20.16f %20.16f\n" , 0.1 , (1.0*step)/(ARRY*numtrials) ) ;
-		for (int i = 0; i < np; i++) {
-			MPI_Send(0, 0, MPI_INT, i, TAG_FINISHOFF, MPI_COMM_WORLD);
-		}//
 		MPI_Recv( &step , 1 , MPI_INT    , 2 , tag , MPI_COMM_WORLD , &status ) ;
 		printf( "%20.16f %20.16f\n" , 0.2 , (1.0*step)/(ARRY*numtrials) ) ;
 		//
@@ -266,11 +263,7 @@ void main( int argc , char* argv[] ){
 		}
 		MPI_Send( &step , 1 , MPI_INT    , 0 , tag , MPI_COMM_WORLD ) ;
 	}
-	for (int i = 0; i < np; i++) {
-		MPI_Send(0, 0, MPI_INT, i, TAG_FINISHOFF, MPI_COMM_WORLD);
-	}//
 	MPI_Finalize();
-	exit(0);
 	/*STUFF THAT DOES WORK
 	  int avgs[100];
 	  int numtrials = 100;
