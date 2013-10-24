@@ -1,15 +1,16 @@
 #Uniform Cost and A-Star - Jacob Holtom - 10/23/13
 import heapq
+import pickle
 
 def astar(graph, current, end, edges):
     openSet = set()
     openHeap = []
     closedSet = set()
-
+    parents = {}
     def retracePath(c):
         path = [c]
-        while c.parent is not None:
-            c = c.parent
+        while parents[c] is not None:
+            c = parents[c]
             path.append(c)
         path.reverse()
         return path
@@ -22,14 +23,13 @@ def astar(graph, current, end, edges):
             return retracePath(current)
         openSet.remove(current)
         closedSet.add(current)
-        for tile in graph[current]:
-            if tile not in closedSet:
-                #tile.H = (abs(end.x-tile.x)+abs(end.y-tile.y))*10 
-                tile.H = abs(edges[(tile,end)])
-                if tile not in openSet:
-                    openSet.add(tile)
-                    heapq.heappush(openHeap, (tile.H,tile))
-                tile.parent = current
+        for loc in graph[current]:
+            if loc not in closedSet:
+                temp = abs(float(edges[(current,loc)]))
+                if loc not in openSet:
+                    openSet.add(loc)
+                    heapq.heappush(openHeap, (temp,loc))
+                parents[loc] = current
     return []
 
 graph = pickle.load(open('graph','r'))
