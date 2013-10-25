@@ -28,6 +28,7 @@ def astar(graph, current, end, edges):
         for loc in graph[current]:
             if loc not in closedSet:
                 temp = abs(float(edges[(current,loc)]))
+
                 if loc not in openSet:
                     openSet.add(loc)
                     heapq.heappush(openHeap, (temp,loc))
