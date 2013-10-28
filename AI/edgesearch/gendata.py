@@ -25,7 +25,7 @@ for i in nodedict:
 
 edges = {}
 for i in edgedict:
-    edges[(edgedict[i][0],edgedict[i][1])] = edgedict[i][2]
+    edges[frozenset([edgedict[i][0],edgedict[i][1]])] = edgedict[i][2]
 
 edgedump = open('edges','w+')
 graphdump = open('graph','w+')

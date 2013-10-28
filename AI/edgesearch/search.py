@@ -27,8 +27,7 @@ def astar(graph, current, end, edges):
         print 'Searching for paths from '+current
         for loc in graph[current]:
             if loc not in closedSet:
-                temp = abs(float(edges[(current,loc)]))
-
+                temp = abs(float(edges[frozenset([current,loc])))
                 if loc not in openSet:
                     openSet.add(loc)
                     heapq.heappush(openHeap, (temp,loc))

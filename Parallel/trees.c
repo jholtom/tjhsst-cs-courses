@@ -33,48 +33,6 @@ void process_fire(char field[ARRX][ARRY]){
 	}
 	//Doesn't work...ask torbert
 	//memcpy(&field_buffer,&field,sizeof(field));
-	/*
-	   for( k = 0; k < ARRX; k++)
-	   {
-	   for( j = 0; j < ARRY; j++)
-	   {
-	   if( field[k][j] == '*')
-	   {
-	   if( field[k][j+1] == 'T' && (j+1) <= ARRY )
-	   {
-	   field_buffer[k][j+1] = '*'; 
-	   }  
-	   if( field[k][j-1] == 'T' && (j-1) >= 0 )
-	   {
-	   field_buffer[k][j-1] = '*';
-	   }  
-	   if( field[k+1][j] == 'T' && (k+1) <= ARRX )
-	   {
-	   field_buffer[k+1][j] = '*';
-	   }  
-	   if( field[k-1][j] == 'T' && (k-1) >=  0 )
-	   {
-	   field_buffer[k-1][j] = '*';
-	   } 
-	   if((field[k][j+1] == '*' || field[k][j+1] == ' ') && (j+1) <= ARRY )
-	   {
-	   field_buffer[k][j] = ' '; 
-	   }  
-	   if((field[k][j-1] == '*' || field[k][j-1] == ' ') && (j-1) >= 0 )
-	   {
-	   field_buffer[k][j] = ' ';
-	   }  
-	   if((field[k+1][j] == '*' || field[k+1][j] == ' ')  && (k+1) <= ARRX )
-	   {
-	   field_buffer[k][j] = ' ';
-	   }  
-	   if((field[k-1][j] == '*' || field[k-1][j] == ' ') && (k-1) >=  0 )
-	   {
-	   field_buffer[k][j] = ' ';
-	   }
-	   }
-	   }
-	   */ 
 	for( k = 0; k < ARRX; k++)
 	{
 		for( j = 0; j < ARRY; j++)
@@ -138,34 +96,21 @@ int compute(char field[ARRX][ARRY], int prob){
 			}
 		}
 	}
-	//draw_array(field);
-	//sleep(2);
-	//system("clear");
 	int z;
 	for(z = 0; z < ARRX; z++)
 	{
 		if( field[z][0] == 'T' ) field[z][0] = '*';
 	}
-	//draw_array(field);
-	//sleep(2);
 	int steps = 0;
-	//system("clear");
 	while(isfire(field) != 0)
 	{
 		process_fire(field);
-		//ENABLE OR DISABLE DRAWING...
-		//draw_array(field);
-		//sleep(1);
-		//system("clear");
 		steps++;
 	}
-	//draw_array(field);
-	//printf("NUMBER OF STEPS IS: %d\n",steps);
 	return steps;
 }
 
 void main( int argc , char* argv[] ){
-	//MPI stuff
 	int rank,size,prob;
 	MPI_Status status;
 	int tag = 0;
@@ -176,7 +121,6 @@ void main( int argc , char* argv[] ){
 	MPI_Init(&argc,&argv);
 	MPI_Comm_size(MPI_COMM_WORLD,&size);
 	MPI_Comm_rank(MPI_COMM_WORLD,&rank);
-	//MASTER STUFF
 	srand(time(NULL));
 	if( rank == 0 ) // manager
 	{
@@ -264,21 +208,4 @@ void main( int argc , char* argv[] ){
 		MPI_Send( &step , 1 , MPI_INT    , 0 , tag , MPI_COMM_WORLD ) ;
 	}
 	MPI_Finalize();
-	/*STUFF THAT DOES WORK
-	  int avgs[100];
-	  int numtrials = 100;
-	  int i;
-	  int k = 0;
-	  for(i = 0; i <= 100; i += 1)
-	  {
-	//printf("PROBABILITY IS: %d\n",i);
-	int m,total;
-	for( m = 0; m < numtrials; m++){
-	total += compute(i);
-	}
-	avgs[k] = total / numtrials;
-	printf("%d %d\n",i,avgs[k]);
-	k++;
-	total = 0;
-	}*/
 }
