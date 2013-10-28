@@ -6,6 +6,8 @@
 #define ARRX 100
 #define ARRY 100
 
+//MPI_Recv(&probab, 1, MPI_INT, MPI_ANY_SOURCE, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
+
 void draw_array(char[ARRX][ARRY]);
 void draw_array(char field[ARRX][ARRY]){
 	int x,y;
