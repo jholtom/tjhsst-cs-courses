@@ -7,6 +7,7 @@ def astar(graph, current, end, edges):
     openHeap = []
     closedSet = set()
     parents = {}
+    parents[current] = None
     def retracePath(c):
         path = [c]
         while parents[c] is not None:
