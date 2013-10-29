@@ -113,7 +113,7 @@ int compute(char field[ARRX][ARRY], int prob){
 int selectnode(int);
 int selectnode(int np)
 {
-return rand() % (np - 1) + 1;
+	return rand() % (np - 1) + 1;
 }
 void main( int argc , char* argv[] ){
 	int rank,size,prob,prob2;
@@ -129,38 +129,50 @@ void main( int argc , char* argv[] ){
 	srand(time(NULL));
 	if( rank == 0 ) // manager
 	{
-		for(prob = 10; prob <= 100; prob += 10)
-        {
-        MPI_Send( &prob , 1 , MPI_DOUBLE , selectnode(size)  , tag , MPI_COMM_WORLD ) ;
-        }
-		step = 0 ;
-        for(prob2 = 10; prob2 <= 100; prob += 10)
-        {
-		MPI_Recv( &prob , 1 , MPI_INT , MPI_ANY_SOURCE , tag , MPI_COMM_WORLD , &status ) ;
-		MPI_Recv( &step , 1 , MPI_INT, status.MPI_SOURCE , tag , MPI_COMM_WORLD, &status ); 
-        	printf( "%d %20.16f\n" , prob , (1.0*step)/(ARRY*numtrials) ) ;
-        }
-		step = ARRY * numtrials ;
-		printf( "%20.16f %20.16f\n" , 1.0 , (1.0*step)/(ARRY*numtrials) ) ;
-	for (iter = 1; iter < size; iter++){
-        MPI_Recv(&result, 1, MPI_INT, MPI_ANY_SOURCE, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
-        MPI_Recv(&prob, 1, MPI_INT, status.MPI_SOURCE, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
-    		}
-        for (iter = 1; iter < size; ++iter) {
-            MPI_Send(0, 0, MPI_INT, iter, DIETAG, MPI_COMM_WORLD);
-        }
+
+		for (rank = 1; rank < ntasks; rank++){
+			prob = (int)floor(count % TRIALS_EACH);
+
+			MPI_Send(&prob, 1, MPI_INT, rank, WORKTAG, MPI_COMM_WORLD);
+			count++;
+		}
+
+		while (count < TRIALS){
+			MPI_Recv(&result, 1, MPI_DOUBLE, MPI_ANY_SOURCE, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
+			MPI_Recv(&probab, 1, MPI_INT, status.MPI_SOURCE, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
+			totals[probab] += result;
+			prob = floor(count / TRIALS_EACH);
+			MPI_Send(&prob, 1, MPI_INT, status.MPI_SOURCE, WORKTAG, MPI_COMM_WORLD);
+			count++;
+		}
+
+		for (rank = 1; rank < ntasks; rank++){
+			MPI_Recv(&result, 1, MPI_DOUBLE, MPI_ANY_SOURCE, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
+			MPI_Recv(&probab, 1, MPI_INT, status.MPI_SOURCE, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
+			totals[probab] += result;
+		}
+
+		for (rank = 1; rank < ntasks; rank++){
+			MPI_Send(0, 0, MPI_INT, rank, DIETAG, MPI_COMM_WORLD);
+		}
+
+		for (count = 0; count < (TRIALS/TRIALS_EACH); count++){
+			//printf("%.2f %.2f\n", (double)count/100, (double)totals[count]/100);
+		}
+
+		return 0;
 	}
 	else            // worker
 	{
-        MPI_Recv( &prob , 1 , MPI_DOUBLE , 0 , tag , MPI_COMM_WORLD , &status ) ;
+		MPI_Recv( &prob , 1 , MPI_DOUBLE , 0 , tag , MPI_COMM_WORLD , &status ) ;
 		if(status.MPI_TAG == DIETAG)
-            exit(0);
-        step = 0 ;
+			exit(0);
+		step = 0 ;
 		for( trial = 1 ; trial <= numtrials ; trial++ )
 		{
 			step += compute( t , prob ) ;
 		}
-        MPI_Send( &prob , 1 , MPI_INT , 0 , tag , MPI_COMM_WORLD );
+		MPI_Send( &prob , 1 , MPI_INT , 0 , tag , MPI_COMM_WORLD );
 		MPI_Send( &step , 1 , MPI_INT    , 0 , tag , MPI_COMM_WORLD ) ;
 	}
 	MPI_Finalize();
