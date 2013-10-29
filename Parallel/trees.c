@@ -5,8 +5,7 @@
 #include "mpi.h"
 #define ARRX 100
 #define ARRY 100
-
-//MPI_Recv(&probab, 1, MPI_INT, MPI_ANY_SOURCE, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
+#define DIETAG 2
 
 void draw_array(char[ARRX][ARRY]);
 void draw_array(char field[ARRX][ARRY]){
@@ -111,14 +110,18 @@ int compute(char field[ARRX][ARRY], int prob){
 	}
 	return steps;
 }
-
+int selectnode(int);
+int selectnode(int np)
+{
+return rand() % (np - 1) + 1;
+}
 void main( int argc , char* argv[] ){
-	int rank,size,prob;
+	int rank,size,prob,prob2;
 	MPI_Status status;
 	int tag = 0;
 	int step,j;
 	char t[ARRX][ARRY];
-	int trial;
+	int trial,iter;
 	int numtrials = 100;
 	MPI_Init(&argc,&argv);
 	MPI_Comm_size(MPI_COMM_WORLD,&size);
@@ -126,87 +129,34 @@ void main( int argc , char* argv[] ){
 	srand(time(NULL));
 	if( rank == 0 ) // manager
 	{
-		prob = 10 ;
-		MPI_Send( &prob , 1 , MPI_DOUBLE , 1 , tag , MPI_COMM_WORLD ) ;
-		//
-		prob = 20 ;
-		MPI_Send( &prob , 1 , MPI_DOUBLE , 2 , tag , MPI_COMM_WORLD ) ;
-		//
-		prob = 30 ;
-		MPI_Send( &prob , 1 , MPI_DOUBLE , 3 , tag , MPI_COMM_WORLD ) ;
-		//
-		prob = 40 ;
-		MPI_Send( &prob , 1 , MPI_DOUBLE , 1 , tag , MPI_COMM_WORLD ) ;
-		//
-		prob = 50 ;
-		MPI_Send( &prob , 1 , MPI_DOUBLE , 2 , tag , MPI_COMM_WORLD ) ;
-		//
-		prob = 60 ;
-		MPI_Send( &prob , 1 , MPI_DOUBLE , 3 , tag , MPI_COMM_WORLD ) ;
-		//
-		prob = 70 ;
-		MPI_Send( &prob , 1 , MPI_DOUBLE , 1 , tag , MPI_COMM_WORLD ) ;
-		//
-		prob = 80 ;
-		MPI_Send( &prob , 1 , MPI_DOUBLE , 2 , tag , MPI_COMM_WORLD ) ;
-		//
-		prob = 80 ;
-		MPI_Send( &prob , 1 , MPI_DOUBLE , 3 , tag , MPI_COMM_WORLD ) ;
-		//
+		for(prob = 10; prob <= 100; prob += 10)
+        {
+        MPI_Send( &prob , 1 , MPI_DOUBLE , selectnode(size)  , tag , MPI_COMM_WORLD ) ;
+        }
 		step = 0 ;
-		printf( "%20.16f %20.16f\n" , 0.0 , (1.0*step)/(ARRY*numtrials) ) ;
-		//
-		MPI_Recv( &step , 1 , MPI_INT    , 1 , tag , MPI_COMM_WORLD , &status ) ;
-		printf( "%20.16f %20.16f\n" , 0.1 , (1.0*step)/(ARRY*numtrials) ) ;
-		MPI_Recv( &step , 1 , MPI_INT    , 2 , tag , MPI_COMM_WORLD , &status ) ;
-		printf( "%20.16f %20.16f\n" , 0.2 , (1.0*step)/(ARRY*numtrials) ) ;
-		//
-		MPI_Recv( &step , 1 , MPI_INT    , 3 , tag , MPI_COMM_WORLD , &status ) ;
-		printf( "%20.16f %20.16f\n" , 0.3 , (1.0*step)/(ARRY*numtrials) ) ;
-		//
-		MPI_Recv( &step , 1 , MPI_INT    , 1 , tag , MPI_COMM_WORLD , &status ) ;
-		printf( "%20.16f %20.16f\n" , 0.4 , (1.0*step)/(ARRY*numtrials) ) ;
-		//
-		MPI_Recv( &step , 1 , MPI_INT    , 2 , tag , MPI_COMM_WORLD , &status ) ;
-		printf( "%20.16f %20.16f\n" , 0.5 , (1.0*step)/(ARRY*numtrials) ) ;
-		//
-		MPI_Recv( &step , 1 , MPI_INT    , 3 , tag , MPI_COMM_WORLD , &status ) ;
-		printf( "%20.16f %20.16f\n" , 0.6 , (1.0*step)/(ARRY*numtrials) ) ;
-		//
-		MPI_Recv( &step , 1 , MPI_INT    , 1 , tag , MPI_COMM_WORLD , &status ) ;
-		printf( "%20.16f %20.16f\n" , 0.7 , (1.0*step)/(ARRY*numtrials) ) ;
-		//
-		MPI_Recv( &step , 1 , MPI_INT    , 2 , tag , MPI_COMM_WORLD , &status ) ;
-		printf( "%20.16f %20.16f\n" , 0.8 , (1.0*step)/(ARRY*numtrials) ) ;
-		//
-		MPI_Recv( &step , 1 , MPI_INT    , 3 , tag , MPI_COMM_WORLD , &status ) ;
-		printf( "%20.16f %20.16f\n" , 0.9 , (1.0*step)/(ARRY*numtrials) ) ;
-		//
+        for(prob2 = 10; prob2 <= 100; prob += 10)
+        {
+		MPI_Recv( &prob , 1 , MPI_INT , MPI_ANY_SOURCE , tag , MPI_COMM_WORLD , &status ) ;
+		MPI_Recv( &step , 1 , MPI_INT, MPI_ANY_SOURCE , tag , MPI_COMM_WORLD, &status ); 
+        printf( "%d %20.16f\n" , prob , (1.0*step)/(ARRY*numtrials) ) ;
+        }
 		step = ARRY * numtrials ;
 		printf( "%20.16f %20.16f\n" , 1.0 , (1.0*step)/(ARRY*numtrials) ) ;
+        for (iter = 1; iter < size; ++iter) {
+            MPI_Send(0, 0, MPI_INT, iter, DIETAG, MPI_COMM_WORLD);
+        }
 	}
 	else            // worker
 	{
-		MPI_Recv( &prob , 1 , MPI_DOUBLE , 0 , tag , MPI_COMM_WORLD , &status ) ;
-		step = 0 ;
+        MPI_Recv( &prob , 1 , MPI_DOUBLE , 0 , tag , MPI_COMM_WORLD , &status ) ;
+		if(status.MPI_TAG == DIETAG)
+            exit(0);
+        step = 0 ;
 		for( trial = 1 ; trial <= numtrials ; trial++ )
 		{
 			step += compute( t , prob ) ;
 		}
-		MPI_Send( &step , 1 , MPI_INT    , 0 , tag , MPI_COMM_WORLD ) ;
-		MPI_Recv( &prob , 1 , MPI_DOUBLE , 0 , tag , MPI_COMM_WORLD , &status ) ;
-		step = 0 ;
-		for( trial = 1 ; trial <= numtrials ; trial++ )
-		{
-			step += compute( t , prob ) ;
-		}
-		MPI_Send( &step , 1 , MPI_INT    , 0 , tag , MPI_COMM_WORLD ) ;
-		MPI_Recv( &prob , 1 , MPI_DOUBLE , 0 , tag , MPI_COMM_WORLD , &status ) ;
-		step = 0 ;
-		for( trial = 1 ; trial <= numtrials ; trial++ )
-		{
-			step += compute( t , prob ) ;
-		}
+        MPI_Send( &prob , 1 , MPI_INT , 0 , tag , MPI_COMM_WORLD );
 		MPI_Send( &step , 1 , MPI_INT    , 0 , tag , MPI_COMM_WORLD ) ;
 	}
 	MPI_Finalize();
