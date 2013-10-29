@@ -24,7 +24,7 @@ def astar(graph, current, end, edges):
             return retracePath(current)
         openSet.remove(current)
         closedSet.add(current)
-        print 'Searching for paths from '+current
+        #print 'Searching for paths from '+current
         for loc in graph[current]:
             if loc not in closedSet:
                 temp = abs(float(edges[frozenset([current,loc])]))
@@ -32,7 +32,7 @@ def astar(graph, current, end, edges):
                     openSet.add(loc)
                     heapq.heappush(openHeap, (temp,loc))
                 parents[loc] = current
-                print '\t'+loc
+                #print '\t'+loc
     return []
 
 graph = pickle.load(open('graph','r'))
@@ -41,4 +41,7 @@ print "RECOMMENDED: 1701291 to 0600209"
 print "RECOMMENDED: 2900190 to 2900275"
 start = raw_input('Starting node?') 
 end = raw_input('Ending node?')
-print astar(graph, start, end, edges)
+path = astar(graph, start, end, edges)
+print "Path Length: " + str(len(path))
+for i in path:
+    print i,' -> ',
