@@ -1,5 +1,6 @@
 #Uniform Cost and A-Star - Jacob Holtom - 10/23/13
 import heapq
+import time
 import pickle
 
 def astar(graph, current, end, edges):
@@ -41,7 +42,9 @@ print "RECOMMENDED: 1701291 to 0600209"
 print "RECOMMENDED: 2900190 to 2900275"
 start = raw_input('Starting node?') 
 end = raw_input('Ending node?')
+start_time = time.time()
 path = astar(graph, start, end, edges)
+print time.time() - start_time, "seconds"
 print "Path Length: " + str(len(path))
 for i in path:
     print i,' -> ',
