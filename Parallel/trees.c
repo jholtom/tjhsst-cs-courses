@@ -137,11 +137,15 @@ void main( int argc , char* argv[] ){
         for(prob2 = 10; prob2 <= 100; prob += 10)
         {
 		MPI_Recv( &prob , 1 , MPI_INT , MPI_ANY_SOURCE , tag , MPI_COMM_WORLD , &status ) ;
-		MPI_Recv( &step , 1 , MPI_INT, MPI_ANY_SOURCE , tag , MPI_COMM_WORLD, &status ); 
-        printf( "%d %20.16f\n" , prob , (1.0*step)/(ARRY*numtrials) ) ;
+		MPI_Recv( &step , 1 , MPI_INT, status.MPI_SOURCE , tag , MPI_COMM_WORLD, &status ); 
+        	printf( "%d %20.16f\n" , prob , (1.0*step)/(ARRY*numtrials) ) ;
         }
 		step = ARRY * numtrials ;
 		printf( "%20.16f %20.16f\n" , 1.0 , (1.0*step)/(ARRY*numtrials) ) ;
+	for (iter = 1; iter < size; iter++){
+        MPI_Recv(&result, 1, MPI_INT, MPI_ANY_SOURCE, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
+        MPI_Recv(&prob, 1, MPI_INT, status.MPI_SOURCE, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
+    		}
         for (iter = 1; iter < size; ++iter) {
             MPI_Send(0, 0, MPI_INT, iter, DIETAG, MPI_COMM_WORLD);
         }
