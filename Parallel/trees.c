@@ -7,7 +7,7 @@
 #define ARRX 100
 #define ARRY 100
 #define DIETAG 2
-
+#define WORKTAG 0
 void draw_array(char[ARRX][ARRY]);
 void draw_array(char field[ARRX][ARRY]){
 	int x,y;
@@ -130,7 +130,7 @@ int main( int argc , char* argv[] ){
 		//seed them
 		for (iter = 1; iter < size; iter++){
 			prob = (int)floor(count % TRIALS_EACH);
-			MPI_Send(&prob, 1, MPI_INT, iter, 0, MPI_COMM_WORLD);
+			MPI_Send(&prob, 1, MPI_INT, iter, WORKTAG, MPI_COMM_WORLD);
 			count++;
 		}
 		//feed them
@@ -139,7 +139,7 @@ int main( int argc , char* argv[] ){
 			MPI_Recv(&prob2, 1, MPI_INT, status.MPI_SOURCE, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
 			totals[prob2] += result;
 			prob = floor(count / TRIALS_EACH);
-			MPI_Send(&prob, 1, MPI_INT, status.MPI_SOURCE, 0, MPI_COMM_WORLD);
+			MPI_Send(&prob, 1, MPI_INT, status.MPI_SOURCE, WORKTAG, MPI_COMM_WORLD);
 			count++;
 		}
 		//get stuff
@@ -155,6 +155,8 @@ int main( int argc , char* argv[] ){
 	}
 	else            // worker
 	{
+		while(1)
+		{
 		MPI_Recv( &prob , 1 , MPI_INT , 0 , MPI_ANY_TAG , MPI_COMM_WORLD , &status ) ;
 		if(status.MPI_TAG == DIETAG)
 			exit(0);
@@ -162,6 +164,7 @@ int main( int argc , char* argv[] ){
 		step += compute( t , prob ) ;
 		MPI_Send( &step , 1 , MPI_INT , 0 , 0 , MPI_COMM_WORLD );
 		MPI_Send( &prob , 1 , MPI_INT    , 0 , 0 , MPI_COMM_WORLD ) ;
+		}
 	}
 	MPI_Finalize();
 	return 0;
