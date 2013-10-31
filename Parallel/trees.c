@@ -129,9 +129,10 @@ void main( int argc , char* argv[] ){
 	if( rank == 0 ) // manager
 	{
 
-		for (rank = 1; rank < size; rank++){
+		for (iter = 1; iter < size; iter++){
 			prob = (int)floor(count % TRIALS_EACH);
-			MPI_Send(&prob, 1, MPI_INT, rank, 0, MPI_COMM_WORLD);
+			printf("%d",prob);
+			MPI_Send(&prob, 1, MPI_INT, iter, 0, MPI_COMM_WORLD);
 			count++;
 		}
 
@@ -150,8 +151,8 @@ void main( int argc , char* argv[] ){
 			totals[prob2] += result;
 		}
 
-		for (rank = 1; rank < size; rank++){
-			MPI_Send(0, 0, MPI_INT, rank, DIETAG, MPI_COMM_WORLD);
+		for (iter = 1; iter < size; iter++){
+			MPI_Send(0, 0, MPI_INT, iter, DIETAG, MPI_COMM_WORLD);
 		}
 	}
 	else            // worker
