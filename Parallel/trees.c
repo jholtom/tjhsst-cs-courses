@@ -159,7 +159,9 @@ int main( int argc , char* argv[] ){
 		{
 		MPI_Recv( &prob , 1 , MPI_INT , 0 , MPI_ANY_TAG , MPI_COMM_WORLD , &status ) ;
 		if(status.MPI_TAG == DIETAG)
-			exit(0);
+		{
+			break;
+		}
 		step = 0 ;
 		step += compute( t , prob ) ;
 		MPI_Send( &step , 1 , MPI_INT , 0 , 0 , MPI_COMM_WORLD );
