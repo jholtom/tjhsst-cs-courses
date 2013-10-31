@@ -17,7 +17,6 @@ def astar(graph, current, end, edges):
             path.append(c)
         path.reverse()
         return path
-
     openSet.add(current)
     openHeap.append((0,current))
     while openSet:
@@ -52,7 +51,6 @@ def ucs(graph, current, end, edges):
             path.append(c)
         path.reverse()
         return path
-
     openSet.add(current)
     openHeap.append((0,current))
     while openSet:
@@ -65,14 +63,13 @@ def ucs(graph, current, end, edges):
         #print 'Searching for paths from '+current
         for loc in graph[current]:
             if loc not in closedSet:
-                temp = abs(float(edges[frozenset([current,loc])]))
+                temp = 1
                 if loc not in openSet:
                     openSet.add(loc)
                     heapq.heappush(openHeap, (temp,loc))
                 parents[loc] = current
                 #print '\t'+loc
     return ([],count)
-
 graph = pickle.load(open('graph','r'))
 edges = pickle.load(open('edges','r'))
 #DAT TESTING METHOD
@@ -80,8 +77,8 @@ while True:
     start = raw_input('Starting node?') 
     end = raw_input('Ending node?')
     start_time = time.time()
-    path,count = astar(graph, start, end, edges)
-    #path,count = ucs(graph,start,end,edges)
+    #path,count = astar(graph, start, end, edges)
+    path,count = ucs(graph,start,end,edges)
     print time.time() - start_time, "seconds"
     print "Path Length: " + str(len(path))
     print "Popped out of queue: " + str(count)
