@@ -115,11 +115,11 @@ void main( int argc , char* argv[] ){
 	int rank,size,prob,prob2;
 	MPI_Status status;
 	int tag = 0;
-    int count = 0;
+	int count = 1;
 	int step,j,result;
-    int TRIALS_EACH = 10;
-	int numtrials = 1000;
-    int totals[numtrials/TRIALS_EACH];
+	int TRIALS_EACH = 1;
+	int numtrials = 100;
+	int totals[numtrials/TRIALS_EACH];
 	char t[ARRX][ARRY];
 	int trial,iter;
 	MPI_Init(&argc,&argv);
@@ -128,14 +128,13 @@ void main( int argc , char* argv[] ){
 	srand(time(NULL));
 	if( rank == 0 ) // manager
 	{
-
+		//seed them
 		for (iter = 1; iter < size; iter++){
 			prob = (int)floor(count % TRIALS_EACH);
-			printf("%d",prob);
 			MPI_Send(&prob, 1, MPI_INT, iter, 0, MPI_COMM_WORLD);
 			count++;
 		}
-
+		//feed them
 		while (count < numtrials){
 			MPI_Recv(&result, 1, MPI_INT, MPI_ANY_SOURCE, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
 			MPI_Recv(&prob2, 1, MPI_INT, status.MPI_SOURCE, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
@@ -144,13 +143,13 @@ void main( int argc , char* argv[] ){
 			MPI_Send(&prob, 1, MPI_INT, status.MPI_SOURCE, 0, MPI_COMM_WORLD);
 			count++;
 		}
-
+		//get stuff
 		for (iter = 1; iter < size; iter++){
 			MPI_Recv(&result, 1, MPI_INT, MPI_ANY_SOURCE, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
 			MPI_Recv(&prob2, 1, MPI_INT, status.MPI_SOURCE, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
 			totals[prob2] += result;
 		}
-
+		//cleanup
 		for (iter = 1; iter < size; iter++){
 			MPI_Send(0, 0, MPI_INT, iter, DIETAG, MPI_COMM_WORLD);
 		}
