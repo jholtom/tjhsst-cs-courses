@@ -3,6 +3,6 @@ encoder:
 trees:
 	mpicc trees.c -o trees
 runtrees:
-	mpirun -np 4 -machinefile hostlist.txt trees
+	mpirun -np 32 -machinefile hostlist.txt trees
 clean:
 	@rm -rf `find . -executable -type f`

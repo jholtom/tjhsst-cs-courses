@@ -111,14 +111,13 @@ int compute(char field[ARRX][ARRY], int prob){
 	}
 	return steps;
 }
-void main( int argc , char* argv[] ){
+int main( int argc , char* argv[] ){
 	int rank,size,prob,prob2;
 	MPI_Status status;
-	int tag = 0;
-	int count = 1;
+	int count = 0;
 	int step,j,result;
-	int TRIALS_EACH = 1;
-	int numtrials = 100;
+	int TRIALS_EACH = 100;
+	int numtrials = 10000;
 	int totals[numtrials/TRIALS_EACH];
 	char t[ARRX][ARRY];
 	int trial,iter;
@@ -156,13 +155,14 @@ void main( int argc , char* argv[] ){
 	}
 	else            // worker
 	{
-		MPI_Recv( &prob , 1 , MPI_INT , 0 , tag , MPI_COMM_WORLD , &status ) ;
+		MPI_Recv( &prob , 1 , MPI_INT , 0 , MPI_ANY_TAG , MPI_COMM_WORLD , &status ) ;
 		if(status.MPI_TAG == DIETAG)
 			exit(0);
 		step = 0 ;
 		step += compute( t , prob ) ;
-		MPI_Send( &step , 1 , MPI_INT , 0 , tag , MPI_COMM_WORLD );
-		MPI_Send( &prob , 1 , MPI_INT    , 0 , tag , MPI_COMM_WORLD ) ;
+		MPI_Send( &step , 1 , MPI_INT , 0 , 0 , MPI_COMM_WORLD );
+		MPI_Send( &prob , 1 , MPI_INT    , 0 , 0 , MPI_COMM_WORLD ) ;
 	}
 	MPI_Finalize();
+	return 0;
 }
