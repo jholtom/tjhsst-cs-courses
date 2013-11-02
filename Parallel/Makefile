@@ -1,7 +1,9 @@
 encoder:
-	gcc encoding/encode.c -o encode
+	gcc encoding/encode.c -o encoding/encode
 trees:
-	mpicc percolation/trees.c -o trees
+	mpicc percolation/trees.c -o percolation/trees
+gltrees:
+	gcc percolation/gl/gltrees.c -o percolation/gl/gltrees
 runtrees:
 	mpirun -np 32 -machinefile hostlist.txt percolation/trees
 clean:
