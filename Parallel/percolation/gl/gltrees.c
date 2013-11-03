@@ -1,16 +1,10 @@
-// 
-// Torbert, 30 October 2013
-// 
-// gcc -lGLU -lglut glshell.c
-// 
+// Jacob Holtom - 11/02/13
 #include <stdio.h>
 #include <GL/glut.h>
-// 
 #define N 600 
 // 
 int count =  0 ; 
 int ascii = 48 ; 
-// 
 void idlefunc(void)
 {
    ++count ;
@@ -18,46 +12,36 @@ void idlefunc(void)
    if( count == 1000000 )
    {
       count = 0 ;
-      //
       ++ascii ;
-      //
       if( ascii ==  58 ) ascii = 65 ;
       if( ascii ==  91 ) ascii = 97 ;
       if( ascii == 123 ) ascii = 48 ;
-      //
       glutPostRedisplay() ;
    }
 }
-//
 void displayfunc(void)
 {
    int x , y ;
-   //
    glClear(GL_COLOR_BUFFER_BIT);
-   //
    for( x = 100 ; x < N ; x++ )
    {
       for( y = 100 ; y < N ; y++ )
       { 
          glColor3f( 0.6 , 0.3 , 0.0 ) ; // brown
-         //
          glBegin(GL_POINTS);
          glVertex2f(x,y);
          glEnd();
       }
    }
-   //
    glColor3f( 0.0 , 0.0 , 0.0 ) ;
    glBegin( GL_TRIANGLES ) ;
    glVertex2f( 0.25 * N , 0.25 * N ) ;
    glVertex2f( 0.75 * N , 0.25 * N ) ;
    glVertex2f( 0.50 * N , 0.50 * N ) ;
    glEnd() ;
-   //
    glColor3f( 1.0 , 1.0 , 1.0 ) ;
    glRasterPos2f( 0.85*N , 0.9*N ) ;
    glutBitmapCharacter( GLUT_BITMAP_HELVETICA_18 , (char)ascii ) ;
-   //
    glutSwapBuffers() ;
 }
 void reshapefunc(int wscr,int hscr)
@@ -116,11 +100,6 @@ int main(int argc,char* argv[])
    glutKeyboardFunc(keyfunc);
    glutSpecialFunc(specialfunc);
    glutWMCloseFunc(closefunc);
-   //
    glutMainLoop();
-   //
    return 0;
 }
-// 
-// end of file
-// 
