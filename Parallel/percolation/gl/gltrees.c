@@ -1,6 +1,10 @@
 // Jacob Holtom - 11/02/13
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 #include <GL/glut.h>
+#include <math.h>
+#include "mpi.h"
 #define N 600
 #define ARRX N
 #define ARRY N
@@ -117,7 +121,6 @@ void displayfunc(void)
     glColor3f( 0.0 , 0.0 , 0.0 ) ;
     glColor3f( 1.0 , 1.0 , 1.0 ) ;
     glRasterPos2f( 0.85*N , 0.9*N ) ;
-    glutBitmapCharacter( GLUT_BITMAP_HELVETICA_18 , (char)ascii ) ;
     glutSwapBuffers() ;
 }
 void reshapefunc(int wscr,int hscr)
