@@ -1,7 +1,7 @@
 // Jacob Holtom - 11/02/13
 #include <stdio.h>
 #include <GL/glut.h>
-#define N 800 
+#define N 600 
 int count =  0 ; 
 int ascii = 48 ; 
 void idlefunc(void)
@@ -21,22 +21,17 @@ void displayfunc(void)
 {
    int x , y ;
    glClear(GL_COLOR_BUFFER_BIT);
-   for( x = 100 ; x < N ; x++ )
+   for( x = 0 ; x < N ; x++ )
    {
-      for( y = 100 ; y < N ; y++ )
+      for( y = 0 ; y < N ; y++ )
       { 
-         glColor3f( 0.6 , 0.3 , 0.0 ) ; // brown
+         glColor3f( 0.2 , 1 , 0.2 ) ;
          glBegin(GL_POINTS);
          glVertex2f(x,y);
          glEnd();
       }
    }
    glColor3f( 0.0 , 0.0 , 0.0 ) ;
-   glBegin( GL_TRIANGLES ) ;
-   glVertex2f( 0.25 * N , 0.25 * N ) ;
-   glVertex2f( 0.75 * N , 0.25 * N ) ;
-   glVertex2f( 0.50 * N , 0.50 * N ) ;
-   glEnd() ;
    glColor3f( 1.0 , 1.0 , 1.0 ) ;
    glRasterPos2f( 0.85*N , 0.9*N ) ;
    glutBitmapCharacter( GLUT_BITMAP_HELVETICA_18 , (char)ascii ) ;
