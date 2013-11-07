@@ -1,14 +1,12 @@
 // Jacob Holtom - 11/02/13
 #include <stdio.h>
 #include <GL/glut.h>
-#define N 600 
-// 
+#define N 800 
 int count =  0 ; 
 int ascii = 48 ; 
 void idlefunc(void)
 {
    ++count ;
-   //
    if( count == 1000000 )
    {
       count = 0 ;
@@ -91,7 +89,6 @@ int main(int argc,char* argv[])
    glutCreateWindow("");
    glClearColor(1.0,1.0,1.0,0.0);
    glShadeModel(GL_SMOOTH);
-   //
    glutIdleFunc(idlefunc);
    glutDisplayFunc(displayfunc);
    glutReshapeFunc(reshapefunc);

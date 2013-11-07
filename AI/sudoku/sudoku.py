@@ -1,2 +1,2 @@
-#Solves Sudoku puzzles. 
-#Jacob Holtom - 11/02/13
+#Jacob Holtom - 11/06/13
+
