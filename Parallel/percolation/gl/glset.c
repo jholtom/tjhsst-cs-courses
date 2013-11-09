@@ -6,14 +6,46 @@
 #include <math.h>
 #include "mpi.h"
 #define N 600
-#define ARRX N
-#define ARRY N
 #define DIETAG 2
 #define WORKTAG 0
-void idlefunc(void)
+#define MAXITER 1000
+double[] getcolor(int iter)
+{
+//TODO: IMPLEMENT COLOR GETTING FUNCTION
+return [0.5,0.5,0.5];
+}
+double scalex(int x)
 {
 
+}
+double scaley(int y)
+{
 
+}
+void idlefunc(void)
+{
+    int x , y;
+    for( x = 0; x < N; x++){
+        for ( y = 0; y < M; y++){
+            double x0 = scalex(x);
+            double y0 = scaley(y);
+            double x1 = 0.0;
+            double y1 = 0.0;
+            int iter = 0;
+            while((x*x + y*y < 2*2) && (iter < MAXITER))
+            {
+               double xtemp = x*x - y*y + x0;
+               y = 2*x*y + y0;
+               x = xtemp;
+               iter = iter + 1;
+            }
+            double[] color = getcolor(iter);
+            glBegin(GL_POINTS);
+            glColor3f(color[0],color[1],color[2]);
+            glVertex2f(x,y);
+            glEnd();
+        }
+    }
 }
 void displayfunc(void)
 {
@@ -102,21 +134,21 @@ int main(int argc,char* argv[])
             MPI_Send(0, 0, MPI_INT, iter, DIETAG, MPI_COMM_WORLD);
         }
     }
-	else // worker - I DONT DO GL
-	{
-		while(1)
-		{
-		MPI_Recv( &prob , 1 , MPI_INT , 0 , MPI_ANY_TAG , MPI_COMM_WORLD , &status ) ;
-		if(status.MPI_TAG == DIETAG)
-		{
-			break;
-		}
-		step = 0 ;
-		step += compute( t , prob ) ;
-		MPI_Send( &step , 1 , MPI_INT , 0 , 0 , MPI_COMM_WORLD );
-		MPI_Send( &prob , 1 , MPI_INT    , 0 , 0 , MPI_COMM_WORLD ) ;
-		}
-	}
-	MPI_Finalize();
+    else // worker - I DONT DO GL
+    {
+        while(1)
+        {
+            MPI_Recv( &prob , 1 , MPI_INT , 0 , MPI_ANY_TAG , MPI_COMM_WORLD , &status ) ;
+            if(status.MPI_TAG == DIETAG)
+            {
+                break;
+            }
+            step = 0 ;
+            step += compute( t , prob ) ;
+            MPI_Send( &step , 1 , MPI_INT , 0 , 0 , MPI_COMM_WORLD );
+            MPI_Send( &prob , 1 , MPI_INT    , 0 , 0 , MPI_COMM_WORLD ) ;
+        }
+    }
+    MPI_Finalize();
     return 0;
 }
