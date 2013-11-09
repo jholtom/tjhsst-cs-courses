@@ -112,14 +112,14 @@ void closefunc(void)
 }
 int main(int argc,char* argv[])
 {  
-    int rank,size,prob,prob2;
-    MPI_Status status;
-    MPI_Init(&argc,&argv);
-    MPI_Comm_size(MPI_COMM_WORLD,&size);
-    MPI_Comm_rank(MPI_COMM_WORLD,&rank);
-    srand(time(NULL));
-    if( rank == 0 ) // manager  - I AM VERY GL
-    {
+    //int rank,size,prob,prob2;
+    //MPI_Status status;
+    //MPI_Init(&argc,&argv);
+    //MPI_Comm_size(MPI_COMM_WORLD,&size);
+    //MPI_Comm_rank(MPI_COMM_WORLD,&rank);
+    //srand(time(NULL));
+    //if( rank == 0 ) // manager  - I AM VERY GL
+    //{
         glutInit(&argc,argv);
         glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
         glutInitWindowSize(N,N);
@@ -136,12 +136,12 @@ int main(int argc,char* argv[])
         glutSpecialFunc(specialfunc);
         glutWMCloseFunc(closefunc);
         glutMainLoop();
-        for (iter = 1; iter < size; iter++){
-            MPI_Send(0, 0, MPI_INT, iter, DIETAG, MPI_COMM_WORLD);
-        }
-    }
-    else // worker - I DONT DO GL
-    {
+    //    for (iter = 1; iter < size; iter++){
+    //        MPI_Send(0, 0, MPI_INT, iter, DIETAG, MPI_COMM_WORLD);
+    //    }
+//    }
+    //else // worker - I DONT DO GL
+    /*{
         while(1)
         {
             MPI_Recv( &prob , 1 , MPI_INT , 0 , MPI_ANY_TAG , MPI_COMM_WORLD , &status ) ;
@@ -155,6 +155,6 @@ int main(int argc,char* argv[])
             MPI_Send( &prob , 1 , MPI_INT    , 0 , 0 , MPI_COMM_WORLD ) ;
         }
     }
-    MPI_Finalize();
+    MPI_Finalize();*/
     return 0;
 }
