@@ -85,7 +85,7 @@ def some(seq):
     return False
 
 def from_file(filename, sep='\n'):
-    return file(filename).read().strip().split(sep)
+    return file(filename).read().strip().split("\n")
 
 def shuffled(seq):
     seq = list(seq)
