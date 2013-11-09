@@ -11,16 +11,22 @@
 #define MAXITER 1000
 double[] getcolor(int iter)
 {
-//TODO: IMPLEMENT COLOR GETTING FUNCTION
-return [0.5,0.5,0.5];
+    //TODO: IMPLEMENT COLOR GETTING FUNCTION
+    return [0.5,0.5,0.5];
 }
 double scalex(int x)
 {
-
+    double oldrange = (N - 0);
+    double newrange = (1 + 2.5);
+    double scaled = (((x - 0)* newrange) / oldrange) - 2.5;
+    return scaled;
 }
 double scaley(int y)
 {
-
+    double oldrange = (N - 0);
+    double newrange = (1 + 1);
+    double scaled = (((y - 0)* newrange) / oldrange) - 1;
+    return scaled;
 }
 void idlefunc(void)
 {
@@ -34,10 +40,10 @@ void idlefunc(void)
             int iter = 0;
             while((x*x + y*y < 2*2) && (iter < MAXITER))
             {
-               double xtemp = x*x - y*y + x0;
-               y = 2*x*y + y0;
-               x = xtemp;
-               iter = iter + 1;
+                double xtemp = x*x - y*y + x0;
+                y = 2*x*y + y0;
+                x = xtemp;
+                iter = iter + 1;
             }
             double[] color = getcolor(iter);
             glBegin(GL_POINTS);
