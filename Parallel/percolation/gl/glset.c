@@ -9,10 +9,11 @@
 #define DIETAG 2
 #define WORKTAG 0
 #define MAXITER 1000
-double[] getcolor(int iter)
+double color[3] = { 0,0,0 };
+void gencolors(int iter)
 {
-    //TODO: IMPLEMENT COLOR GETTING FUNCTION
-    return [0.5,0.5,0.5];
+    //TODO: IMPLEMENT COLOR GENERATING FUNCTION
+   // return [0.5,0.5,0.5];
 }
 double scalex(int x)
 {
@@ -32,7 +33,7 @@ void idlefunc(void)
 {
     int x , y;
     for( x = 0; x < N; x++){
-        for ( y = 0; y < M; y++){
+        for ( y = 0; y < N; y++){
             double x0 = scalex(x);
             double y0 = scaley(y);
             double x1 = 0.0;
@@ -45,7 +46,7 @@ void idlefunc(void)
                 x = xtemp;
                 iter = iter + 1;
             }
-            double[] color = getcolor(iter);
+            gencolors(iter);
             glBegin(GL_POINTS);
             glColor3f(color[0],color[1],color[2]);
             glVertex2f(x,y);
