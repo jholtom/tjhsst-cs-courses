@@ -3,9 +3,9 @@ encoder:
 trees:
 	mpicc percolation/trees.c -o percolation/trees
 gltrees:
-	mpicc  -lGLU -lglut percolation/gl/gltrees.c -o percolation/gl/gltrees
+	mpicc  -lGLU -lglut percolation/gl/glset.c -o percolation/gl/glset
 execgl:
-	mpirun -np 32 -machinefile hostlist.txt percolation/gl/gltrees
+	mpirun -np 32 -machinefile hostlist.txt percolation/gl/glset
 runtrees:
 	mpirun -np 32 -machinefile hostlist.txt percolation/trees
 clean:
