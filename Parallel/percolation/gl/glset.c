@@ -47,8 +47,9 @@ void genMandel(void)
             }
             gencolors(iter);
             glBegin(GL_POINTS);
-            glColor3f(color[0],color[1],color[2]);
-            glVertex2f(x,y);
+            //glColor3f(color[0],color[1],color[2]);
+            glColor3f(1.0,1.0,1.0);
+	    glVertex2f(x,y);
             glEnd();
         }
     }
