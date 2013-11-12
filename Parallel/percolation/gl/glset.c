@@ -1,7 +1,6 @@
 // Jacob Holtom - 11/02/13
 #include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
+
 #include <GL/glut.h>
 #include <math.h>
 #include "mpi.h"
@@ -29,7 +28,7 @@ double scaley(int y)
     double scaled = (((y - 0)* newrange) / oldrange) - 1;
     return scaled;
 }
-void idlefunc(void)
+void genMandel(void)
 {
     int x , y;
     for( x = 0; x < N; x++){
@@ -53,6 +52,10 @@ void idlefunc(void)
             glEnd();
         }
     }
+    glutPostRedisplay();
+}
+void idlefunc(void)
+{
 }
 void displayfunc(void)
 {
@@ -72,6 +75,7 @@ void displayfunc(void)
     glColor3f( 1.0 , 1.0 , 1.0 ) ;
     glRasterPos2f( 0.85*N , 0.9*N ) ;
     glutSwapBuffers() ;
+    genMandel();
 }
 void reshapefunc(int wscr,int hscr)
 {
