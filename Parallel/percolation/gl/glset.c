@@ -47,7 +47,8 @@ void genMandel(void)
             }
             gencolors(iter);
             glBegin(GL_POINTS);
-            glColor3f(color[0],color[1],color[2]);
+    //        glColor3f(color[0],color[1],color[2]);
+            glColor3f(1.0,1.0,1.0);
             glVertex2f(x,y);
             glEnd();
         }
@@ -71,9 +72,6 @@ void displayfunc(void)
             glEnd();
         }
     }
-    glColor3f( 0.0 , 0.0 , 0.0 ) ;
-    glColor3f( 1.0 , 1.0 , 1.0 ) ;
-    glRasterPos2f( 0.85*N , 0.9*N ) ;
     glutSwapBuffers() ;
     genMandel();
 }
