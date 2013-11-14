@@ -14,11 +14,6 @@ units = dict((s, [u for u in unitlist if s in u])
 peers = dict((s, set(sum(units[s],[]))-set([s]))
              for s in squares)
 
-def grid_values(grid):
-    chars = [c for c in grid if c in digits or c in '.']
-    assert len(chars) == 81
-    return dict(zip(squares, chars))
-
 def assign(values, s, d):
     other_values = values[s].replace(d, '')
     if all(elim(values, s, d2) for d2 in other_values):
@@ -47,7 +42,9 @@ def elim(values, s, d):
 
 def solve(grid): 
     values = dict((s, digits) for s in squares)
-    for s,d in grid_values(grid).items():
+    chars = [c for c in grid if c in digits or c in '.']
+    stuff = dict(zip(squares, chars))
+    for s,d in stuff.items():
         if d in digits and not assign(values, s, d):
             return False
     return search(values)
