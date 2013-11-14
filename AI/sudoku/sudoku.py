@@ -63,12 +63,10 @@ def some(seq):
     return False
 
 def sa(grids):
-    def time_solve(grid):
-        start = time.clock()
+    def sl(grid):
         values = solve(grid)
-        t = time.clock()-start
-        return (t, solved(values))
-    times, results = zip(*[time_solve(grid) for grid in grids])
+        return solved(values)
+    results = [sl(grid) for grid in grids]
     N = len(grids)
     if N > 1:
         print "Solved %d out of %d puzzles" % (
