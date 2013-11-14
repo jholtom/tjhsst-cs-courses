@@ -4,12 +4,13 @@
 #include <math.h>
 #define N 600
 #define MAXITER 100
+#define magnify 1.0 //Magnifies at the origin (center of graph)
 int isMandel(int hx, int hy)
 {
     double x,xx,y,cx,cy;
     int iteration;
-    cx = (((float)hx)/((float)N)-0.5)/1.0*3.0-0.7;
-    cy = (((float)hy)/((float)N)-0.5)/1.0*3.0;
+    cx = (((float)hx)/((float)N)-0.5)/magnify*3.0-0.7;
+    cy = (((float)hy)/((float)N)-0.5)/magnify*3.0;
     x = 0.0; y = 0.0;
     for(iteration = 1; iteration < MAXITER;iteration++){   
         xx = x*x-y*y+cx;
