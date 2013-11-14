@@ -73,8 +73,8 @@ def sa(grids):
             sum(results), N)
 
 def solved(values):
-    def unitsolved(unit): return set(values[s] for s in unit) == set(digits)
-    return values is not False and all(unitsolved(unit) for unit in unitlist)
+    def us(unit): return set(values[s] for s in unit) == set(digits)
+    return values is not False and all(us(unit) for unit in unitlist)
 
 filename = raw_input('What file to solve? ')
 sa(file(filename).read().strip().split("\n"))
