@@ -13,12 +13,6 @@ units = dict((s, [u for u in unitlist if s in u])
              for s in squares)
 peers = dict((s, set(sum(units[s],[]))-set([s]))
              for s in squares)
-def parse_grid(grid):
-    values = dict((s, digits) for s in squares)
-    for s,d in grid_values(grid).items():
-        if d in digits and not assign(values, s, d):
-            return False
-    return values
 
 def grid_values(grid):
     chars = [c for c in grid if c in digits or c in '.']
@@ -51,7 +45,12 @@ def elim(values, s, d):
                 return False
     return values
 
-def solve(grid): return search(parse_grid(grid))
+def solve(grid): 
+    values = dict((s, digits) for s in squares)
+    for s,d in grid_values(grid).items():
+        if d in digits and not assign(values, s, d):
+            return False
+    return search(values)
 
 def search(values):
     if values is False:
