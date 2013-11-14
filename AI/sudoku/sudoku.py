@@ -62,9 +62,6 @@ def some(seq):
         if i: return i
     return False
 
-def ff(filename, sep='\n'):
-    return file(filename).read().strip().split("\n")
-
 def sa(grids):
     def time_solve(grid):
         start = time.clock()
@@ -81,4 +78,5 @@ def solved(values):
     def unitsolved(unit): return set(values[s] for s in unit) == set(digits)
     return values is not False and all(unitsolved(unit) for unit in unitlist)
 
-sa(ff("top95.txt"))
+filename = raw_input('What file to solve? ')
+sa(file(filename).read().strip().split("\n"))
