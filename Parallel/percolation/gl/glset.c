@@ -1,9 +1,7 @@
 // Jacob Holtom - 11/02/13
 #include <stdio.h>
-
 #include <GL/glut.h>
 #include <math.h>
-#include "mpi.h"
 #define N 600
 #define MAXITER 100
 int isMandel(int hx, int hy)
@@ -29,13 +27,8 @@ void displayfunc(void)
     {
         for( y = 0 ; y < N ; y++ )
         { 
-            if(isMandel(x,y) == 0)
-            { 
-                glColor3f( 0.0 , 0.0 , 0.0 ) ;
-            }
-            else{
-                glColor3f( 1.0 , 1.0 , 1.0 ) ;
-            }
+            if(isMandel(x,y) == 0) glColor3f( 0.0 , 0.0 , 0.0 );
+            else glColor3f( 1.0 , 1.0 , 1.0 );
             glBegin(GL_POINTS);
             glVertex2f(x,y);
             glEnd();
@@ -51,23 +44,17 @@ void reshapefunc(int wscr,int hscr)
     gluOrtho2D(0.0,1.0*N,0.0,1.0*N);
     glMatrixMode(GL_MODELVIEW);
 }
-void mousefunc(int button,int state,int xscr,int yscr)
-{
+void mousefunc(int button,int state,int xscr,int yscr){
 }
-void motionfunc(int xscr,int yscr)
-{
+void motionfunc(int xscr,int yscr){
 }
-void keyfunc(unsigned char key,int xscr,int yscr)
-{
+void keyfunc(unsigned char key,int xscr,int yscr){
 }
-void specialfunc(int key,int xscr,int yscr)
-{
+void specialfunc(int key,int xscr,int yscr){
 }
-void closefunc(void)
-{
+void closefunc(void){
 }
-int main(int argc,char* argv[])
-{  
+int main(int argc,char* argv[]){  
     glutInit(&argc,argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
     glutInitWindowSize(N,N);
