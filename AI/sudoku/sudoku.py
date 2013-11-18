@@ -43,8 +43,8 @@ def elim(values, s, d):
 def solve(grid): 
     values = dict((s, digits) for s in squares)
     chars = [c for c in grid if c in digits or c in '.']
-    stuff = dict(zip(squares, chars))
-    for s,d in stuff.items():
+    stor = dict(zip(squares, chars))
+    for s,d in stor.items():
         if d in digits and not assign(values, s, d):
             return False
     return search(values)
@@ -55,9 +55,9 @@ def search(values):
     if all(len(values[s]) == 1 for s in squares):
         return values
     n,s = min((len(values[s]), s) for s in squares if len(values[s]) > 1)
-    return some(search(assign(values.copy(), s, d))
-                for d in values[s])
-def some(seq):
+    return s(search(assign(values.copy(), s, d) for d in values[s]))
+
+def s(seq):
     for i in seq:
         if i: return i
     return False
