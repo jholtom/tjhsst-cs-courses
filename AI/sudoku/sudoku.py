@@ -55,7 +55,7 @@ def search(values):
     if all(len(values[s]) == 1 for s in squares):
         return values
     n,s = min((len(values[s]), s) for s in squares if len(values[s]) > 1)
-    return s(search(assign(values.copy(), s, d) 
+    return s(search(assign(values.copy(), s, d))
         for d in values[s])
 
 def s(seq):
