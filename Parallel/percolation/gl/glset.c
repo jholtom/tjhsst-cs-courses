@@ -46,6 +46,20 @@ void reshapefunc(int wscr,int hscr)
     glMatrixMode(GL_MODELVIEW);
 }
 void mousefunc(int button,int state,int xscr,int yscr){
+
+    if(button==GLUT_LEFT_BUTTON && state==GLUT_DOWN)
+    {
+        printf("Selection Started.\n");
+        printf("Started at: %d,%d",xscr,yscr);
+        while(state == GLUT_DOWN)
+        {
+        
+        }
+    }
+    if(button==GLUT_LEFT_BUTTON && state==GLUT_UP){
+        printf("Selection Ended.\n");
+        printf("Ended at: %d,%d",xscr,yscr);
+    }
 }
 void motionfunc(int xscr,int yscr){
 }
