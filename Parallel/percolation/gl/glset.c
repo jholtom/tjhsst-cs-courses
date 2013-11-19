@@ -51,12 +51,8 @@ void mousefunc(int button,int state,int xscr,int yscr){
     {
         printf("Selection Started.\n");
         printf("Started at: %d,%d",xscr,yscr);
-        while(state == GLUT_DOWN)
-        {
-        
-        }
     }
-    if(button==GLUT_LEFT_BUTTON && state==GLUT_UP){
+    if(button==GLUT_RIGHT_BUTTON && state==GLUT_DOWN){
         printf("Selection Ended.\n");
         printf("Ended at: %d,%d",xscr,yscr);
     }
