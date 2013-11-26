@@ -65,7 +65,7 @@ void mousefunc(int button,int state,int xscr,int yscr){
         printf("Selection made. ");
         printf("At: %d,%d \n",xscr,yscr);
     }
-    drawSet(0,0,scalex(xscr),scale(yscr));
+    drawSet(0,0,scalex(xscr),scaley(yscr));
 }
 void motionfunc(int xscr,int yscr){
 }
