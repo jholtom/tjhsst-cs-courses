@@ -4,8 +4,7 @@
 #include <math.h>
 #define N 600
 #define MAXITER 100
-#define magnify 1.0 //Magnifies at the origin (center of graph)
-int isMandel(int hx, int hy)
+int isMandel(int hx, int hy, double magnify)
 {
     double x,xx,y,cx,cy;
     int iteration;
@@ -20,13 +19,14 @@ int isMandel(int hx, int hy)
     }
     return 1;
 }
-void drawSet(int x, int y){
+void drawSet(int x, int y, int hx, int hy){
+    double magnify = 1.0;
     glClear(GL_COLOR_BUFFER_BIT);
     for( x = 0 ; x < N ; x++ )
     {
         for( y = 0 ; y < N ; y++ )
         { 
-            if(isMandel(x,y) == 0) glColor3f( 0.0 , 0.0 , 0.0 );
+            if(isMandel(x,y,magnify) == 0) glColor3f( 0.0 , 0.0 , 0.0 );
             else glColor3f( 1.0 , 1.0 , 1.0 );
             glBegin(GL_POINTS);
             glVertex2f(x,y);
@@ -38,7 +38,7 @@ void drawSet(int x, int y){
 void displayfunc(void)
 {
     int x =0 , y = 0;
-    drawSet(x,y);
+    drawSet(x,y,0,0);
 }
 void reshapefunc(int wscr,int hscr)
 {
@@ -54,7 +54,7 @@ void mousefunc(int button,int state,int xscr,int yscr){
         printf("Selection made. ");
         printf("At: %d,%d \n",xscr,yscr);
     }
-
+    drawSet(0,0,xscr,yscr);
 }
 void motionfunc(int xscr,int yscr){
 }
