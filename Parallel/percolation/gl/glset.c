@@ -21,7 +21,7 @@ int isMandel(int hx, int hy, double magnify)
         xx = x*x-y*y+cx;
         y = 2.0*x*y+cy;
         x = xx;
-        if (x*x+y*y>100.0)  return 0;
+        if (x*x+y*y>100.0)  return iteration;
     }
     return 1;
 }
@@ -32,7 +32,12 @@ void drawSet(int x, int y, int hx, int hy){
     {
         for( y = 0 ; y < N ; y++ )
         { 
-            if(isMandel(x,y,magnify) == 0) glColor3f( 0.0 , 0.0 , 0.0 );
+            int m = isMandel(x,y,magnify);
+            if(m != 1) 
+            {
+                double shade = 1.0-(m*1.0/MAXITER);
+                glColor3f( 0.0 ,shade , 0.0 );
+            }
             else glColor3f( 1.0 , 1.0 , 1.0 );
             glBegin(GL_POINTS);
             glVertex2f(x,y);
