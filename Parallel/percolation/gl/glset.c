@@ -20,9 +20,7 @@ int isMandel(int hx, int hy)
     }
     return 1;
 }
-void displayfunc(void)
-{
-    int x , y ;
+void drawSet(int x, int y){
     glClear(GL_COLOR_BUFFER_BIT);
     for( x = 0 ; x < N ; x++ )
     {
@@ -37,6 +35,11 @@ void displayfunc(void)
     }
     glutSwapBuffers() ;
 }
+void displayfunc(void)
+{
+    int x =0 , y = 0;
+    drawSet(x,y);
+}
 void reshapefunc(int wscr,int hscr)
 {
     glViewport(0,0,(GLsizei)N,(GLsizei)N);
@@ -46,16 +49,12 @@ void reshapefunc(int wscr,int hscr)
     glMatrixMode(GL_MODELVIEW);
 }
 void mousefunc(int button,int state,int xscr,int yscr){
-
     if(button==GLUT_LEFT_BUTTON && state==GLUT_DOWN)
     {
-        printf("Selection Started. ");
-        printf("Started at: %d,%d \n",xscr,yscr);
+        printf("Selection made. ");
+        printf("At: %d,%d \n",xscr,yscr);
     }
-    if(button==GLUT_RIGHT_BUTTON && state==GLUT_DOWN){
-        printf("Selection Ended. ");
-        printf("Ended at: %d,%d\n",xscr,yscr);
-    }
+
 }
 void motionfunc(int xscr,int yscr){
 }
