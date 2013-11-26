@@ -30,6 +30,7 @@ def elim(values, s, d):
     elif len(values[s]) == 1:
         d2 = values[s]
         if not all(elim(values, s2, d2) for s2 in peers[s]):
+            count += 1
             return False
     for u in units[s]:
         dplaces = [s for s in u if d in values[s]]
@@ -78,4 +79,7 @@ def solved(values):
     return values is not False and all(us(unit) for unit in unitlist)
 
 filename = raw_input('What file to solve? ')
+global count
+count = 0
 sa(file(filename).read().strip().split("\n"))
+print (count/2)
