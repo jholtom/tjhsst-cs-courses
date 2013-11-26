@@ -4,6 +4,12 @@
 #include <math.h>
 #define N 600
 #define MAXITER 100
+int scalex(int x){
+return (x/(N - 0.5)*N);
+}
+int scaley(int y){
+return (y/(N - 0.5)*N);
+}
 int isMandel(int hx, int hy, double magnify)
 {
     double x,xx,y,cx,cy;
@@ -54,7 +60,7 @@ void mousefunc(int button,int state,int xscr,int yscr){
         printf("Selection made. ");
         printf("At: %d,%d \n",xscr,yscr);
     }
-    drawSet(0,0,xscr,yscr);
+    drawSet(0,0,scalex(xscr),scale(yscr));
 }
 void motionfunc(int xscr,int yscr){
 }
