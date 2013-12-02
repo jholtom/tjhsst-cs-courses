@@ -6,10 +6,10 @@
 #define MAXITER 100
 double magnify = 1.0;
 int scalex(int x){
-    return (x/(N - 0.5)*N);
+    return (x/(N - (0.5)*N));
 }
 int scaley(int y){
-    return (y/(N - 0.5)*N);
+    return (y/(N - (0.5)*N));
 }
 int isMandel(int hx, int hy, double magnify,double cm, double cl)
 {
