@@ -1,7 +1,4 @@
 #Jacob Holtom - 11/27/13
-
-import sys
-
 def same_row(i,j): return (i/9 == j/9)
 def same_col(i,j): return (i-j) % 9 == 0
 def same_block(i,j): return (i/27 == j/27 and i%9/3 == j%9/3)
@@ -9,7 +6,7 @@ def same_block(i,j): return (i/27 == j/27 and i%9/3 == j%9/3)
 def r(a):
   i = a.find('.')
   if i == -1:
-    sys.exit(a)
+    print "solved"
 
   excluded_numbers = set()
   for j in range(81):
@@ -23,4 +20,5 @@ def r(a):
 filename = raw_input('What file to solve? ')
 puzzles = file(filename).read().strip().split("\n")
 for i in puzzles:
+  print "Solving: "+i
   r(i)
