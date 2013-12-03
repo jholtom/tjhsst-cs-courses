@@ -7,7 +7,7 @@ def r(a):
   i = a.find('.')
   if i == -1:
     print "solved"
-
+  
   ignores = set()
   for j in range(81):
     if nrow(i,j) or ncol(i,j) or nblock(i,j):
