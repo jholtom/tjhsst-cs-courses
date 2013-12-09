@@ -41,7 +41,7 @@ void displayfunc(void)
 			b = (2 * a2 * b2) + cy;
 			t += 1.0;
 		 }
-		 glColor3f( 0.0 , 0.0 , 1 - t/itermax ) ;
+		 glColor3f( 0.0 , 1 - t/itermax, 0.0 ) ;
          glBegin(GL_POINTS);
          glVertex2f(x,y);
          glEnd();
