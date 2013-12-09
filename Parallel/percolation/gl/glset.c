@@ -3,65 +3,53 @@
 #include <GL/glut.h>
 #include <math.h>
 #define N 600
-#define MAXITER 100
-double magnify = 1.0;
-int scalex(int x){
-    double cx = (((float)x)/((float)N)-0.5)/magnify*3.0-0.7;
-    double xStep = cx / N;
-    double cxMaxNew = (x * xStep) + cx;
-    return (int) cxMaxNew;
-}
-int scaley(int y){
-    double cy = (((float)y)/((float)N)-0.5)/magnify*3.0;
-    double yStep = cy / N;
-    double cyMaxNew = ((N-y) * yStep) + cy;
-    return (int) cyMaxNew;
-}
-int isMandel(int hx, int hy, double magnify,double cm, double cl)
-{
-    double x,xx,y,cx,cy;
-    int iteration;
-    if(cm = 0.0 || cl == 0.0)
-    {
-        cx = (((float)hx)/((float)N)-0.5)/magnify*3.0-0.7;
-        cy = (((float)hy)/((float)N)-0.5)/magnify*3.0;
-    }
-    else {
-        cx = cm; 
-        cy = cl;
-    }
-    x = 0.0; y = 0.0;
-    for(iteration = 1; iteration < MAXITER;iteration++){   
-        xx = x*x-y*y+cx;
-        y = 2.0*x*y+cy;
-        x = xx;
-        if (x*x+y*y>100.0)  return iteration;
-    }
-    return 1;
-}
-void drawSet(int x, int y, int hx, int hy){
-    glClear(GL_COLOR_BUFFER_BIT);
-    for( x = 0 ; x < N ; x++ )
-    {
-        for( y = 0 ; y < N ; y++ )
-        { 
-            int m = isMandel(x,y,magnify,hx,hy);
-            if(m != 1) 
-            {
-                double shade = 1.0-(m*1.0/MAXITER);
-                glColor3f( 0.0 ,shade , 0.0 );
-            }
-            else glColor3f( 0.0 , 0.0 , 0.0 );
-            glBegin(GL_POINTS);
-            glVertex2f(x,y);
-            glEnd();
-        }
-    }
-    glutSwapBuffers() ;
-}
+int zoomStatus = 0;
+int xA, yA;
+int xB, yB;
+double itermax = 256.0;
+int w = N;
+int h = N;
+double cxm = -2.0;
+double cxx =  2.0;
+double cym = -1.5;
+double cyx =  1.5;
 void displayfunc(void)
 {
-    drawSet(0,0,0,0);
+   int x, y;
+   glClear(GL_COLOR_BUFFER_BIT);
+   int width = N;
+   int height = N;
+   double t = 0.0;
+   double xStep = (cxx - cxm) / width;
+   double yStep = (cyx - cym) / height;
+   double cx, cy;
+   double a,b;
+   double a2, b2;
+   for( x = 0 ; x < width ; x++ )
+   {
+	  for( y = 0 ; y < height ; y++ )
+      { 
+		 cx = (x * xStep) + cxm;
+		 cy = (y * yStep) + cym;
+		 a  = 0.0 ;
+		 b  = 0.0 ;
+		 t  = 0.0 ;
+		 while ((a*a+b*b < 4) && t < itermax) {
+			a2 = a;
+			b2 = b;
+			a = (a2*a2) - (b2*b2) + cx;
+			b = (2 * a2 * b2) + cy;
+			t += 1.0;
+		 }
+		 glColor3f( 0.0 , 0.0 , 1 - t/itermax ) ;
+         glBegin(GL_POINTS);
+         glVertex2f(x,y);
+         glEnd();
+      }
+   }
+   glutSwapBuffers() ;
+   printf("cxm: %E; cxx: %E\n", cxm, cxx);
+   printf("cym: %E; cyx: %E\n", cym, cyx);
 }
 void reshapefunc(int wscr,int hscr)
 {
@@ -72,13 +60,41 @@ void reshapefunc(int wscr,int hscr)
     glMatrixMode(GL_MODELVIEW);
 }
 void mousefunc(int button,int state,int xscr,int yscr){
-    if(button==GLUT_LEFT_BUTTON && state==GLUT_DOWN)
-    {
-        printf("Selection made. ");
-        printf("At: %d,%d \n",xscr,yscr);
-    }
-    magnify *= 2.0;
-    drawSet(0,0,scalex(xscr),scaley(yscr));
+   if(button==GLUT_LEFT_BUTTON && state==GLUT_DOWN)
+   {
+	  if (zoomStatus == 0) {
+	     xA = xscr;
+		 yA = N - yscr;
+		 zoomStatus = 1;
+		 itermax = 256.0;
+	  }
+	  else if (zoomStatus == 1) {
+	     zoomStatus = 0;
+		 xB = xscr;
+		 yB = N - yscr;
+		 int width = N;
+		 int height = N;
+		 w = (xB-xA);
+		 h = (3.0/4.0) * w;
+		 yB = yA - h;
+		 double xStep = (cxx - cxm) / width;
+		 double yStep = (cyx - cym) / height;
+		 double cxmNew = (xA * xStep) + cxm;
+		 double cymNew = (yB * yStep) + cym;
+		 double cxxNew = (xB * xStep) + cxm;
+		 double cyxNew = (yA * yStep) + cym;
+		 cxm = cxmNew;
+		 cxx = cxxNew;
+		 cym = cymNew;
+		 cyx = cyxNew;
+		 glutPostRedisplay();
+	  }
+   }
+   else if(button==GLUT_RIGHT_BUTTON && state==GLUT_DOWN)
+   {
+	  itermax *= 2;
+	  glutPostRedisplay();
+   }
 }
 int main(int argc,char* argv[]){  
     glutInit(&argc,argv);
