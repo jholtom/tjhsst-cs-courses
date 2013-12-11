@@ -16,7 +16,12 @@ for i in x:
 print "Activating " + str(len(x))+ " LED'S"
 for i in x:
     gpio.output(i,True)
-    time.sleep(1)
+    time.sleep(0.5)
+    gpio.output(i,False)
+
+for i in x.reverse():
+    gpio.output(i,True)
+    time.sleep(0.5)
     gpio.output(i,False)
 
 # SHUT THIS THING DOWN
