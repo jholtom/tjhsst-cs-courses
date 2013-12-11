@@ -1,4 +1,5 @@
 #Jacob Holtom - 11/27/13
+import sys
 def nrow(i,j): return (i/9 == j/9)
 def ncol(i,j): return (i-j) % 9 == 0
 def nblock(i,j): return (i/27 == j/27 and i%9/3 == j%9/3)
@@ -7,6 +8,7 @@ def r(a):
   i = a.find('.')
   if i == -1:
     print "solved"
+    sys.exit()
   
   ignores = set()
   for j in range(81):
