@@ -12,7 +12,7 @@ for i in x:
 #BLACK MAGIC TO PROCESS AUDIO GOES HERE
 
 #CYCLE THROUGH ALL THE PINS AND TURN THEM ON AND OFF AFTER PAUSING FOR A SECOND
-print "Activating " + len(x) + " LED'S"
+print "Activating " + str(len(x))+ " LED'S"
 for i in x:
     gpio.output(i,True)
     time.sleep(1)
