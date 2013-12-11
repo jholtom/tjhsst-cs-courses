@@ -19,7 +19,9 @@ for i in x:
     time.sleep(0.5)
     gpio.output(i,False)
 
-for i in x.reverse():
+y = x
+y.reverse()
+for i in y:
     gpio.output(i,True)
     time.sleep(0.5)
     gpio.output(i,False)
