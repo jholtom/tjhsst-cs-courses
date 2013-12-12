@@ -4,6 +4,10 @@ def nrow(i,j): return (i/9 == j/9)
 def ncol(i,j): return (i-j) % 9 == 0
 def nblock(i,j): return (i/27 == j/27 and i%9/3 == j%9/3)
 
+def ds(a,m):
+    ret = ''
+    return ret
+
 def r(a):
   global count
   i = a.find('.')
@@ -19,7 +23,8 @@ def r(a):
 
   for m in '123456789':
     if m not in ignores:
-      r(a[:i]+m+a[i+1:])
+      r(ds(a,m))
+      #r(a[:i]+m+a[i+1:])
       
 filename = raw_input('What file to solve? ')
 puzzles = file(filename).read().strip().split("\n")

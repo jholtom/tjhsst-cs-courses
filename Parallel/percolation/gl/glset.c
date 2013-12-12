@@ -97,6 +97,12 @@ void mousefunc(int button,int state,int xscr,int yscr){
    }
 }
 int main(int argc,char* argv[]){  
+	int rank,size,prob,prob2;
+	MPI_Status status;
+	MPI_Init(&argc,&argv);
+	MPI_Comm_size(MPI_COMM_WORLD,&size);
+	MPI_Comm_rank(MPI_COMM_WORLD,&rank);
+    if(rank == 0){ //I'm the master
     glutInit(&argc,argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
     glutInitWindowSize(N,N);
@@ -109,4 +115,9 @@ int main(int argc,char* argv[]){
     glutMouseFunc(mousefunc);
     glutMainLoop();
     return 0;
+
+    }
+    else { //I'm a worker
+    
+    }
 }
