@@ -1,3 +1,5 @@
+error:
+	gcc error/error.c -o error/error -lm
 encoder:
 	gcc encoding/encode.c -o encoding/encode
 trees:
