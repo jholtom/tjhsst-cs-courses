@@ -23,8 +23,8 @@ def r(a):
 
   for m in '123456789':
     if m not in ignores:
-      r(ds(a,m))
-      #r(a[:i]+m+a[i+1:])
+      #r(ds(a,m))
+      r(a[:i]+m+a[i+1:])
       
 filename = raw_input('What file to solve? ')
 puzzles = file(filename).read().strip().split("\n")
