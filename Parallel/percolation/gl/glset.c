@@ -115,9 +115,9 @@ int main(int argc,char* argv[]){
     glutMouseFunc(mousefunc);
     glutMainLoop();
     return 0;
-
     }
     else { //I'm a worker
     
+    return 0; 
     }
 }
