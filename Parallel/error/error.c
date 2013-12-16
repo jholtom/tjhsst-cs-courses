@@ -12,7 +12,7 @@ int bit( double x ) {
 if(((double)rand() / (double)(RAND_MAX - 1)) < x) return 1;
 return 0;
 }
-int main(void){
+int main(int argc,char* argv[]){
     srand(time(NULL));
     return 0;
 }
