@@ -1,21 +1,49 @@
 #Jacob Holtom - G.H.O.S.T 12/02/13
-dictionary = file("dictionary.txt").read().split("\n")
-def isWord(a):
-    if a in dictionary:
-        return False
-    return True
+import os, random, sys, math, string
+def b(c,h,d):
+    if h.startswith(c):
+        for i in d:
+            if i == c:
+                return True
+    return False
 
-def isPossibleWord(a):
-    return True
+def l(c,d):
+    for i in d:
+        if c == i:
+            return True
+    return False
+
+def p(c,d):
+    for i in d:
+        if i.startswitch(c):
+            return True
+    return False
 
 print "Welcome to G.H.O.S.T"
-a = raw_input("Enter a letter: ")
-turn0 = 0
-turn1 = 0
-while not isWord(a):
-    if turn0 == 1:
-        a = raw_input("Enter a letter: ")
-    if turn1 == 1:
-        a = raw_input("Enter a letter: ")
+dictionary = file("dictionary.txt").read().split("\n")
+dictionary.pop()
+turn = 0 ## 0 is human, 1 is computer
+word = ""
+wl = []
+while True:
+    if turn == 0:
+        if len(word) != 0:
+            print "Current word is: " + word
 
-
+        c = raw_input("Choose a letter >> ")[0]
+        if c== "*":
+            print "BLUFF!"
+            break
+        word += c
+        if l(word,dictionary):
+            print "Loser. You spelt: " + word
+            break
+        print "SAFE!  The current word is: " + word
+        wl = [w for w in dictionary if w.startswith(c)]
+        turn = 1
+    if turn == 1:
+        rand = random.randint(0,len(wl)-1)
+        c+=wl[rand][len(c)]
+        print "I thought of the word: " + str(wl[rand])
+        wl = [w for w in dictionary if w.startswith(c)]
+        turn = 0
