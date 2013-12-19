@@ -1,10 +1,9 @@
 #Jacob Holtom - G.H.O.S.T 12/02/13
 import os, random, sys, math, string
-def b(c,h,d):
-    if h.startswith(c):
-        for i in d:
-            if i == c:
-                return True
+def b(c,d):
+    for i in d:
+        if i.startswith(c):
+            return True
     return False
 
 def l(c,d):
@@ -33,17 +32,22 @@ while True:
         c = raw_input("Choose a letter >> ")[0]
         if c== "*":
             print "BLUFF!"
-            break
+            if b(c,dictionary):
+                print "Ha, You done been duped"
+                break
+            else:
+                print "GJ, You called an infalliable AI's bluff"
+                break
         word += c
         if l(word,dictionary):
             print "Loser. You spelt: " + word
             break
         print "SAFE!  The current word is: " + word
-        wl = [w for w in dictionary if w.startswith(c)]
+        wl = [w for w in dictionary if w.startswith(word)]
         turn = 1
     if turn == 1:
         rand = random.randint(0,len(wl)-1)
-        c+=wl[rand][len(c)]
+        word += wl[rand][len(c)]
         print "I thought of the word: " + str(wl[rand])
         wl = [w for w in dictionary if w.startswith(c)]
         turn = 0
