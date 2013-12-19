@@ -38,10 +38,10 @@ void displayfunc(void)
             b  = 0.0 ;
             t  = 0.0 ;
             if(iter < size){
-            iter++;
+                iter++;
             }
             if(iter == size){
-            iter = 1;
+                iter = 1;
             } 
             MPI_Send(&x,1,MPI_INT,iter,WORKTAG,MPI_COMM_WORLD);
             MPI_Send(&y,1,MPI_INT,iter,WORKTAG,MPI_COMM_WORLD);
@@ -134,7 +134,7 @@ int main(int argc,char* argv[]){
         glutMainLoop();
         for(iter = 1, iter < size; iter++)
         {
-        MPI_Send(0,0,MPI_INT,iter,DIETAG,MPI_COMM_WORLD);
+            MPI_Send(0,0,MPI_INT,iter,DIETAG,MPI_COMM_WORLD);
         }
         return 0;
     }
