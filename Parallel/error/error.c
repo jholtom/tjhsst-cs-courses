@@ -21,15 +21,14 @@ int main(int argc,char* argv[]){
     {
         double x = 0.0;
         int k = 0;
-        int c = 0;
-        for(k = 0; k < LEN; k++)
-        {
-            if(bit(i) == 1) c++;
-        }
         for(x = (-1.0)*LEN2; x <= LEN2; x += 63.25)
         {
-            double gen = 0.0;
-            gen = sm(c/100.0);
+            int c = 0;
+            for(k = 0; k < LEN; k++)
+            {
+                if(bit(i) == 1) c++;
+            }
+            double gen = sm(c/100.0);
             printf("\t%f\t%f\t%f\n",i,x,gen);
         }
         printf("\n");
