@@ -1,4 +1,4 @@
-//Jacob Holtom - Error and whatnot
+//Jacob Holtom - Error
 //12/12/13
 #include <stdio.h>
 #include <stdlib.h>
@@ -16,14 +16,21 @@ int bit( double x ) {
 }
 int main(int argc,char* argv[]){
     srand(time(NULL));
-    int bitstream[LEN] = {0};
     double i = 0.0;
     for(i = (-1.0)*LEN; i <= LEN; i += 0.25)
     {
         double x = 0.0;
+        int k = 0;
+        int c = 0;
+        for(k = 0; k < LEN; k++)
+        {
+            if(bit(i) == 1) c++;
+        }
         for(x = (-1.0)*LEN2; x <= LEN2; x += 63.25)
         {
-            printf("\t%f\t%f\t%f\n",i,x,1337.111);
+            double gen = 0.0;
+            gen = sm(c/100.0);
+            printf("\t%f\t%f\t%f\n",i,x,gen);
         }
         printf("\n");
     }
