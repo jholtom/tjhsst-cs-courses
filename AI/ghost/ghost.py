@@ -8,7 +8,7 @@ def b(c,d):
 
 def l(c,d):
     for i in d:
-        if c == i:
+        if c == i and len(c) > 3:
             return True
     return False
 
