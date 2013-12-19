@@ -47,7 +47,7 @@ while True:
         turn = 1
     if turn == 1:
         rand = random.randint(0,len(wl)-1)
-        word += wl[rand][len(c)]
+        word += wl[rand][len(word)]
         print "I thought of the word: " + str(wl[rand])
         wl = [w for w in dictionary if w.startswith(c)]
         turn = 0
