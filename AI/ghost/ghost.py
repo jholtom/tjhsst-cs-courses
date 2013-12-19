@@ -14,7 +14,7 @@ def l(c,d):
 
 def p(c,d):
     for i in d:
-        if i.startswitch(c):
+        if i.startswith(c):
             return True
     return False
 
