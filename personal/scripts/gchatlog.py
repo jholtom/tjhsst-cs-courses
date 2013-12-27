@@ -1,7 +1,8 @@
 #!/usr/bin/python
 ## Jacob Holtom - parse copy/pasted gchatlogs
 ## Variables
-import time, sys, colored
+import time, sys
+from termcolor import colored
 first = "Anya Owsenek" # First person's name in gchat
 second = "1Fox" # Second person's name in gchat
 ## Script
