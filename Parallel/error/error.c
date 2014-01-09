@@ -10,7 +10,9 @@
 #define NUMHID 2
 #define NUMOUT 1
 //Function defintions
-#define bit() ((double)rand()/(RAND_MAX+1))
+double bit(){
+    return ((double)rand()/(RAND_MAX+1));
+}
 double sm( double y ) {
     return 1.0 / (1.0 + exp(-y));
 }
@@ -27,7 +29,7 @@ int main(int argc,char* argv[]){
     double DeltaO[NUMOUT+1], SumDOW[NUMHID+1], DeltaH[NUMHID+1];
     double DeltaWeightIH[NUMIN+1][NUMHID+1], DeltaWeightHO[NUMHID+1][NUMOUT+1];
     double Error, eta = 0.5, alpha = 0.9, smallwt = 0.5;
-
+    //Initializer loops
     for( j = 1 ; j <= NumHidden ; j++ ) {    /* initialize WeightIH and DeltaWeightIH */
         for( i = 0 ; i <= NumInput ; i++ ) { 
             DeltaWeightIH[i][j] = 0.0 ;
@@ -40,6 +42,7 @@ int main(int argc,char* argv[]){
             WeightHO[j][k] = 2.0 * ( bit() - 0.5 ) * smallwt ;
         }
     }
+    //Main loop
     for( epoch = 0 ; epoch < 100000 ; epoch++) {    /* iterate weight updates */
         for( p = 1 ; p <= NumPattern ; p++ ) {    /* bitmize order of individuals */
             ranpat[p] = p ;
@@ -56,14 +59,14 @@ int main(int argc,char* argv[]){
                 for( i = 1 ; i <= NumInput ; i++ ) {
                     SumH[p][j] += Input[p][i] * WeightIH[i][j] ;
                 }
-                Hidden[p][j] = 1.0/(1.0 + exp(-SumH[p][j])) ;
+                Hidden[p][j] = sm(SumH[p][j]) ;
             }
             for( k = 1 ; k <= NumOutput ; k++ ) {    /* compute output unit activations and errors */
                 SumO[p][k] = WeightHO[0][k] ;
                 for( j = 1 ; j <= NumHidden ; j++ ) {
                     SumO[p][k] += Hidden[p][j] * WeightHO[j][k] ;
                 }
-                Output[p][k] = 1.0/(1.0 + exp(-SumO[p][k])) ;   /* Sigmoidal Outputs */
+                Output[p][k] = sm(SumO[p][k]) ;   /* Sigmoidal Outputs */
                 Error += 0.5 * (Target[p][k] - Output[p][k]) * (Target[p][k] - Output[p][k]) ;   /* SSE */
                 DeltaO[k] = (Target[p][k] - Output[p][k]) * Output[p][k] * (1.0 - Output[p][k]) ;   /* Sigmoidal Outputs, SSE */
             }
@@ -91,7 +94,7 @@ int main(int argc,char* argv[]){
                 }
             }
         }
-        if( epoch%100 == 0 ) fprintf(stdout, "\nEpoch %-5d :   Error = %f", epoch, Error) ;
+        if( epoch%100 == 0 ) printf("\nEpoch %-5d :   Error = %f", epoch, Error) ;
         if( Error < 0.0004 ) break ;  /* stop learning when 'near enough' */
     }
     printf("\n\nNETWORK DATA - EPOCH %d\n\nPat\t", epoch) ;   /* print network outputs */
