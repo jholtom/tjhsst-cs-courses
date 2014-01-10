@@ -31,7 +31,7 @@ int main(int argc,char* argv[]){
     double Error, eta = 0.5, alpha = 0.9, smallwt = 0.5;
     //Initializer loops
     for( j = 1 ; j <= Numh ; j++ ) {
-        for( i = 0 ; i <= Numin ; i++ ) { 
+        for( i = 0 ; i <= Numin ; i++ ) {
             dwih[i][j] = 0.0 ;
             wih[i][j] = 2.0 * ( bit() - 0.5 ) * smallwt ;
         }
