@@ -11,7 +11,7 @@
 #define NUMOUT 1
 //Function defintions
 double bit(){
-    return ((double)rand()/(RAND_MAX+1));
+    return ((double)rand()/((double)(RAND_MAX) + 1.0));
 }
 double sm( double y ) {
     return 1.0 / (1.0 + exp(-y));
