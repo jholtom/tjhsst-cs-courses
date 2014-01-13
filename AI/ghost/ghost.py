@@ -12,14 +12,28 @@ def l(c,d):
             return True
     return False
 
-def p(c,d):
-    for i in d:
-        if i.startswith(c):
-            return True
-    return False
-
+def p(x):
+    wlist = [w for w in dictionary if w.startswith(x)]
+    poss = []
+    for i in wlist:
+        if i[len(word)] not in poss:
+            poss.append(i[len(word)])
+    return poss
 def check(word,poss,dictionary):
-    print "asdff"
+    if l(word,dictionary):
+        if len(word) % 2 == 0:
+            print "Player 1 will win with: " + word
+            break
+        if len(word) % 2 == 1:
+            print "Player 2 will win with: " + word
+            break
+    wlist = [w for w in dictionary if w.startswith(word)]
+    for i in poss:
+        print "checking " + i    
+        wlist = [w for w in dictionary if w.startswith(word+i)]
+        if wlist == []:
+            for i in wlist:
+                check(i,p(i),dictionary)
 
 print "Welcome to G.H.O.S.T"
 dictionary = file("dictionary.txt").read().split("\n")
