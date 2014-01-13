@@ -1,7 +1,16 @@
 #Jacob Holtom - G.H.O.S.T 12/02/13
-import os, random, sys, math, string
+import os, random, sys, math, string,time
 player1 = []
 player2 = []
+def timing(f):
+    def wrap(*args):
+        time1 = time.time()
+        ret = f(*args)
+        time2 = time.time()
+        print '%s function took %0.3f ms' % (f.func_name, (time2-time1)*1000.0)
+        return ret
+    return wrap
+
 def b(c,d):
     for i in d:
         if i.startswith(c):
@@ -23,6 +32,7 @@ def p(x):
         if i[len(x)] not in poss:
             poss.append(i[len(x)])
     return poss
+@timing
 def check(word,poss,dictionary):
     print "given word is: " + word
     if poss == []:
