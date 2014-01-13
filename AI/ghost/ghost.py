@@ -13,6 +13,8 @@ def l(c,d):
     return False
 
 def p(x):
+    if l(x,dictionary):
+        return []
     wlist = [w for w in dictionary if w.startswith(x)]
     poss = []
     for i in wlist:
@@ -20,13 +22,15 @@ def p(x):
             poss.append(i[len(x)])
     return poss
 def check(word,poss,dictionary):
-    if l(word,dictionary):
+    print "given word is: " + word
+    if poss == []:
         if len(word) % 2 == 0:
             print "Player 1 will win with: " + word
             return
         if len(word) % 2 == 1:
             print "Player 2 will win with: " + word
             return
+        sys.exit()
     wlist = [w for w in dictionary if w.startswith(word)]
     for i in poss:
         print "checking " + i    
