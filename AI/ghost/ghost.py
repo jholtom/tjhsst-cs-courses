@@ -21,7 +21,7 @@ def p(c,d):
 print "Welcome to G.H.O.S.T"
 dictionary = file("dictionary.txt").read().split("\n")
 dictionary.pop()
-turn = 0 ## 0 is human, 1 is computer
+turn = 0 ## 0 is player 1, 1 is player 2
 word = ""
 wl = []
 while True:
@@ -33,14 +33,14 @@ while True:
             if i[len(word)] not in poss:
                 poss.append(i[len(word)])
         print "Possiblities: " + str(poss)
-        c = raw_input("Choose a letter >> ")[0]
+        c = raw_input("Player 1: Choose a letter >> ")[0]
         if c== "*":
             print "BLUFF!"
             if b(c,dictionary):
                 print "Ha, You done been duped"
                 break
             else:
-                print "GJ, You called an infalliable AI's bluff"
+                print "GJ, You called out the liar."
                 break
         word += c
         if l(word,dictionary):
@@ -55,12 +55,19 @@ while True:
             if i[len(word)] not in poss:
                 poss.append(i[len(word)])
         print "Possiblities: " + str(poss)
-        #rand = random.randint(0,len(poss)-1)
-        #word += poss[rand]
-        c = raw_input("Choose a letter >> ")[0]
+        c = raw_input("Player 2: Choose a letter >> ")[0]
+        word += c
+        if c== "*":
+            print "BLUFF!"
+            if b(c,dictionary):
+                print "Ha, You done been duped"
+                break
+            else:
+                print "GJ, You called out the liar."
+                break
         word += c
         if l(word,dictionary):
-            print "You actually beat the AI. You forced it to spell: " + word
+            print "Loser. You spelt: " + word
             break
         print "SAFE!  The current word is: " + word
         wl = [w for w in dictionary if w.startswith(word)]
