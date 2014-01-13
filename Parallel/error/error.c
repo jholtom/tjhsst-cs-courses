@@ -101,7 +101,7 @@ int main(int argc,char* argv[]){
     int x = -1500;
     for(z = -40; z < 40; z += 2.25){
     for(x = -1500; x < 1000; x += 61){
-    printf("\t%f\t%f\t%f\n",z,x,epocherr[x]);
+    printf("\t%f\t%d\t%f\n",z,x,epocherr[abs(x)]);
     }
     printf("\n");
     }
