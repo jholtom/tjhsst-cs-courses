@@ -28,10 +28,7 @@ def check(word,poss,dictionary):
     wlist = [w for w in dictionary if w.startswith(word)]
     for i in poss:
         print "checking " + i    
-        wlist = [w for w in dictionary if w.startswith(word+i)]
-        if wlist == []:
-            for i in wlist:
-                check(i,p(i),dictionary)
+        check(word+i,p(word+i),dictionary)
 def main():
     print "Welcome to G.H.O.S.T"
     turn = 0 ## 0 is player 1, 1 is player 2
