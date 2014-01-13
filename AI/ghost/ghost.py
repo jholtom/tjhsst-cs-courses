@@ -28,7 +28,11 @@ while True:
     if turn == 0:
         if len(word) != 0:
             print "Current word is: " + word
-
+        poss = []
+        for i in wl:
+            if i[len(word)] not in poss:
+                poss.append(i[len(word)])
+        print "Possiblities: " + str(poss)
         c = raw_input("Choose a letter >> ")[0]
         if c== "*":
             print "BLUFF!"
@@ -51,11 +55,13 @@ while True:
             if i[len(word)] not in poss:
                 poss.append(i[len(word)])
         print "Possiblities: " + str(poss)
-        rand = random.randint(0,len(poss)-1)
-        word += poss[rand]
+        #rand = random.randint(0,len(poss)-1)
+        #word += poss[rand]
+        c = raw_input("Choose a letter >> ")[0]
+        word += c
         if l(word,dictionary):
             print "You actually beat the AI. You forced it to spell: " + word
             break
         print "SAFE!  The current word is: " + word
-        wl = [w for w in dictionary if w.startswith(c)]
+        wl = [w for w in dictionary if w.startswith(word)]
         turn = 0
