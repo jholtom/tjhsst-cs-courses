@@ -18,6 +18,9 @@ def p(c,d):
             return True
     return False
 
+def check(word,poss,dictionary):
+    print "asdff"
+
 print "Welcome to G.H.O.S.T"
 dictionary = file("dictionary.txt").read().split("\n")
 dictionary.pop()
