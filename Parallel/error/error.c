@@ -1,4 +1,4 @@
-//Jacob Holtom - Error
+//Jacob Holtom - error
 //12/12/13
 #include <stdio.h>
 #include <stdlib.h>
@@ -6,7 +6,7 @@
 #include <time.h>
 //Number defintions
 #define NUMPAT 4
-#define NUMIN  2
+#define NUMIN  1
 #define NUMHID 2
 #define NUMOUT 1
 //Function defintions
@@ -23,12 +23,13 @@ int main(int argc,char* argv[]){
     int    i, j, k, p, np, op, ranpat[NUMPAT+1], epoch;
     int    npa = NUMPAT, Numin = NUMIN, Numh = NUMHID, Numout = NUMOUT;
     double in[NUMPAT+1][NUMIN+1] = { 0, 0, 0,  0, 0, 0,  0, 1, 0,  0, 0, 1,  0, 1, 1 };
+    double epocherr[10000] = {0};
     double targ[NUMPAT+1][NUMOUT+1] = { 0, 0,  0, 0,  0, 1,  0, 1,  0, 0 };
     double sh[NUMPAT+1][NUMHID+1], wih[NUMIN+1][NUMHID+1], h[NUMPAT+1][NUMHID+1];
     double so[NUMPAT+1][NUMOUT+1], who[NUMHID+1][NUMOUT+1], out[NUMPAT+1][NUMOUT+1];
     double deo[NUMOUT+1], sdow[NUMHID+1], dh[NUMHID+1];
     double dwih[NUMIN+1][NUMHID+1], dwho[NUMHID+1][NUMOUT+1];
-    double Error, eta = 0.5, alpha = 0.9, smallwt = 0.5;
+    double error, eta = 0.5, alpha = 0.9, smallwt = 0.5;
     //Initializer loops
     for( j = 1 ; j <= Numh ; j++ ) {
         for( i = 0 ; i <= Numin ; i++ ) {
@@ -43,7 +44,7 @@ int main(int argc,char* argv[]){
         }
     }
     //Main loop
-    for( epoch = 0 ; epoch < 100000 ; epoch++) {
+    for( epoch = 0 ; epoch < 10000 ; epoch++) {
         for( p = 1 ; p <= npa ; p++ ) {    
             ranpat[p] = p ;
         }
@@ -51,7 +52,7 @@ int main(int argc,char* argv[]){
             np = p + bit() * ( npa + 1 - p ) ;
             op = ranpat[p] ; ranpat[p] = ranpat[np] ; ranpat[np] = op ;
         }
-        Error = 0.0 ;
+        error = 0.0 ;
         for( np = 1 ; np <= npa ; np++ ) {
             p = ranpat[np];
             for( j = 1 ; j <= Numh ; j++ ) {
@@ -67,7 +68,7 @@ int main(int argc,char* argv[]){
                     so[p][k] += h[p][j] * who[j][k] ;
                 }
                 out[p][k] = sm(so[p][k]) ; 
-                Error += 0.5 * (targ[p][k] - out[p][k]) * (targ[p][k] - out[p][k]) ;
+                error += 0.5 * (targ[p][k] - out[p][k]) * (targ[p][k] - out[p][k]) ;
                 deo[k] = (targ[p][k] - out[p][k]) * out[p][k] * (1.0 - out[p][k]) ;
             }
             for( j = 1 ; j <= Numh ; j++ ) {    
@@ -94,24 +95,15 @@ int main(int argc,char* argv[]){
                 }
             }
         }
-        if( epoch%100 == 0 ) printf("\nEpoch %-5d :   Error = %f", epoch, Error) ;
-        if( Error < 0.0004 ) break ;
+        epocherr[epoch] = error;
     }
-    printf("\n\nNETWORK DATA - EPOCH %d\n\nPat\t", epoch) ;
-    for( i = 1 ; i <= Numin ; i++ ) {
-        printf("in%-4d\t", i) ;
+    double z = -40;
+    int x = -1500;
+    for(z = -40; z < 40; z += 2.25){
+    for(x = -1500; x < 1000; x += 61){
+    printf("\t%f\t%f\t%f\n",z,x,epocherr[x]);
     }
-    for( k = 1 ; k <= Numout ; k++ ) {
-        printf("targ%-4d\tout%-4d\t", k, k) ;
+    printf("\n");
     }
-    for( p = 1 ; p <= npa ; p++ ) {        
-    printf("\n%d\t", p) ;
-        for( i = 1 ; i <= Numin ; i++ ) {
-            printf("%f\t", in[p][i]) ;
-        }
-        for( k = 1 ; k <= Numout ; k++ ) {
-            printf("%f\t%f\t", targ[p][k], out[p][k]) ;
-        }
-    }
-    return 1 ;
+    return 0;
 }
