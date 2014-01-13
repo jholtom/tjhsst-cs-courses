@@ -50,7 +50,7 @@ while True:
         word += wl[rand][len(word)]
         print "I thought of the word: " + str(wl[rand])
         if l(word,dictionary):
-            print "omfg, you actually beat the AI. You forced it to spell: " + word
+            print "You actually beat the AI. You forced it to spell: " + word
             break
         print "SAFE!  The current word is: " + word
         wl = [w for w in dictionary if w.startswith(c)]
