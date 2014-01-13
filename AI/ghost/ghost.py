@@ -1,5 +1,7 @@
 #Jacob Holtom - G.H.O.S.T 12/02/13
 import os, random, sys, math, string
+player1 = []
+player2 = []
 def b(c,d):
     for i in d:
         if i.startswith(c):
@@ -26,9 +28,11 @@ def check(word,poss,dictionary):
     if poss == []:
         if len(word) % 2 == 0:
             print "Player 1 will win with: " + word
+            player1.append(word)
             return
         if len(word) % 2 == 1:
             print "Player 2 will win with: " + word
+            player2.append(word)
             return
         sys.exit()
     wlist = [w for w in dictionary if w.startswith(word)]
