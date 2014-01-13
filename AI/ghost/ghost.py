@@ -16,8 +16,8 @@ def p(x):
     wlist = [w for w in dictionary if w.startswith(x)]
     poss = []
     for i in wlist:
-        if i[len(word)] not in poss:
-            poss.append(i[len(word)])
+        if i[len(x)] not in poss:
+            poss.append(i[len(x)])
     return poss
 def check(word,poss,dictionary):
     if l(word,dictionary):
