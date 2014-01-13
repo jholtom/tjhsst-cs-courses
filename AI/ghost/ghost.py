@@ -23,8 +23,10 @@ def check(word,poss,dictionary):
     if l(word,dictionary):
         if len(word) % 2 == 0:
             print "Player 1 will win with: " + word
+            return
         if len(word) % 2 == 1:
             print "Player 2 will win with: " + word
+            return
     wlist = [w for w in dictionary if w.startswith(word)]
     for i in poss:
         print "checking " + i    
