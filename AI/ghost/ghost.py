@@ -32,59 +32,61 @@ def check(word,poss,dictionary):
         if wlist == []:
             for i in wlist:
                 check(i,p(i),dictionary)
-
-print "Welcome to G.H.O.S.T"
-dictionary = file("dictionary.txt").read().split("\n")
-dictionary.pop()
-turn = 0 ## 0 is player 1, 1 is player 2
-word = ""
-wl = []
-while True:
-    if turn == 0:
-        if len(word) != 0:
-            print "Current word is: " + word
-        poss = []
-        for i in wl:
-            if i[len(word)] not in poss:
-                poss.append(i[len(word)])
-        print "Possiblities: " + str(poss)
-        c = raw_input("Player 1: Choose a letter >> ")[0]
-        if c== "*":
-            print "BLUFF!"
-            if b(c,dictionary):
-                print "Ha, You done been duped"
+def main():
+    print "Welcome to G.H.O.S.T"
+    dictionary = file("dictionary.txt").read().split("\n")
+    dictionary.pop()
+    turn = 0 ## 0 is player 1, 1 is player 2
+    word = ""
+    wl = []
+    while True:
+        if turn == 0:
+            if len(word) != 0:
+                print "Current word is: " + word
+            poss = []
+            for i in wl:
+                if i[len(word)] not in poss:
+                    poss.append(i[len(word)])
+            print "Possiblities: " + str(poss)
+            c = raw_input("Player 1: Choose a letter >> ")[0]
+            if c== "*":
+                print "BLUFF!"
+                if b(c,dictionary):
+                    print "Ha, You done been duped"
+                    break
+                else:
+                    print "GJ, You called out the liar."
+                    break
+            word += c
+            if l(word,dictionary):
+                print "Loser. You spelt: " + word
                 break
-            else:
-                print "GJ, You called out the liar."
+            print "SAFE!  The current word is: " + word
+            wl = [w for w in dictionary if w.startswith(word)]
+            turn = 1
+        if turn == 1:
+            if len(word) != 0:
+                print "Current word is: " + word
+            poss = []
+            for i in wl:
+                if i[len(word)] not in poss:
+                    poss.append(i[len(word)])
+            print "Possiblities: " + str(poss)
+            c = raw_input("Player 1: Choose a letter >> ")[0]
+            if c== "*":
+                print "BLUFF!"
+                if b(c,dictionary):
+                    print "Ha, You done been duped"
+                    break
+                else:
+                    print "GJ, You called out the liar."
+                    break
+            word += c
+            if l(word,dictionary):
+                print "Loser. You spelt: " + word
                 break
-        word += c
-        if l(word,dictionary):
-            print "Loser. You spelt: " + word
-            break
-        print "SAFE!  The current word is: " + word
-        wl = [w for w in dictionary if w.startswith(word)]
-        turn = 1
-    if turn == 1:
-        if len(word) != 0:
-            print "Current word is: " + word
-        poss = []
-        for i in wl:
-            if i[len(word)] not in poss:
-                poss.append(i[len(word)])
-        print "Possiblities: " + str(poss)
-        c = raw_input("Player 1: Choose a letter >> ")[0]
-        if c== "*":
-            print "BLUFF!"
-            if b(c,dictionary):
-                print "Ha, You done been duped"
-                break
-            else:
-                print "GJ, You called out the liar."
-                break
-        word += c
-        if l(word,dictionary):
-            print "Loser. You spelt: " + word
-            break
-        print "SAFE!  The current word is: " + word
-        wl = [w for w in dictionary if w.startswith(word)]
-        turn = 0
+            print "SAFE!  The current word is: " + word
+            wl = [w for w in dictionary if w.startswith(word)]
+            turn = 0
+if __name__ == "__main__":
+    main()
