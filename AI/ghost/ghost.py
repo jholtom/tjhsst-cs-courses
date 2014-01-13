@@ -34,8 +34,6 @@ def check(word,poss,dictionary):
                 check(i,p(i),dictionary)
 def main():
     print "Welcome to G.H.O.S.T"
-    dictionary = file("dictionary.txt").read().split("\n")
-    dictionary.pop()
     turn = 0 ## 0 is player 1, 1 is player 2
     word = ""
     wl = []
@@ -88,5 +86,8 @@ def main():
             print "SAFE!  The current word is: " + word
             wl = [w for w in dictionary if w.startswith(word)]
             turn = 0
+
+dictionary = file("dictionary.txt").read().split("\n")
+dictionary.pop()
 if __name__ == "__main__":
     main()
