@@ -42,9 +42,6 @@ while True:
             else:
                 print "GJ, You called out the liar."
                 break
-        if c not in poss:
-            print "That doesn't spell a word, silly"
-            break
         word += c
         if l(word,dictionary):
             print "Loser. You spelt: " + word
@@ -69,9 +66,6 @@ while True:
             else:
                 print "GJ, You called out the liar."
                 break
-        if c not in poss:
-            print "That doesn't spell a word, silly"
-            break
         word += c
         if l(word,dictionary):
             print "Loser. You spelt: " + word
