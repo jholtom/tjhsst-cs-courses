@@ -46,9 +46,13 @@ while True:
         wl = [w for w in dictionary if w.startswith(word)]
         turn = 1
     if turn == 1:
-        rand = random.randint(0,len(wl)-1)
-        word += wl[rand][len(word)]
-        print "I thought of the word: " + str(wl[rand])
+        poss = []
+        for i in wl:
+            if i[len(word)] not in poss:
+                poss.append(i[len(word)])
+        print "Possiblities: " + str(poss)
+        rand = random.randint(0,len(poss)-1)
+        word += poss[rand]
         if l(word,dictionary):
             print "You actually beat the AI. You forced it to spell: " + word
             break
