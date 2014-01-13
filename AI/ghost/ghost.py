@@ -46,6 +46,9 @@ while True:
         if l(word,dictionary):
             print "Loser. You spelt: " + word
             break
+        if p(word,dictionary):
+            print "loser. that isn't a possible word: " + word
+            break
         print "SAFE!  The current word is: " + word
         wl = [w for w in dictionary if w.startswith(word)]
         turn = 1
@@ -68,6 +71,9 @@ while True:
         word += c
         if l(word,dictionary):
             print "Loser. You spelt: " + word
+            break
+        if p(word,dictionary):
+            print "loser. that isn't a possible word: " + word
             break
         print "SAFE!  The current word is: " + word
         wl = [w for w in dictionary if w.startswith(word)]
