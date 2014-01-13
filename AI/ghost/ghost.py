@@ -13,7 +13,7 @@ def l(c,d):
     return False
 
 def p(x):
-    if l(x,dictionary):
+    if l(x,dictionary) or x in dictionary:
         return []
     wlist = [w for w in dictionary if w.startswith(x)]
     poss = []
