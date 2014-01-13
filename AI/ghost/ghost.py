@@ -46,20 +46,18 @@ while True:
         if l(word,dictionary):
             print "Loser. You spelt: " + word
             break
-        if p(word,dictionary):
-            print "loser. that isn't a possible word: " + word
-            break
         print "SAFE!  The current word is: " + word
         wl = [w for w in dictionary if w.startswith(word)]
         turn = 1
     if turn == 1:
+        if len(word) != 0:
+            print "Current word is: " + word
         poss = []
         for i in wl:
             if i[len(word)] not in poss:
                 poss.append(i[len(word)])
         print "Possiblities: " + str(poss)
-        c = raw_input("Player 2: Choose a letter >> ")[0]
-        word += c
+        c = raw_input("Player 1: Choose a letter >> ")[0]
         if c== "*":
             print "BLUFF!"
             if b(c,dictionary):
@@ -71,9 +69,6 @@ while True:
         word += c
         if l(word,dictionary):
             print "Loser. You spelt: " + word
-            break
-        if p(word,dictionary):
-            print "loser. that isn't a possible word: " + word
             break
         print "SAFE!  The current word is: " + word
         wl = [w for w in dictionary if w.startswith(word)]
