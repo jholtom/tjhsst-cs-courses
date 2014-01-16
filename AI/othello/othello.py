@@ -512,7 +512,7 @@ def computersMoveX(depth, player):
 def computersMove(depth, player): # WRITE THIS FUNCTION
     depth = depth-1
     global M
-    setOfMoveValuesAndMoves = []        
+    setOfMoveValuesAndMoves = [] 
 def maxValue(depth, player): # WRITE THIS FUNCTION,  Return the MAXIMUM value of the boards created by appending black moves.
     global M
     assert player  == HUMAN
