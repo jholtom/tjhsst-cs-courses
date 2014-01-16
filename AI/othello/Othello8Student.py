@@ -261,7 +261,6 @@ in memory. The headers for my two functions are below. The actual code is given 
     4. baseCaseForEvenPlyDepth(). This function is identical to the maxValue function (and is called from the
     [Black picks a move.]   maxValue function), except that it does not get its points from its children.
                             Instead, it uses an evaluation function. Why return the maximum? The higher the
-                            score the better for black.
 
 
 
@@ -998,15 +997,12 @@ def computersMove(depth, player):
     depth = depth-1
     global M
     setOfMoveValuesAndMoves = []        # 1. WRITE THIS FUNCTION
-#----------------------------------------------------------------------------------------------------Othello--
-
 def maxValue(depth, player): # Return the MAXIMUM value of the boards created by appending black moves.
 #---Initialize and check assertions.
     global M
     assert player  == HUMAN
     setOfMoveValuesAndMoves = []        # 2. WRITE THIS FUNCTION
 
-#----------------------------------------------------------------------------------------------------Othello--
 # Return the MINIMUM value of the boards created by appending white moves. Remember, the higher the value,
 # the better for black.
 def minValue(depth, player):
@@ -1014,10 +1010,6 @@ def minValue(depth, player):
     global M
     assert player == COMPUTER # = white
     setOfMoveValuesAndMoves = []        # 3. WRITE THIS FUNCTION
-#----------------------------------------------------------------------------------------------------Othello--
-
-
-
 # Note that this function is identical to the maxValue function (and is called from the maxValue function),
 # except that it does not get its points from its children. Instead, it uses an evaluation function. Why
 # return the maximum? The higher the score the better for black.
@@ -1027,8 +1019,6 @@ def baseCaseForEvenPlyDepth(depth, player):
     assert depth == 0, [depth]
     updateThePointMatrices()
     maxPlayerValue = float('-inf')      # 4. WRITE THIS FUNCTION
-#----------------------------------------------------------------------------------------------------Othello--
-
 #  This function is identical to the minValue function (and is called from the minValue function), except that
 #  it does not get its points from its children. Instead, it uses an evaluation function.
 def baseCaseForOddPlyDepth(depth, player):
@@ -1036,8 +1026,6 @@ def baseCaseForOddPlyDepth(depth, player):
     assert depth == 0, [depth]
     updateThePointMatrices()
     minPlayerValue = float('inf')       # 5. WRITE THIS FUNCTION
-#====================================<GLOBAL CONSTANTS and GLOBAL IMPORTS>====================================
-
 from tkinter  import *   # <-- Use Tkinter in Python 2.x
 from time     import clock, sleep
 PAUSE_TIME =  1.5
@@ -1048,14 +1036,9 @@ M          =  createMatrix()            # <-- Global, because no variable can be
 HUMAN      =  1 # = Black
 COMPUTER   = -1 # = White
 DEPTH      =  2 # if DEPTH = 5, moves can take between 11-15 seconds.
-#===================================================<MAIN>====================================================
-
 def main():
     root.bind('<Button-1>', click) # 1 = LEFT  mouse button calls the click function.
     root.bind('<Button-3>', click) # 3 = RIGHT mouse button calls the click function.
     setUpInitialBoard()
     root.mainloop()                # The window waits for the click function to be called.
-#----------------------------------------------------------------------------------------------------Othello--
 if __name__ == '__main__':  main()
-###############################################<END OF PROGRAM>###############################################
-
