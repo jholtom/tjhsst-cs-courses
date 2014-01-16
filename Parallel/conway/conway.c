@@ -6,7 +6,7 @@
 #include <time.h>
 #include <math.h>
 #include <unistd.h>
-#include "mpi.h"
+//#include "mpi.h"
 #define N 600
 #define for_x for (int x = 0; x < N; x++)
 #define for_y for (int y = 0; y < N; y++)
@@ -31,6 +31,7 @@ void evolve(void *u, int w, int h)
 }
 void displayfunc(void)
 {
+ evolve(univ,N,N);
     glClear(GL_COLOR_BUFFER_BIT);
     glColor3f( 1.0 , 1.0 , 1.0);
     for_y {
@@ -58,13 +59,13 @@ void reshapefunc(int wscr,int hscr)
     glMatrixMode(GL_MODELVIEW);
 }
 int main(int argc,char* argv[]){  
-    int rank,size,prob,prob2;
+    int rank,size;
     unsigned univ[N][N];
-    MPI_Status status;
+    /*MPI_Status status;
     MPI_Init(&argc,&argv);
     MPI_Comm_size(MPI_COMM_WORLD,&size);
     MPI_Comm_rank(MPI_COMM_WORLD,&rank);
-    if(rank == 0){ //I'm the master
+    if(rank == 0){ //I'm the master */
         for_xy univ[y][x] = rand() < RAND_MAX / 10 ? 1 : 0;
         glutInit(&argc,argv);
         glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
@@ -79,7 +80,7 @@ int main(int argc,char* argv[]){
         glutMainLoop();
         return 0;
     }
-    else { //I'm a worker
+    /*else { //I'm a worker
         return 0; 
     }
-}
+}*/
