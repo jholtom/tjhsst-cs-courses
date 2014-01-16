@@ -7,7 +7,7 @@
 #include <math.h>
 #include <unistd.h>
 //#include "mpi.h"
-#define N 600
+#define N 60
 #define for_x for (int x = 0; x < N; x++)
 #define for_y for (int y = 0; y < N; y++)
 #define for_xy for_x for_y
@@ -16,7 +16,6 @@ void evolve(void *u, int w, int h)
 {
     unsigned (*univ)[w] = u;
     unsigned new[h][w];
-
     for_y for_x {
         int n = 0;
         for (int y1 = y - 1; y1 <= y + 1; y1++)
@@ -31,7 +30,7 @@ void evolve(void *u, int w, int h)
 }
 void displayfunc(void)
 {
- evolve(univ,N,N);
+    evolve(univ,N,N);
     glClear(GL_COLOR_BUFFER_BIT);
     glColor3f( 1.0 , 1.0 , 1.0);
     for_y {
@@ -44,7 +43,7 @@ void displayfunc(void)
             }
         }
     }
-glutSwapBuffers();
+    glutSwapBuffers();
 }
 void mousefunc(int button, int state, int xscr, int yscr)
 {
@@ -62,25 +61,25 @@ int main(int argc,char* argv[]){
     int rank,size;
     unsigned univ[N][N];
     /*MPI_Status status;
-    MPI_Init(&argc,&argv);
-    MPI_Comm_size(MPI_COMM_WORLD,&size);
-    MPI_Comm_rank(MPI_COMM_WORLD,&rank);
-    if(rank == 0){ //I'm the master */
-        for_xy univ[y][x] = rand() < RAND_MAX / 10 ? 1 : 0;
-        glutInit(&argc,argv);
-        glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
-        glutInitWindowSize(N,N);
-        glutInitWindowPosition(100,50);
-        glutCreateWindow("");
-        glClearColor(0.0,0.0,0.0,0.0);
-        glShadeModel(GL_SMOOTH);
-        glutDisplayFunc(displayfunc);
-        glutReshapeFunc(reshapefunc);
-        glutMouseFunc(mousefunc);
-        glutMainLoop();
-        return 0;
-    }
-    /*else { //I'm a worker
-        return 0; 
-    }
-}*/
+      MPI_Init(&argc,&argv);
+      MPI_Comm_size(MPI_COMM_WORLD,&size);
+      MPI_Comm_rank(MPI_COMM_WORLD,&rank);
+      if(rank == 0){ //I'm the master */
+    for_xy univ[y][x] = rand() < RAND_MAX / 10 ? 1 : 0;
+    glutInit(&argc,argv);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
+    glutInitWindowSize(N,N);
+    glutInitWindowPosition(100,50);
+    glutCreateWindow("");
+    glClearColor(0.0,0.0,0.0,0.0);
+    glShadeModel(GL_SMOOTH);
+    glutDisplayFunc(displayfunc);
+    glutReshapeFunc(reshapefunc);
+    glutMouseFunc(mousefunc);
+    glutMainLoop();
+    return 0;
+}
+/*else { //I'm a worker
+  return 0; 
+  }
+  }*/
