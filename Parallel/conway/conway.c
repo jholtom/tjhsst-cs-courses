@@ -31,12 +31,14 @@ void evolve(void *u, int w, int h)
 }
 void displayfunc(void)
 {
-    //evolve(univ,N/S,N/S);
+    evolve(univ,N/S,N/S);
     glClear(GL_COLOR_BUFFER_BIT);
     glColor3f( 1.0 , 1.0 , 1.0);
+    unsigned (*univ2)[N/S] = univ;
     for_y {
         for_x {
-            if(univ[y][x] == 1)
+            printf("%u",univ2[y][x]);
+            if(univ2[y][x] == 1)
             {
                 printf("I should be drawing now");
                 glBegin(GL_QUADS);
