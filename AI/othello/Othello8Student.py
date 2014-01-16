@@ -1,4 +1,3 @@
-##############################################<START OF PROGRAM>##############################################
 def setUpCanvas(root): # These are the REQUIRED magic lines to enter graphics mode.
     root.title("A Tk/Python Graphics Program") # Your screen size may be different from 1270 x 780.
     canvas = Canvas(root, width = 1270, height = 780, bg = 'GREY30')
