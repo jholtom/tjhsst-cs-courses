@@ -80,6 +80,7 @@ int main(int argc,char* argv[]){
     glutDisplayFunc(displayfunc);
     glutReshapeFunc(reshapefunc);
     glutMouseFunc(mousefunc);
+    glutIdleFunc(glutPostRedisplay);
     glutMainLoop();
     return 0;
 }
