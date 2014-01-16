@@ -1,7 +1,7 @@
 error-lm:
 	gcc -lm error/error.c -o error/error
-conway:
-	mpicc -lGLU -lglut -lGL conway/conway.c -o conway/conway
+conway-gl:
+	mpicc -lGLU -lglut -lGL conway/conway.c -o conway/conway -std=c99
 execconway:
 	mpirun -np 32 -machinefile hostlist.txt conway/conway
 encoder:
