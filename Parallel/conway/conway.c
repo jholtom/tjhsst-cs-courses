@@ -8,7 +8,7 @@
 #include <unistd.h>
 //#include "mpi.h"
 #define N 600
-#define S S
+#define S 5
 #define for_x for (int x = 0; x < N/S; x++)
 #define for_y for (int y = 0; y < N/S; y++)
 #define for_xy for_x for_y
@@ -73,7 +73,7 @@ int main(int argc,char* argv[]){
     glutInit(&argc,argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
     glutInitWindowSize(N,N);
-    glutInitWindowPosition(100,50)
+    glutInitWindowPosition(100,50);
     glutCreateWindow("");
     glClearColor(0.0,0.0,0.0,0.0);
     glShadeModel(GL_SMOOTH);
