@@ -65,7 +65,6 @@ void reshapefunc(int wscr,int hscr)
 }
 int main(int argc,char* argv[]){  
     int rank,size;
-    unsigned univ[N/S][N/S];
     /*MPI_Status status;
       MPI_Init(&argc,&argv);
       MPI_Comm_size(MPI_COMM_WORLD,&size);
