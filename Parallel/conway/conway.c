@@ -31,7 +31,7 @@ void evolve(void *u, int w, int h)
 }
 void displayfunc(void)
 {
-    evolve(univ,N/S,N/S);
+    //evolve(univ,N/S,N/S);
     glClear(GL_COLOR_BUFFER_BIT);
     glColor3f( 1.0 , 1.0 , 1.0);
     for_y {
