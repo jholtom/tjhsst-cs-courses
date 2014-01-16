@@ -509,35 +509,36 @@ def computersMoveX(depth, player):
 #            with each board position. The maxValue and minValue functions do not need to remember the (row,
 #            col) moves associated with the positions they create. This function ALWAYS begins with calling
 #            the maxValue function, no matter if the ply is even or odd.
-def computersMove(depth, player):
+def computersMove(depth, player): # WRITE THIS FUNCTION
     depth = depth-1
     global M
-    setOfMoveValuesAndMoves = []        # 1. WRITE THIS FUNCTION
-def maxValue(depth, player): # Return the MAXIMUM value of the boards created by appending black moves.
+    setOfMoveValuesAndMoves = []        
+def maxValue(depth, player): # WRITE THIS FUNCTION,  Return the MAXIMUM value of the boards created by appending black moves.
     global M
     assert player  == HUMAN
-    setOfMoveValuesAndMoves = []        # 2. WRITE THIS FUNCTION
+    setOfMoveValuesAndMoves = []
 # Return the MINIMUM value of the boards created by appending white moves. Remember, the higher the value,
 # the better for black.
-def minValue(depth, player):
+def minValue(depth, player): # WRITE THIS FUNCTION
     global M
     assert player == COMPUTER # = white
-    setOfMoveValuesAndMoves = []        # 3. WRITE THIS FUNCTION
+    setOfMoveValuesAndMoves = []
 # Note that this function is identical to the maxValue function (and is called from the maxValue function),
 # except that it does not get its points from its children. Instead, it uses an evaluation function. Why
 # return the maximum? The higher the score the better for black.
-def baseCaseForEvenPlyDepth(depth, player):
+def baseCaseForEvenPlyDepth(depth, player): # WRITE THIS FUNCTION
     global M
     assert depth == 0, [depth]
     updateThePointMatrices()
-    maxPlayerValue = float('-inf')      # 4. WRITE THIS FUNCTION
+    maxPlayerValue = float('-inf')
 #  This function is identical to the minValue function (and is called from the minValue function), except that
 #  it does not get its points from its children. Instead, it uses an evaluation function.
-def baseCaseForOddPlyDepth(depth, player):
+def baseCaseForOddPlyDepth(depth, player): # WRITE THIS FUNCTION
     global M
     assert depth == 0, [depth]
     updateThePointMatrices()
-    minPlayerValue = float('inf')       # 5. WRITE THIS FUNCTION
+    minPlayerValue = float('inf')
+
 from tkinter  import *
 from time     import clock, sleep
 PAUSE_TIME =  1.5
