@@ -8,9 +8,8 @@
 #include <unistd.h>
 //#include "mpi.h"
 #define N 600
-#define S 5
-#define for_x for (int x = 0; x < N/S; x++)
-#define for_y for (int y = 0; y < N/S; y++)
+#define for_x for (int x = 0; x < N; x++)
+#define for_y for (int y = 0; y < N; y++)
 #define for_xy for_x for_y
 unsigned univ[N][N];
 void evolve(void *u, int w, int h)
@@ -31,18 +30,24 @@ void evolve(void *u, int w, int h)
 }
 void displayfunc(void)
 {
-    evolve(univ,N/S,N/S);
+    evolve(univ,N,N);
     glClear(GL_COLOR_BUFFER_BIT);
     glColor3f( 1.0 , 1.0 , 1.0);
     for_y {
         for_x {
             if(univ[y][x] == 1)
             {
+                /* Polygon version
                 glBegin(GL_QUADS);
                 glVertex2f(x,y);
-                glVertex2f(x+S,y+S);
-                glVertex2f(x,y+S);
-                glVertex2f(x+S,y);
+                glVertex2f(x+5,y+5);
+                glVertex2f(x,y+5);
+                glVertex2f(x+5,y);
+                glEnd();
+                */
+                //Point version
+                glBegin(GL_POINTS);
+                glVertex2f(x,y);
                 glEnd();
             }
         }
