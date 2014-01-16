@@ -70,6 +70,7 @@ int main(int argc,char* argv[]){
       MPI_Comm_rank(MPI_COMM_WORLD,&rank);
       if(rank == 0){ //I'm the master */
     for_xy univ[y][x] = rand() < RAND_MAX / 10 ? 1 : 0;
+    for_xy printf("%u",univ[y][x]);
     glutInit(&argc,argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
     glutInitWindowSize(N,N);
