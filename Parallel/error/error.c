@@ -5,10 +5,10 @@
 #include <math.h>
 #include <time.h>
 //Number defintions
-#define NUMPAT 4
-#define NUMIN  1
-#define NUMHID 2
-#define NUMOUT 1
+#define NUMPAT 5
+#define NUMIN  2
+#define NUMHID 4
+#define NUMOUT 2
 //Function defintions
 double bit(){
     return ((double)rand()/((double)(RAND_MAX) + 1.0));
