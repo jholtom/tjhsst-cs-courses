@@ -6,7 +6,7 @@
 #include <time.h>
 #include <math.h>
 #include <unistd.h>
-//#include "mpi.h"
+#include "mpi.h"
 #define N 600
 #define for_x for (int x = 0; x < N; x++)
 #define for_y for (int y = 0; y < N; y++)
@@ -38,13 +38,13 @@ void displayfunc(void)
             if(univ[y][x] == 1)
             {
                 /* Polygon version
-                glBegin(GL_QUADS);
-                glVertex2f(x,y);
-                glVertex2f(x+5,y+5);
-                glVertex2f(x,y+5);
-                glVertex2f(x+5,y);
-                glEnd();
-                */
+                   glBegin(GL_QUADS);
+                   glVertex2f(x,y);
+                   glVertex2f(x+5,y+5);
+                   glVertex2f(x,y+5);
+                   glVertex2f(x+5,y);
+                   glEnd();
+                   */
                 //Point version
                 glBegin(GL_POINTS);
                 glVertex2f(x,y);
@@ -69,26 +69,26 @@ void reshapefunc(int wscr,int hscr)
 int main(int argc,char* argv[]){  
     int rank,size;
     MPI_Status status;
-      MPI_Init(&argc,&argv);
-      MPI_Comm_size(MPI_COMM_WORLD,&size);
-      MPI_Comm_rank(MPI_COMM_WORLD,&rank);
-      if(rank == 0){ //I'm the master */
-    for_xy univ[y][x] = rand() < RAND_MAX / 10 ? 1 : 0;
-    glutInit(&argc,argv);
-    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
-    glutInitWindowSize(N,N);
-    glutInitWindowPosition(100,50);
-    glutCreateWindow("");
-    glClearColor(0.0,0.0,0.0,0.0);
-    glShadeModel(GL_SMOOTH);
-    glutDisplayFunc(displayfunc);
-    glutReshapeFunc(reshapefunc);
-    glutMouseFunc(mousefunc);
-    glutIdleFunc(glutPostRedisplay);
-    glutMainLoop();
-    return 0;
-}
-else { //I'm a worker
-  return 0; 
-  }
+    MPI_Init(&argc,&argv);
+    MPI_Comm_size(MPI_COMM_WORLD,&size);
+    MPI_Comm_rank(MPI_COMM_WORLD,&rank);
+    if(rank == 0){ //I'm the master */
+        for_xy univ[y][x] = rand() < RAND_MAX / 10 ? 1 : 0;
+        glutInit(&argc,argv);
+        glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
+        glutInitWindowSize(N,N);
+        glutInitWindowPosition(100,50);
+        glutCreateWindow("");
+        glClearColor(0.0,0.0,0.0,0.0);
+        glShadeModel(GL_SMOOTH);
+        glutDisplayFunc(displayfunc);
+        glutReshapeFunc(reshapefunc);
+        glutMouseFunc(mousefunc);
+        glutIdleFunc(glutPostRedisplay);
+        glutMainLoop();
+        return 0;
+    }
+    else { //I'm a worker
+        return 0; 
+    }
 }
