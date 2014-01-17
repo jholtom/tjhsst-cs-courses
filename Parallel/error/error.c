@@ -99,10 +99,10 @@ int main(int argc,char* argv[]){
     }
     double z = -40;
     int count = 0;
-    int x = -1490;
+    double x = -1490;
     for(z = -40; z < 40; z += 2.25){
     for(x = -1490; x < 1000; x += 62.25){
-    printf("\t%f\t%d\t%f\n",z,x,epocherr[count]);
+    printf("\t%f\t%f\t%f\n",z,x,epocherr[count]);
     count++;
     }
     printf("\n");
