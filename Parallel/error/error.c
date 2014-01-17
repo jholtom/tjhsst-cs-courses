@@ -98,10 +98,12 @@ int main(int argc,char* argv[]){
         epocherr[epoch] = error;
     }
     double z = -40;
+    int count = 0;
     int x = -1500;
     for(z = -40; z < 40; z += 2.25){
     for(x = -1500; x < 1000; x += 61){
-    printf("\t%f\t%d\t%f\n",z,x,epocherr[abs(x)]);
+    printf("\t%f\t%d\t%f\n",z,x,epocherr[count]);
+    count++;
     }
     printf("\n");
     }
