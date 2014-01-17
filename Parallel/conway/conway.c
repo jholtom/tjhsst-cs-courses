@@ -68,7 +68,7 @@ void reshapefunc(int wscr,int hscr)
 }
 int main(int argc,char* argv[]){  
     int rank,size;
-    /*MPI_Status status;
+    MPI_Status status;
       MPI_Init(&argc,&argv);
       MPI_Comm_size(MPI_COMM_WORLD,&size);
       MPI_Comm_rank(MPI_COMM_WORLD,&rank);
@@ -88,7 +88,7 @@ int main(int argc,char* argv[]){
     glutMainLoop();
     return 0;
 }
-/*else { //I'm a worker
+else { //I'm a worker
   return 0; 
   }
-  }*/
+}
