@@ -5,7 +5,7 @@
 #include <math.h>
 #include <time.h>
 //Number defintions
-#define NUMPAT 6
+#define NUMPAT 5 
 #define NUMIN  2
 #define NUMHID 4
 #define NUMOUT 2
