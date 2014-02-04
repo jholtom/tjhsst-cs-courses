@@ -1,6 +1,8 @@
 //Jacob Holtom
-//
+#include <math.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 #define WIDTH 640
 #define HIGHT 480
 void write(int rgb[HIGHT][WIDTH][3])
@@ -15,8 +17,7 @@ void write(int rgb[HIGHT][WIDTH][3])
    {
       for( x = 0 ; x < WIDTH ; x++)
       {
-         fprintf( fout , "%d %d %d\n" ,
-          rgb[y][x][0] , rgb[y][x][1] , rgb[y][x][2] ) ;
+         fprintf( fout , "%d %d %d\n" , rgb[y][x][0] , rgb[y][x][1] , rgb[y][x][2] ) ;
       }
    }
    close( fout ) ;

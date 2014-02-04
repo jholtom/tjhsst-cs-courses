@@ -6,8 +6,10 @@ print w
 print h
 data = data[4:]
 
-while h<1:
-    while w<1:
-        i = 3 * h * w
-        print data[i]
-    h -= 1
+y = 0
+while y < h:
+    x = 0
+    while x < w:
+        j = 3 * (y * w + x)
+        x += 1
+    y += 1
