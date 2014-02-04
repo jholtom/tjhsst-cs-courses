@@ -5,6 +5,7 @@ h = int(data[2])
 print w
 print h
 data = data[4:]
+
 while h<1:
     while w<1:
         i = 3 * h * w
