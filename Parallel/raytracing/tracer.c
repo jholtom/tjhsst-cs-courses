@@ -7,15 +7,6 @@ void write(int rgb[HIGHT][WIDTH][3])
 {
    int y , x ;
    FILE* fout ;
-   for( y = 0 ; y < HIGHT ; y++ )
-   {
-      for( x = 0 ; x < WIDTH ; x++)
-      {
-         rgb[y][x][0] = 0   ; // red
-         rgb[y][x][1] = 255 ; // green
-         rgb[y][x][2] = 0   ; // blue
-      }
-   }
    fout = fopen( "output.ppm" , "w" ) ;
    fprintf( fout , "P3\n" ) ;
    fprintf( fout , "%d %d\n" , WIDTH , HIGHT ) ;
@@ -31,5 +22,17 @@ void write(int rgb[HIGHT][WIDTH][3])
    close( fout ) ;
 }
 int main(void){
-return 0;
+   int y, x;
+   int rgb[HIGHT][WIDTH][3];
+    for( y = 0 ; y < HIGHT ; y++ )
+   {
+      for( x = 0 ; x < WIDTH ; x++)
+      {
+         rgb[y][x][0] = 0   ; // red
+         rgb[y][x][1] = 255 ; // green
+         rgb[y][x][2] = 0   ; // blue
+      }
+   }
+   write(rgb);
+   return 0;
 }
