@@ -1,19 +1,12 @@
-//
-// Torbert, 3 February 2014
+//Jacob Holtom
 //
 #include <stdio.h>
-//
 #define WIDTH 640
 #define HIGHT 480
-//
-int main(void)
+void write(int rgb[HIGHT][WIDTH][3])
 {
-   int rgb[HIGHT][WIDTH][3] ; // red-green-blue for each pixel
-   //
    int y , x ;
-   //
    FILE* fout ;
-   //
    for( y = 0 ; y < HIGHT ; y++ )
    {
       for( x = 0 ; x < WIDTH ; x++)
@@ -23,15 +16,10 @@ int main(void)
          rgb[y][x][2] = 0   ; // blue
       }
    }
-   //
-   //
-   //
-   fout = fopen( "allgreen.ppm" , "w" ) ;
-   //
+   fout = fopen( "output.ppm" , "w" ) ;
    fprintf( fout , "P3\n" ) ;
    fprintf( fout , "%d %d\n" , WIDTH , HIGHT ) ;
    fprintf( fout , "255\n" ) ;
-   //
    for( y = 0 ; y < HIGHT ; y++ )
    {
       for( x = 0 ; x < WIDTH ; x++)
@@ -41,9 +29,7 @@ int main(void)
       }
    }
    close( fout ) ;
-   //
-   return 0 ;
 }
-//
-// end of file
-//
+int main(void){
+return 0;
+}
