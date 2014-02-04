@@ -1,3 +1,5 @@
+tracer:
+	gcc raytracing/tracer.c -o raytracing/tracer
 error-lm:
 	gcc -lm error/error.c -o error/error
 conway-gl:
