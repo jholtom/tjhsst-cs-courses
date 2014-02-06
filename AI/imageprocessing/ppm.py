@@ -10,9 +10,11 @@ while y < h:
     while x < w:
         j = 3 * (y * w + x)
         #print str(int((int(data[j]) * 0.30))) + ' ' +  str(int((int(data[j+1]) * 0.59))) + ' ' + str(int((int(data[j+2]) * 0.11)))
-        r = data[j]
-        g = data[j+1]
-        b = data[j+2]
+        m = int((int(data[j]) * 0.30)) + int((int(data[j+1]) * 0.59)) + int((int(data[j+2]) * 0.11))
+        print m + ' ' + m + ' ' + m
+        #r = data[j]
+        #g = data[j+1]
+        #b = data[j+2]
         x += 1
     y += 1
 
