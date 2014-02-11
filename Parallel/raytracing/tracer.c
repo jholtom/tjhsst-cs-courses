@@ -9,6 +9,12 @@
 #define for_y for (int y = 0; y < H; y++)
 #define for_yx for_y for_x
 int rgb[H][W][3];
+void pixel(int rgb[H][W][3], int x, int y, int r, int g, int b)
+{
+        rgb[y][x][0] = r; // red
+        rgb[y][x][1] = g; // green
+        rgb[y][x][2] = b; // blue
+}
 void write(int rgb[H][W][3])
 {
     int y , x ;
@@ -45,14 +51,35 @@ void tracer(int rgb[H][W][3]){
     float ey = 0.5;
     float ez = 1.0;
 
-}
-int main(void){
     int y, x;
     for_yx {
-        rgb[y][x][0] = 0   ; // red
-        rgb[y][x][1] = 255 ; // green
-        rgb[y][x][2] = 0   ; // blue
+        float px, py, pz;
+        px = (x * 1.0) / W; 
+        py = (y * 1.0) / H;
+        pz = 0.0; 
+
+        float rx, ry, rz;
+        rx = (px - ex); 
+        ry = (py - ey);
+        rz = (pz - ez);
+       
+        float T = 0.0; //messy equation here.
+
+        float mx, my, mz;
+        mx = ex + T * rx;
+        my = ey + T * ry;
+        mz = ez = T * rz;
     }
+}
+void black(int rgb[H][W][3]){
+    int y, x;
+    for_yx {
+        pixel(rgb,y,x,0,0,0);
+    }
+}
+int main(void){
+    black(rgb);
+    tracer(rgb);
     write(rgb);
     return 0;
 }
