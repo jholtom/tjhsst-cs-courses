@@ -6,15 +6,14 @@ w = int(data[1])
 h = int(data[2])
 data = data[4:]
 y = 0
+array = [[0 for x in xrange(h)] for x in xrange(w)]
 while y < h:
     x = 0
     while x < w:
         j = 3 * (y * w + x)
         m = int((int(data[j]) * 0.30)) + int((int(data[j+1]) * 0.59)) + int((int(data[j+2]) * 0.11))
-        print str(m) + ' ' + str(m) + ' ' + str(m)
-        #r = data[j]
-        #g = data[j+1]
-        #b = data[j+2]
+        array[x][y] = m
+        print str(array[x][y]) + ' ' + str(array[x][y]) + ' ' + str(array[x][y])
         x += 1
     y += 1
 
