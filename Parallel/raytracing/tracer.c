@@ -65,7 +65,7 @@ void tracer(int rgb[H][W][3]){
         int a = 1;
          
         float T = 0.0; // (-b + sqrt(b^2 - 4ac)) / 2a if discriminant is less than 0 then it misses
-        // (mx - cx)^2 + (my - cy)^2 + (mz - cz)^2 = r^2
+        //(mx - cx)^2 + (my - cy)^2 + (mz - cz)^2 = r^2
 
         float mx, my, mz;
         mx = ex + T * rx;
