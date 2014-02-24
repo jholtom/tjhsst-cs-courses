@@ -62,15 +62,24 @@ void tracer(int rgb[H][W][3]){
         rx = (px - ex); 
         ry = (py - ey);
         rz = (pz - ez);
-        int a = 1;
-         
-        float T = 0.0; // (-b + sqrt(b^2 - 4ac)) / 2a if discriminant is less than 0 then it misses
-        //(mx - cx)^2 + (my - cy)^2 + (mz - cz)^2 = r^2
 
         float mx, my, mz;
         mx = ex + T * rx;
         my = ey + T * ry;
         mz = ez + T * rz;
+        
+        float a = ;
+        float b = ;
+        float c = ;
+        float T = 0.0; // (-b + sqrt(b^2 - 4ac)) / 2a if discriminant is less than 0 then it misses
+        //(mx - cx)^2 + (my - cy)^2 + (mz - cz)^2 = r^2
+        if ((square(b) - (4*a*c)) < 0 ){
+       pixel(rgb,y,x,255,0,0); 
+        }
+        else
+        {
+        pixel(rgb,y,x,0,255,0); 
+        }
     }
 }
 void black(int rgb[H][W][3]){
