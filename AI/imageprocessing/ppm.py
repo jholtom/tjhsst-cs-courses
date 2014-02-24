@@ -14,6 +14,11 @@ def gauss_kern():
    return g / g.sum()
 
 data = open('image.ppm').read().split()
+output = open('output.ppm','w')
+#Write PPM header
+output.write("P3")
+output.write("800 600")
+output.write("255")
 w = int(data[1])
 h = int(data[2])
 data = data[4:]
@@ -28,13 +33,13 @@ while y < h:
         gx = 1.0 #
         gy = 1.0 #gaussian function here.
         theta = math.atan2(gy,gx)
-#        print str(array[x][y]) + ' ' + str(array[x][y]) + ' ' + str(array[x][y])
+        output.write(str(array[x][y]) + ' ' + str(array[x][y]) + ' ' + str(array[x][y]))
         x += 1
     y += 1
 
 gauss = gauss_kern()
 
-
+output.close()
 """
 G = |Gx| + |Gy|
 if G>100
