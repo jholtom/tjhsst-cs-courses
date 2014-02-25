@@ -24,25 +24,22 @@ h = int(data[2])
 data = data[4:]
 y = 0
 array = [[0 for x in xrange(h)] for x in xrange(w)]
+gauss = gauss_kern()
 while y < h:
     x = 0
     while x < w:
         j = 3 * (y * w + x)
         m = int((int(data[j]) * 0.30)) + int((int(data[j+1]) * 0.59)) + int((int(data[j+2]) * 0.11))
         array[x][y] = m
+        output.write(str(array[x][y]) + ' ' + str(array[x][y]) + ' ' + str(array[x][y]))
         gx = 1.0 #
         gy = 1.0 #gaussian function here.
         theta = math.atan2(gy,gx)
-        output.write(str(array[x][y]) + ' ' + str(array[x][y]) + ' ' + str(array[x][y]))
+        thatoneg = math.abs(gx) + math.abs(gy)
+        if thatoneg > 100:
+             if thatoneg > gauss[m]:
+                 output.write("255 0 0")
         x += 1
     y += 1
 
-gauss = gauss_kern()
-
 output.close()
-"""
-G = |Gx| + |Gy|
-if G>100
-    if G>G[m]
-        edge....
-"""
