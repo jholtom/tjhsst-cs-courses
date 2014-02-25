@@ -1,6 +1,7 @@
 # Jacob Holtom
 import math
 import numpy as np
+from scipy import signal
 
 def gauss_kern():
    """ Returns a normalized 2D gauss kernel array for convolutions """
