@@ -35,7 +35,7 @@ while y < h:
         gx = 1.0 #
         gy = 1.0 #gaussian function here.
         theta = math.atan2(gy,gx)
-        thatoneg = math.abs(gx) + math.abs(gy)
+        thatoneg = abs(gx) + abs(gy)
         if thatoneg > 100:
              if thatoneg > gauss[m]:
                  output.write("255 0 0")
