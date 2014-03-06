@@ -1,5 +1,5 @@
 tracer:
-	gcc raytracing/tracer.c -o raytracing/tracer -std=c99
+	gcc raytracing/tracer.c -o raytracing/tracer -std=c99 -lm
 error-lm:
 	gcc -lm error/error.c -o error/error
 conway-gl:

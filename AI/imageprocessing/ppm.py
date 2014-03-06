@@ -32,8 +32,9 @@ while y < h:
         j = 3 * (y * w + x)
         m = int((int(data[j]) * 0.30)) + int((int(data[j+1]) * 0.59)) + int((int(data[j+2]) * 0.11))
         array[x][y] = m
-        gx = 1.0 #
-        gy = 1.0 #gaussian function here.
+        array = signal.convolve(array,gauss,mode="full")
+        gx = gauss[x][y]
+        gy = gauss[y][x]
         theta = math.atan2(gy,gx)
         thatoneg = abs(gx) + abs(gy)
         if thatoneg > 100:
