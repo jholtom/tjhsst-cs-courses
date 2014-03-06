@@ -1,7 +1,6 @@
 # Jacob Holtom
 import math
 import numpy as np
-from scipy import signal
 
 def gauss_kern():
    """ Returns a normalized 2D gauss kernel array for convolutions """
@@ -16,7 +15,6 @@ def gauss_kern():
 
 data = open('image.ppm').read().split()
 output = open('output.ppm','w')
-#Write PPM header
 output.write("P3")
 output.write("800 600")
 output.write("255")
@@ -26,13 +24,14 @@ data = data[4:]
 y = 0
 array = [[0 for x in xrange(h)] for x in xrange(w)]
 gauss = gauss_kern()
+yw = [[-1,0,1],[-2,0,2],[-1,0,1]]
+xw = [[1,2,],[0,0,0],[-1,-2,-1]]
 while y < h:
     x = 0
     while x < w:
         j = 3 * (y * w + x)
         m = int((int(data[j]) * 0.30)) + int((int(data[j+1]) * 0.59)) + int((int(data[j+2]) * 0.11))
         array[x][y] = m
-        array = signal.convolve(array,gauss,mode="full")
         gx = gauss[x][y]
         gy = gauss[y][x]
         theta = math.atan2(gy,gx)
