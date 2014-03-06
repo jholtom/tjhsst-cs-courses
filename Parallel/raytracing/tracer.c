@@ -158,24 +158,24 @@ void tracer(int rgb[H][W][3]){
                 rgb[y][x][2] = 0;
             }
             else {
-                pixel(rgb,y,x,0,0,255);    
+                pixel(rgb,x,y,0,0,255);    
             }
         }
     }
     if(mi+1 == 0){ T = dto(ex, ey, ez, px, py, pz, intersect, s0); 
-    pixel(rgb,y,x,s0.r,s0.g,s0.b);
+    pixel(rgb,x,y,s0.r,s0.g,s0.b);
     }
     if(mi+1 == 1){ T = dto(ex, ey, ez, px, py, pz, intersect, s1); 
-    pixel(rgb,y,x,s1.r,s1.g,s1.b);
+    pixel(rgb,x,y,s1.r,s1.g,s1.b);
     }
     if(mi+1 == 2){ T = dto(ex, ey, ez, px, py, pz, intersect, s2); 
-    pixel(rgb,y,x,s2.r,s2.g,s2.b);
+    pixel(rgb,x,y,s2.r,s2.g,s2.b);
     }
 }
 void black(int rgb[H][W][3]){
     int y, x;
     for_yx {
-        pixel(rgb,y,x,0,0,0);
+        pixel(rgb,x,y,0,0,0);
     }
 }
 int main(void){
