@@ -2,7 +2,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
+#include <unistd.h>
 #define W 640
 #define H 480
 #define for_x for (int x = 0; x < W; x++)
