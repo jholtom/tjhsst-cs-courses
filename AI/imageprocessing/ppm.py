@@ -13,10 +13,10 @@ def readFileNumbersIntoStrings(file1):
 
 def convertStringRGBsToGrayIntegersOrColorTuples(nums):
     image = []
-                for pos in range(0, len(nums), 3):
-                    RGB = (int(nums[pos]), int(nums[pos+1]), int(nums[pos+2]))
-                        image.append(RGB)
-        return image
+    for pos in range(0, len(nums), 3):
+        RGB = (int(nums[pos]), int(nums[pos+1]), int(nums[pos+2]))
+        image.append(RGB)
+    return image
 
 def printTitleAndSizeOfImageInPixels(image):
     print('         ==<RUN TIME INFORMATION>==')
