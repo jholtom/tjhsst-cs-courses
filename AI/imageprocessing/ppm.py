@@ -6,25 +6,25 @@ data = open('image.ppm').read().split()
 w = int(data[1])
 h = int(data[2])
 COLORFLAG = False
-def readFileNumbersIntoStrings(file1):
+def r(file1):
     nums = file1.read().split()[4:]
     file1.close()
     return nums
 
-def convertStringRGBsToGrayIntegersOrColorTuples(nums):
+def c(nums):
     image = []
     for pos in range(0, len(nums), 3):
         RGB = (int(nums[pos]), int(nums[pos+1]), int(nums[pos+2]))
         image.append(int(.2 * RGB[0] + .7 * RGB[1] + .1 * RGB[2]))
     return image
 
-def readPixelColorsFromImageFile(IMAGE_FILE_NAME):
-    imageFile = open(IMAGE_FILE_NAME, 'r')
-    nums = readFileNumbersIntoStrings(imageFile)
-    image = convertStringRGBsToGrayIntegersOrColorTuples(nums)
+def rif(name):
+    imageFile = open(name, 'r')
+    nums = r(imageFile)
+    image = c(nums)
     return image
 
-def smoothImage(image, passNum):
+def s(image, passNum):
     for row in range(1, h - 1):
         for col in range(1, w - 1):
             current = row*h+col
@@ -35,7 +35,7 @@ def smoothImage(image, passNum):
 def theta(Gx, Gy):
     return 4 * ((atan2(Gy, Gx) + (pi/8)) % pi) // pi
 
-def sobelMask(image):
+def sobel(image):
     newImage = [[0,0,0,0,0] for n in range(w*h)]
     for row in range(1, h - 1):
         for col in range(1, w - 1):
@@ -50,7 +50,7 @@ def sobelMask(image):
             newImage[current][1] = D
     return newImage
 
-def findEdges(image):
+def fe(image):
     for row in range(1, h - 1):
         for col in range(1, w - 1):
             current = row*h+col
@@ -68,7 +68,7 @@ def findEdges(image):
                     image[current][2] = 1
         return image
 
-def edgesToNums(image):
+def etn(image):
     newImage = [0 for n in range(w*h)]
     for row in range(1, h - 1):
         for col in range(1, w - 1):
@@ -79,36 +79,36 @@ def edgesToNums(image):
                 newImage[current] = 0
         return newImage
 
-def fixCellAt(M, row, col):
+def fca(M, row, col):
     current = row*w+col
     if M[current][3] == 1: return
     M[current][3] = 1
     if row > 0 and M[current-w][2] == 1 and M[current-w][0] > l:
         M[current-w][3] == 1
         M[current-w][4] = 1
-        fixCellAt(M, row-1, col)
+        fca(M, row-1, col)
     if row > 0 and M[current+w][2] == 1 and M[current+w][0] > l:
         M[current+w][3] == 1
         M[current+w][4] = 1
-        fixCellAt(M, row+1, col)
+        fca(M, row+1, col)
     if row > 0 and M[current-1][2] == 1 and M[current-1][0] > l:
         M[current-1][3] == 1
         M[current-1][4] = 1
-        fixCellAt(M, row, col-1)
+        fca(M, row, col-1)
     if row > 0 and M[current+1][2] == 1 and M[current+1][0] > l:
         M[current+1][3] == 1
         M[current+1][4] = 1
-        fixCellAt(M, row, col+1)
+        fca(M, row, col+1)
 
-def fixCells(image):
+def fc(image):
     for row in range(1, h - 1):
         for col in range(1, w - 1):
             current = row*h+col
             if image[current][2] == 1 and image[current][0] > hi:
                 image[current][4] = 1
-                fixCellAt(image, row, col)
+                fca(image, row, col)
 
-def fixedToNums(image):
+def fn(image):
     newImage = [0 for n in range(w*h)]
     for row in range(1, h - 1):
         for col in range(1, w - 1):
@@ -120,13 +120,13 @@ def fixedToNums(image):
     return newImage
 
 
-fileName = readPixelColorsFromImageFile('image.ppm')
+fileName = rif('image.ppm')
 for smooth in range(6):
-    fileName = smoothImage(fileName, smooth)
-fileName = sobelMask(fileName)
-fileName = findEdges(fileName)
-fixCells(fileName)
-fileName = fixedToNums(fileName)
+    fileName = s(fileName, smooth)
+fileName = sobel(fileName)
+fileName = fe(fileName)
+fc(fileName)
+fileName = fn(fileName)
 output = open('output.ppm','w')
 output.write("P3\n")
 output.write("800 600\n")
