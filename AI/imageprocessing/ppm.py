@@ -127,15 +127,10 @@ fileName = sobelMask(fileName)
 fileName = findEdges(fileName)
 fixCells(fileName)
 fileName = fixedToNums(fileName)
-"""
-data = open('image.ppm').read().split()
 output = open('output.ppm','w')
 output.write("P3")
 output.write("800 600")
 output.write("255")
-w = int(data[1])
-h = int(data[2])
-data = data[4:]
-output.write("255 0 0")
+for i in fileName:
+    output.write(str(i) + ' ')
 output.close()
-"""
