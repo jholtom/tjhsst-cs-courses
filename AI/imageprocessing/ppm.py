@@ -7,7 +7,7 @@ w = int(data[1])
 h = int(data[2])
 COLORFLAG = False
 def readFileNumbersIntoStrings(file1):
-    nums = file1.read().split()[3:]
+    nums = file1.read().split()[4:]
     file1.close()
     return nums
 
@@ -15,7 +15,7 @@ def convertStringRGBsToGrayIntegersOrColorTuples(nums):
     image = []
     for pos in range(0, len(nums), 3):
         RGB = (int(nums[pos]), int(nums[pos+1]), int(nums[pos+2]))
-        image.append(RGB)
+        image.append(int(.2 * RGB[0] + .7 * RGB[1] + .1 * RGB[2]))
     return image
 
 def readPixelColorsFromImageFile(IMAGE_FILE_NAME):
@@ -127,7 +127,6 @@ fileName = sobelMask(fileName)
 fileName = findEdges(fileName)
 fixCells(fileName)
 fileName = fixedToNums(fileName)
-print fileName
 """
 data = open('image.ppm').read().split()
 output = open('output.ppm','w')
