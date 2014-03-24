@@ -225,7 +225,7 @@ int main(void) {
          }
       }
    }
-   fout = fopen( "raytrace.ppm" , "w" ) ;
+   fout = fopen( "output.ppm" , "w" ) ;
    fprintf( fout , "P3\n" ) ;
    fprintf( fout , "%d %d\n" , W , H ) ;
    fprintf( fout , "255\n" ) ;
