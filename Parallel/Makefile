@@ -1,3 +1,5 @@
+n-body:
+	gcc -lm -lGL -lGLU -lglut nbody/demo_3d.c -o nbody/nbody
 tracer:
 	gcc raytracing/tracer.c -o raytracing/tracer -std=c99 -lm
 error-lm:
