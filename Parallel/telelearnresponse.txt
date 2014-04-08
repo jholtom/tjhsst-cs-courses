@@ -1,1 +1,14 @@
 //Parallel - PThreads
+
+A PThread -> Parallel Thread
+Using threading built into the processors architecture to build parallel
+programs without having to utilize multiple physical processors.
+
+A PThread is more efficient way to build parallel programs
+This is due to the multi-core and multithread design of many modern processors
+
+They can execute the threads as part of a process to simulataneously compute
+multiple things
+
+SHM -> private memory ans well as shared memory in a thread.  This is done
+through the /dev/shm/ device with an element for each process and allocation.
