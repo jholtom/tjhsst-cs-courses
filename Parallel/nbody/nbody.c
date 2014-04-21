@@ -55,17 +55,13 @@ void mouse(int button,int state,int xscr,int yscr)
 }
 void motion(int xscr,int yscr)
 {
-   //
    // change phi ... or theta and up
-   //
    look();
    glutPostRedisplay();
 }
 void mouse_wheel(int wheel,int direction,int xscr,int yscr)
 {
-   //
    // change rho
-   //
    look();
    glutPostRedisplay();
 }
