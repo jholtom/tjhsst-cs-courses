@@ -56,7 +56,8 @@ void mouse(int button,int state,int xscr,int yscr)
 void motion(int xscr,int yscr)
 {
    // change phi ... or theta and up
-   printf("%d, %d\n",xscr,yscr);    
+   printf("%d, %d\n",xscr,yscr);
+
    look();
    glutPostRedisplay();
 }
