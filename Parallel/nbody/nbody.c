@@ -43,8 +43,8 @@ void idle(void)
    int j,k;
    double dx,dy,dz,dmag,fmag;
    double ax[N],ay[N],az[N];
-    vx += ax * DT;
-     x += vx * DT;
+   // vx += ax * DT
+   //  x += vx * DT
    look();
    glutPostRedisplay();
 }
