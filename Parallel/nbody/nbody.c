@@ -56,12 +56,14 @@ void mouse(int button,int state,int xscr,int yscr)
 void motion(int xscr,int yscr)
 {
    // change phi ... or theta and up
+   printf("%d, %d\n",xscr,yscr);    
    look();
    glutPostRedisplay();
 }
 void mouse_wheel(int wheel,int direction,int xscr,int yscr)
 {
    // change rho
+   printf("wheel: %d; direc: %d, xscr: %d, yscr: %d\n",wheel,direction,xscr,yscr);
    look();
    glutPostRedisplay();
 }
