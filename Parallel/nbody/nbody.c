@@ -33,8 +33,8 @@ void display(void)
       glPushMatrix();
       glTranslated(nbody[j].x,nbody[j].y,nbody[j].z);
       glRotated(90.0,1.0,0.0,0.0);
-      //glutWireSphere(nbody[j].r,24,12);
-      glutWireTeapot(nbody[j].r);
+      glutWireSphere(nbody[j].r,24,12);
+      //glutWireTeapot(nbody[j].r);
       glPopMatrix();
    }
    glutSwapBuffers();
