@@ -44,8 +44,14 @@ void idle(void)
    int j,k;
    double dx,dy,dz,dmag,fmag;
    double ax[N],ay[N],az[N];
+   //Gravitation equations and stuff go here 
    // vx += ax * DT
    //  x += vx * DT
+   //  What is DT?
+   for(j=0;j<N;j++){
+   nbody[j].vx = nbody[j].vx + (ax[j] * DT);
+   nbody[j].x = nbody[j].x + (nbody[j].vx * DT);
+   }
    look();
    glutPostRedisplay();
 }
