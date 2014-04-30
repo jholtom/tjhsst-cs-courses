@@ -110,7 +110,7 @@ int main(int argc,char* argv[])
    nbody[1].vz=0.0;
    glutInit(&argc,argv);
    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
-   glutInitWindowSize(640,480);
+   glutInitWindowSize(800,600);
    glutInitWindowPosition(100,50);
    glutCreateWindow("Sun Earth Moon");
    glClearColor(1.0,1.0,1.0,0.0);
