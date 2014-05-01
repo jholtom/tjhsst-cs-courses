@@ -33,10 +33,17 @@ void display(void)
     { 
         glPushMatrix();
         glTranslated(nbody[j].x,nbody[j].y,nbody[j].z);
-        glRotated(90.0,1.0,0.0,0.0);
+        //glRotated(90.0,1.0,0.0,0.0);
         glutWireSphere(nbody[j].r,24,12);
         //glutWireTeapot(nbody[j].r);
         glPopMatrix();
+        if( j > 0 )
+        {
+            glBegin(GL_LINES);
+            glVertex3f(nbody[j-1].x,nbody[j-1].y,nbody[j-1].z);
+            glVertex3f(nbody[j  ].x,nbody[j  ].y,nbody[j  ].z);
+            glEnd();
+        }
     }
     glutSwapBuffers();
 }
