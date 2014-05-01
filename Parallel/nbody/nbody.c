@@ -58,12 +58,27 @@ void idle(void)
     //  x += vx * DT
     for(j=0;j<N;j++){
         for(k=0;k<N;k++){
+            // Everything
+            dx = abs(nbody[j].x - nbody[k].x);
+            dy = abs(nbody[j].y - nbody[k].y);
+            dz = abs(nbody[j].z - nbody[k].z);
+            dmag = sqrt((dx * dx) + (dy * dy) + (dz * dz));
+            fmag = (G*(nbody[j].m * nbody[k].m)) / (dmag*dmag);
+            // X Axis
             nbody[j].vx = nbody[j].vx + (ax[j] * DT);
             nbody[j].x = nbody[j].x + (nbody[j].vx * DT);
             nbody[k].vx = nbody[k].vx + (ax[k] * DT);
             nbody[k].x = nbody[k].x + (nbody[k].vx * DT);
-            dmag = sqrt((dx * dx) + (dy * dy) + (dz * dz));
-            fmag = (G*(nbody[j].m * nbody[k].m)) / (dmag*dmag);
+            // Y Axis
+            nbody[j].vy = nbody[j].vy + (ay[j] * DT);
+            nbody[j].y = nbody[j].y + (nbody[j].vy * DT);
+            nbody[k].vy = nbody[k].vy + (ay[k] * DT);
+            nbody[k].y = nbody[k].y + (nbody[k].vy * DT);
+            // Z Axis
+            nbody[j].vz = nbody[j].vz + (az[j] * DT);
+            nbody[j].z = nbody[j].z + (nbody[j].vz * DT);
+            nbody[k].vz = nbody[k].vz + (az[k] * DT);
+            nbody[k].z = nbody[k].z + (nbody[k].vz * DT);
         }
     }
     look();
