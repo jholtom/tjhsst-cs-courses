@@ -3,6 +3,7 @@
 #include <GL/glut.h>
 #define N  2
 #define DT 0.00001
+#define G 0.0000000000667
 typedef struct
 {
     double vx , vy , vz ;
@@ -48,7 +49,6 @@ void idle(void)
     // F = (G(M1)(M2))/r^2
     // vx += ax * DT
     //  x += vx * DT
-    //  What is DT?
     for(j=0;j<N;j++){
         for(k=0;k<N;k++){
             nbody[j].vx = nbody[j].vx + (ax[j] * DT);
