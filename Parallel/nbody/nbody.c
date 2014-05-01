@@ -53,6 +53,10 @@ void idle(void)
         for(k=0;k<N;k++){
             nbody[j].vx = nbody[j].vx + (ax[j] * DT);
             nbody[j].x = nbody[j].x + (nbody[j].vx * DT);
+            nbody[k].vx = nbody[k].vx + (ax[k] * DT);
+            nbody[k].x = nbody[k].x + (nbody[k].vx * DT);
+            dmag = sqrt((dx * dx) + (dy * dy) + (dz * dz));
+            fmag = (G*(nbody[j].m * nbody[k].m)) / (dmag*dmag);
         }
     }
     look();
