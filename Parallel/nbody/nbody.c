@@ -1,9 +1,8 @@
 #include <stdio.h>
 #include <math.h>
 #include <GL/glut.h>
-#define N  2
-#define DT 0.00001
-#define G 0.0000000000667
+#define N  3
+#define DT 0.00005
 typedef struct
 {
     double vx , vy , vz ;
@@ -14,6 +13,7 @@ typedef struct
 Body nbody[N];
 double rho,phi,theta,up=1.0;
 double xc,yc,zc,xe,ye,ze;
+int md=0,xscrd,yscrd,running=0;
 void look()
 {
     xe=xc+rho*sin(theta)*cos(phi);
@@ -33,7 +33,7 @@ void display(void)
     { 
         glPushMatrix();
         glTranslated(nbody[j].x,nbody[j].y,nbody[j].z);
-        //glRotated(90.0,1.0,0.0,0.0);
+        glRotated(90.0,1.0,0.0,0.0);
         glutWireSphere(nbody[j].r,24,12);
         //glutWireTeapot(nbody[j].r);
         glPopMatrix();
@@ -51,35 +51,33 @@ void idle(void)
 {
     int j,k;
     double dx,dy,dz,dmag,fmag;
-    double ax[N],ay[N],az[N];
-    //Gravitation equations and stuff go here
-    // F = (G(M1)(M2))/r^2
-    // vx += ax * DT
-    //  x += vx * DT
-    for(j=0;j<N;j++){
-        for(k=0;k<N;k++){
-            // Everything
-            dx = abs(nbody[j].x - nbody[k].x);
-            dy = abs(nbody[j].y - nbody[k].y);
-            dz = abs(nbody[j].z - nbody[k].z);
-            dmag = sqrt((dx * dx) + (dy * dy) + (dz * dz));
-            fmag = (G*(nbody[j].m * nbody[k].m)) / (dmag*dmag);
-            // X Axis
-            nbody[j].vx = nbody[j].vx + (ax[j] * DT);
-            nbody[j].x = nbody[j].x + (nbody[j].vx * DT);
-            nbody[k].vx = nbody[k].vx + (ax[k] * DT);
-            nbody[k].x = nbody[k].x + (nbody[k].vx * DT);
-            // Y Axis
-            nbody[j].vy = nbody[j].vy + (ay[j] * DT);
-            nbody[j].y = nbody[j].y + (nbody[j].vy * DT);
-            nbody[k].vy = nbody[k].vy + (ay[k] * DT);
-            nbody[k].y = nbody[k].y + (nbody[k].vy * DT);
-            // Z Axis
-            nbody[j].vz = nbody[j].vz + (az[j] * DT);
-            nbody[j].z = nbody[j].z + (nbody[j].vz * DT);
-            nbody[k].vz = nbody[k].vz + (az[k] * DT);
-            nbody[k].z = nbody[k].z + (nbody[k].vz * DT);
+    double ax[N]={0},ay[N]={0},az[N]={0};
+    if(running == 1){ 
+        for(j=0;j<N-1;j++){
+            for(k=0;k<N;k++){
+                dx = nbody[j].x - nbody[k].x;
+                dy = nbody[j].y - nbody[k].y;
+                dz = nbody[j].z - nbody[k].z;
+                dmag = sqrt((dx * dx) + (dy * dy) + (dz * dz));
+                fmag = (nbody[j].m * nbody[k].m) / (dmag*dmag);
+                ax[j] += -1 * (fmag * (dx / dmag)) / nbody[j].m;
+                ay[j] += -1 * (fmag * (dy / dmag)) / nbody[j].m;
+                az[j] += -1 * (fmag * (dz / dmag)) / nbody[j].m;
+                ax[k] += (fmag * (dx / dmag)) / nbody[k].m;
+                ay[k] += (fmag * (dy / dmag)) / nbody[k].m;
+                az[k] += (fmag * (dz / dmag)) / nbody[k].m; 
+            }
         }
+        for(j=0;j<N;j++)
+        {
+            nbody[j].vx += ax[j] * DT;
+            nbody[j].vy += ay[j] * DT;
+            nbody[j].vz += az[j] * DT;
+            nbody[j].x += nbody[j].vx * DT;
+            nbody[j].y += nbody[j].vy * DT;
+            nbody[j].z += nbody[j].vz * DT;
+        }
+
     }
     look();
     glutPostRedisplay();
@@ -91,9 +89,23 @@ void mouse(int button,int state,int xscr,int yscr)
 }
 void motion(int xscr,int yscr)
 {
-    // change phi ... or theta and up
-    printf("%d, %d\n",xscr,yscr);
-
+    if(md == 0)
+    {
+        md = 1;
+        xscrd = xscr;
+        yscrd = yscr;
+    }
+    if(md == 1 && (abs(xscrd - xscr) > 2 || abs(yscrd - yscr) > 2))
+    {
+        md = 0;
+    }
+    if(md == 1)
+    {
+        theta += .005 * (yscrd - yscr);
+        phi += .005 * (xscrd - xscr);
+        xscrd = xscr;
+        yscrd = yscr;
+    } 
     look();
     glutPostRedisplay();
 }
@@ -109,6 +121,10 @@ void keyfunc(unsigned char key,int xscr,int yscr)
     if(key=='q')
     {
         exit(0);
+    }
+    if(key=='r')
+    {
+        running = (running + 1) % 2;
     }
 }
 void reshape(int wscr,int hscr)
@@ -142,7 +158,15 @@ int main(int argc,char* argv[])
     nbody[1].z=0.0;
     nbody[1].vx=0.0;
     nbody[1].vy=0.0;
-    nbody[1].vz=0.0;
+    nbody[1].vz=149.0711985;
+    nbody[2].m=1.0; // moon
+    nbody[2].r=0.005;
+    nbody[2].x=0.5;
+    nbody[2].y=0.0;
+    nbody[2].z=0.0;
+    nbody[2].vx=0.0;
+    nbody[2].vy=0.0;
+    nbody[2].vz=100;
     glutInit(&argc,argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
     glutInitWindowSize(800,600);
