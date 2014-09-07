@@ -1,2 +1,0 @@
-#!/bin/bash
-ssh root@turret iptables -A OUTPUT -d $1 -j REJECT
