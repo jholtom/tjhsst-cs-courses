@@ -3,8 +3,8 @@
 ## Variables
 import time, sys
 from termcolor import colored
-first = "Anya Owsenek" # First person's name in gchat
-second = "1Fox" # Second person's name in gchat
+first = "Jacob Holtom" # First person's name to show up in gchat
+second = "Kimbrely Holtom" # Second person's nameto show up in gchat
 ## Script
 filename = raw_input("What is the log file name?")
 log = open(filename).read().split("\r\n")
