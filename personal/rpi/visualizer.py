@@ -1,5 +1,5 @@
 #!/usr/bin/python
-#RPI Visualizer - LEDS AND GPIO - Jacob Holtom and Anya Owsenek
+#RPI Visualizer - LEDS AND GPIO - Jacob Holtom (as a demonstration to Anya Owsenek)
 import RPi.GPIO as gpio
 import time
 # HERE WE INITIALIZE SOME PINS
