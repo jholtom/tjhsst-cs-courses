@@ -1,2 +1,0 @@
-#!/bin/bash
-wget -O - http://thecatapi.com/api/images/get\?format\=src\&type\=jpg > /tmp/image.jpg &&  jp2a --colors --fill /tmp/image.jpg
